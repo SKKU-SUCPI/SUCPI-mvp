@@ -1,0 +1,28 @@
+/* src/components/Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    background: none;
+    border: none;
+    color: #3C3C3C;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    padding-right: 44px;
+}
