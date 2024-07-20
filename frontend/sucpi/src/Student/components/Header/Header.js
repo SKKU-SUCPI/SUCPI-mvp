@@ -5,7 +5,7 @@ import './Header.css'; // CSS 파일 임포트
 export function Header()
 {
     return (
-        <>
+        <header>
             <nav className="header bg-body-tertiary">
                 <div className="container">
                     <Link className="header-brand" to="/">
@@ -14,9 +14,9 @@ export function Header()
                     <Link to="/login" className="login-button">로그인</Link>
                 </div>
             </nav>
-            <div className="container background-image">
+            <div className="background-image">
                 <img src="/background.png" alt="성균관대학교 SW중심대학사업단 SUCPI" />
             </div>
-        </>
+        </header>
     );
 }

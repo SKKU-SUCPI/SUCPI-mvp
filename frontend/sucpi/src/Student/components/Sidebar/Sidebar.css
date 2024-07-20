@@ -2,12 +2,10 @@
 
 .sidebar {
     width: 200px;
-    height: 100vh; /* Viewport height */
-    background-color: #eee;
-    border-right: 1px solid #ddd;
-    position: fixed; /* Fixed position */
-    top: 0;
-    left: 0;
+    background: #FFFFFF;
+    padding: 10px;
+    height: calc(100vh - 40px); /* 전체 화면 높이에서 header와 여백을 뺀 높이 */
+    overflow-y: auto;
 }
 
 .menu {
