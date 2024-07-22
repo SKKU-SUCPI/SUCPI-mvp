@@ -8,6 +8,7 @@ import { Home } from './Student/pages/Home';
 import { GlobalChallenge } from './Student/pages/global-challenge/GlobalChallenge';
 import { ICTVolunteer } from './Student/pages/ict-volunteer/ICTVolunteer';
 import { KoreaChallenge } from './Student/pages/korea-challenge/KoreaChallenge';
+import { Profile } from './Student/pages/profile/Profile';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='global-challenge' element={<GlobalChallenge />} />
             <Route path='ict-volunteer' element={<ICTVolunteer /> } />
             <Route path='korea-challenge' element={<KoreaChallenge /> } />
+            <Route path='profile' element={<Profile />} />
           </Routes>
         </main>
       </div>
