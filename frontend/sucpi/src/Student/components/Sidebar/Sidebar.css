@@ -15,7 +15,7 @@
 }
 
 .sidebar.closed {
-    width: 64px; /* 닫힌 상태의 너비 */
+    width: 50px; /* 닫힌 상태의 너비 */
 }
 
 .menu {
@@ -28,6 +28,7 @@
 .menu li {
     margin: 0;
     width: 100%;
+    display: flex;
 }
 
 .menu li a {
@@ -52,7 +53,7 @@
 .sidebar.open .menu li a {
     opacity: 1;
     width: 100%;
-    padding: 15px 20px; /* 기본 패딩으로 돌아가도록 */
+    padding: 15px 15px; /* 기본 패딩으로 돌아가도록 */
     visibility: visible;
 }
 
@@ -64,16 +65,27 @@
 .toggle-button {
     align-self: flex-end;
     margin-bottom: 10px;
-    padding: 10px 10px;
-    background-color: #007bff;
-    color: white;
+    padding: 4px;
+    background-color: transparent;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
     z-index: 1000;
 }
 
-.toggle-button:hover {
-    background-color: #0056b3;
+.toggle-button i {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.toggle-button:hover i {
+    color: #0056b3;
+}
+
+.toggle-icon {
+    font-size: 24px; /* 아이콘 크기 조정 */
+    color: #0E341B;
+}
+
+.toggle-button:hover .toggle-icon {
+    color: #8DC63F;
 }

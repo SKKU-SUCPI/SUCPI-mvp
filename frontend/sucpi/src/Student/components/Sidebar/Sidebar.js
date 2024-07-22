@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css'; // CSS 파일 임포트
+import { IoIosArrowDropright, IoIosArrowDropleft } from "react-icons/io";
 
 export function Sidebar({ toggleSidebar, isOpen }) {
     return (
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <button className="toggle-button" onClick={toggleSidebar}>
-                {isOpen ? '접기' : '펴기'}
+                {isOpen ? <IoIosArrowDropleft className="toggle-icon" /> : <IoIosArrowDropright className="toggle-icon" />}
             </button>
             <nav>
                 <ul className="menu">
