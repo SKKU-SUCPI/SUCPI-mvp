@@ -1,0 +1,91 @@
+.sidebar {
+    background: #FFFFFF;
+    padding: 10px;
+    height: calc(100vh - 40px); /* 전체 화면 높이에서 header와 여백을 뺀 높이 */
+    overflow-y: auto;
+    position: relative; /* 버튼 위치를 절대 위치로 지정하기 위해 상대 위치 지정 */
+    transition: width 0.3s; /* 너비 변경 애니메이션 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar.open {
+    width: 200px; /* 열린 상태의 너비 */
+}
+
+.sidebar.closed {
+    width: 50px; /* 닫힌 상태의 너비 */
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu li {
+    margin: 0;
+    width: 160%;
+    display: flex;
+}
+
+.menu li a {
+    display: block;
+    padding: 15px 20px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    width: 100%;
+    transition: all 0.1s ease-in-out; /* 글자 숨김 애니메이션 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 나타나도록 */
+    overflow: hidden; /* 넘치는 텍스트를 숨기도록 */
+}
+
+.sidebar.closed .menu li a {
+    opacity: 0;
+    width: 0;
+    padding: 15px 0; /* 글자가 안 보이도록 패딩 조정 */
+    visibility: hidden;
+}
+
+.sidebar.open .menu li a {
+    opacity: 1;
+    width: 100%;
+    padding: 15px 15px; /* 기본 패딩으로 돌아가도록 */
+    visibility: visible;
+}
+
+.menu li a:hover {
+    background-color: yellowgreen;
+    color: white;
+}
+
+.toggle-button {
+    align-self: flex-end;
+    margin-bottom: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.toggle-button i {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.toggle-button:hover i {
+    color: #0056b3;
+}
+
+.toggle-icon {
+    font-size: 24px; /* 아이콘 크기 조정 */
+    color: #0E341B;
+}
+
+.toggle-button:hover .toggle-icon {
+    color: #8DC63F;
+}
