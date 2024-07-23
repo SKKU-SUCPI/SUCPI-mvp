@@ -1,0 +1,29 @@
+.accordion-item {
+    margin-top: 44px;
+    margin-bottom: 10px;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.accordion-header span {
+    margin-left: 10px;
+}
+
+.accordion-content {
+    margin-left: 20px;
+    padding: 10px 0;
+}
+
+.accordion-icon {
+    font-size: 18px;
+    color: gray;
+}
+
+.accordion-header:hover .accordion-icon {
+    color: black;
+}
