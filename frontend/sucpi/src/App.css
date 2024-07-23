@@ -12,7 +12,7 @@ body {
   
   .content {
     flex: 1;
-    padding: 10px;
+    padding: 24px;
     background-color: #f0f0f0; /* 배경색 추가 */
     min-height: calc(100vh - 80px); /* 최소 높이 설정 */
   }
