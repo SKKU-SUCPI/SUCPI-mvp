@@ -15,8 +15,8 @@
 }
 
 .accordion-content {
-    margin-left: 20px;
-    padding: 10px 0;
+    padding: 10px 20px;
+    margin-right: 10px;
 }
 
 .accordion-icon {
@@ -38,6 +38,13 @@
     padding: 5px 10px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
+}
+
+.form-container {
+    background-color: #FFFFFF;
+    border-top: 10px solid #8DC63F; /* 초록색 상단 줄 추가 */
+    padding: 30px 60px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 약간의 그림자 추가 */
 }
 
 .form-group {
