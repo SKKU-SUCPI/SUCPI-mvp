@@ -18,10 +18,10 @@ export function Profile()
             <AccordionItem title="교과활동">
                 <LQInfo />
             </AccordionItem>
-            <AccordionItem title="교과활동">
+            <AccordionItem title="연구활동">
                 <RQInfo />
             </AccordionItem>
-            <AccordionItem title="교과활동">
+            <AccordionItem title="비교과활동">
                 <CQInfo />
             </AccordionItem>
         </div>        
