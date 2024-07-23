@@ -87,8 +87,14 @@
     background-color: #ccc; /* 스타일을 이미지와 맞춤 */
 }
 
+.fixed-width {
+    width: 200px;
+}
+
 .textarea-expanded {
     width: 90%; /* 텍스트 영역의 너비를 100%로 확장 */
+    resize: none;
+    overflow: hidden;
 }
 
 .form-control-contact {
@@ -133,4 +139,10 @@
 
 .add-item:hover {
     background-color: #666666; /* 호버 시 배경색 */
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #F0F0F0; /* 구분선 스타일 */
+    margin: 52px 0; /* 구분선 위아래 여백 */
 }
