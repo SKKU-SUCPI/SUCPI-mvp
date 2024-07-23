@@ -1,4 +1,4 @@
-import './Profile.css'
+import './AccordionItem'
 
 export function PersonalInfo()
 {
