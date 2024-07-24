@@ -1,0 +1,208 @@
+.accordion-item {
+    margin-top: 44px;
+    margin-bottom: 10px;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.accordion-header span {
+    margin-left: 10px;
+}
+
+.accordion-content {
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+.accordion-icon {
+    font-size: 18px;
+    color: gray;
+}
+
+.accordion-header:hover .accordion-icon {
+    color: black;
+}
+
+
+.activity-info {
+    display: flex;
+    gap: 10px;
+}
+
+.info-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.form-container {
+    background-color: #FFFFFF;
+    border-top: 10px solid #8DC63F; /* 초록색 상단 줄 추가 */
+    padding: 30px 60px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 약간의 그림자 추가 */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-row {
+    flex-direction: row; /* 수평 배치 */
+    align-items: center;
+}
+
+.form-group-column {
+    flex-direction: column; /* 수직 배치 */
+    align-items: flex-start;
+}
+
+.form-group-row label,
+.form-group-column label {
+    font-weight: bold;
+    font-size: 18px;
+    width: 100px; /* 레이블의 고정 너비 */
+}
+
+.label-and-button {
+    display: flex;
+    justify-content: space-between; /* 양 끝으로 배치 */
+    width: 100%; /* 부모 요소의 전체 너비 사용 */
+    align-items: center; /* 수직 정렬 */
+    white-space: nowrap; /* 라벨을 한 줄로 유지 */
+}
+
+.form-control {
+    /* flex: 1; 입력 필드가 남은 공간을 차지하도록 */
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ccc; /* 스타일을 이미지와 맞춤 */
+}
+
+.fixed-width {
+    width: 200px;
+}
+
+.textarea-expanded {
+    width: 90%; /* 텍스트 영역의 너비를 100%로 확장 */
+    resize: none;
+    overflow: hidden;
+}
+
+.form-control-contact {
+    padding: 8px;
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ccc; /* 스타일을 이미지와 맞춤 */
+}
+
+.contact-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.contact-inputs input {
+    flex: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ccc; /* 스타일을 이미지와 맞춤 */
+}
+
+.contact-inputs span {
+    padding: 0 5px;
+}
+
+.add-item {
+    display: inline-block;
+    padding: 6px 15px; /* 버튼의 내부 여백 */
+    background-color: #808080; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    font-size: 12px; /* 폰트 크기 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
+}
+
+.add-item:hover {
+    background-color: #666666; /* 호버 시 배경색 */
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 8px 15px; /* 버튼의 내부 여백 */
+    background-color: #808080; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    font-size: 12px; /* 폰트 크기 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
+    margin-left: 85%; /* 버튼을 오른쪽으로 밀어냄 */
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #F0F0F0; /* 구분선 스타일 */
+    margin: 52px 0; /* 구분선 위아래 여백 */
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 8px 16px; /* 버튼의 내부 여백 */
+    background-color: #808080; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    font-size: 12px; /* 폰트 크기 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
+    margin-left: auto; /* 버튼을 오른쪽으로 밀어냄 */
+}
+
+.upload-button:hover {
+    background-color: #666666; /* 호버 시 배경색 */
+}
+
+.file-name {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #808080;
+    color: white;
+    border-radius: 12px;
+    font-size: 12px;
+    white-space: nowrap; /* 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'로 표시 */
+    max-width: calc(100% - 100px); /* 파일 이름의 최대 너비를 설정하여 버튼과 간격 유지 */
+}
+
+/* pdf 파일하고 버튼 간격 좁히기 */
+.file-upload-row {
+    display: inline-flex; /* 요소들을 인라인 플렉스 컨테이너로 만듦 */
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start; /* 요소들이 서로 가깝게 배치되도록 설정 */
+    margin-top: 10px; /* 파일 업로드 줄과 텍스트 입력 줄 간격 */
+}
+
+.sub-label {
+    font-size: 12px;
+    color: #666;
+    margin-left: 0px; /* 레이블과 텍스트 필드 간격 설정 */
+}
