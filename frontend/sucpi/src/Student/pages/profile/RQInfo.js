@@ -99,7 +99,7 @@ export function RQInfo()
                         {selectedCategory === 'humanities' && renderOptions(humanitiesOptions)}
                         {selectedCategory === 'science' && renderOptions(scienceOptions)}
                     </select>
-                    <textarea className='form-control' rows="1" placeholder="논문 제목을 입력해 주세요" style={{resize: "none", overflow: "hidden", width: "420px"}}></textarea>
+                    <textarea className='form-control' rows="1" placeholder="논문 제목을 입력해 주세요" style={{resize: "none", overflow: "hidden", width: "100%"}}></textarea>
                 </div>
             </div>
             <hr className="divider" />
