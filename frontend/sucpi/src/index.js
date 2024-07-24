@@ -9,6 +9,7 @@ import { GlobalChallenge } from './Student/global-challenge/GlobalChallenge';
 import { ICTVolunteer } from './Student/ict-volunteer/ICTVolunteer';
 import { KoreaChallenge } from './Student/korea-challenge/KoreaChallenge';
 import { Profile } from './Student/profile/Profile';
+import { Leaderboard } from './Admin/leaderboard/Leaderboard';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -29,6 +30,8 @@ function App() {
             <Route path="ict-volunteer" element={<ICTVolunteer />} />
             <Route path="korea-challenge" element={<KoreaChallenge />} />
             <Route path="profile" element={<Profile />} />
+            
+            <Route path='/admin/leaderboard' element={<Leaderboard />} />
           </Routes>
         </main>
       </div>

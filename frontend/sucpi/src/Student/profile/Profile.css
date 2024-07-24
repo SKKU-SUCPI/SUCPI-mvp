@@ -1,10 +1,9 @@
-/* Profile.css */
 
 .profile-container {
     display: flex;
     justify-content: space-between; /* 프로필과 메뉴 사이의 간격 유지 */
-    
 }
+
 .profile {
     flex: 1;
     padding: 20px;
