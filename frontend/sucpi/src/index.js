@@ -4,11 +4,11 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Sidebar } from './components/Sidebar/Sidebar';
-import { Home } from './Student/pages/Home';
-import { GlobalChallenge } from './Student/pages/global-challenge/GlobalChallenge';
-import { ICTVolunteer } from './Student/pages/ict-volunteer/ICTVolunteer';
-import { KoreaChallenge } from './Student/pages/korea-challenge/KoreaChallenge';
-import { Profile } from './Student/pages/profile/Profile';
+import { Home } from './Student/Home';
+import { GlobalChallenge } from './Student/global-challenge/GlobalChallenge';
+import { ICTVolunteer } from './Student/ict-volunteer/ICTVolunteer';
+import { KoreaChallenge } from './Student/korea-challenge/KoreaChallenge';
+import { Profile } from './Student/profile/Profile';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
