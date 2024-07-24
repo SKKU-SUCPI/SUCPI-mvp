@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './Header.css'; // CSS 파일 임포트
 
 // asset
-import background from '../../../assets/background.png'
-import logo from '../../../assets/sw-sucpi.png'
+import background from '../../assets/background.png'
+import logo from '../../assets/sw-sucpi.png'
 
 export function Header() {
 
