@@ -19,7 +19,7 @@ export function Header() {
                     {/* 로그인 관련 수정 필요. -> 현재는 로그인이 되어있다고 가정하고 개발 중 */}
                     <div className='nav-buttons'>
                         <Link to='/profile' className='login-button'>내정보</Link>
-                        <Link to='/logout' className='login-button'>로그아웃</Link>
+                        <Link to='/admin' className='login-button'>관리자</Link>
                     </div>
                 </div>
             </nav>
