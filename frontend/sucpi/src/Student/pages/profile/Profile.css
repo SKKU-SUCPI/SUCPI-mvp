@@ -1,0 +1,74 @@
+/* Profile.css */
+
+.profile-container {
+    display: flex;
+    justify-content: space-between; /* 프로필과 메뉴 사이의 간격 유지 */
+    
+}
+.profile {
+    flex: 1;
+    padding: 20px;
+    background-color: #F0F0F0;
+}
+
+.right-menu {
+    width: 200px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 240px;
+}
+
+
+.right-menu-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0; /* 패딩 제거 */
+}
+
+.circle-logo-image {
+    width: 110%; /* 이미지가 로고 영역에 맞도록 */
+    height: auto;
+    object-fit: cover; /* 이미지 비율을 유지하면서 크기에 맞춤 */
+    margin: 0; /* 마진 제거 */
+    padding: 0; /* 패딩 제거 */
+}
+
+.right-menu-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-menu-button {
+    width: 100%;
+    padding: 12px 60px; /* 버튼 크기를 패딩으로 조절 */
+    border: none;
+    border-radius: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.add-button {
+    background-color: #FF7F00;
+    color: white;
+}
+
+.add-button:hover {
+    background-color: #FF5F00;
+}
+
+.edit-button {
+    background-color: #A0A0A0;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #808080;
+}
