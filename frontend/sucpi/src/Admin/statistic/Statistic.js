@@ -1,7 +1,9 @@
 import { FilterTable } from "../../components/FilterTable/FilterTable";
+import { BarChart } from "../../components/Graph/BarGraph/BarChart";
 import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart";
 import { GradeChart } from "../../components/Graph/PieGraph/GradeChart";
 import { ThreeQChart } from "../../components/Graph/PieGraph/ThreeQChart";
+import { barChartData } from "../../components/Graph/BarGraph/data.js";
 
 export function Statistic()
 {
@@ -15,6 +17,9 @@ export function Statistic()
                 <ThreeQChart />
                 <DepartmentChart />
                 <GradeChart />
+            </div>
+            <div style={{padding: "6px"}}>
+                <BarChart data={barChartData} />
             </div>
         </div>
     );

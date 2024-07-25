@@ -1,7 +1,7 @@
 .charts-container {
     display: flex;
     justify-content: space-around;
-    gap: 20px; /* 각 그래프 간의 간격을 20px로 설정 */
+    gap: 8px; /* 각 그래프 간의 간격을 20px로 설정 */
     padding: 12px;
 }
 
