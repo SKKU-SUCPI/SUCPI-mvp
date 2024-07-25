@@ -18,7 +18,7 @@ public class LQStudentService {
         return lqStudentRepository.findAll();
     }
 
-    public LQStudent findById(Long id) {
+    public LQStudent findById(String id) {
         return lqStudentRepository.findById(id).orElse(null);
     }
 
@@ -26,7 +26,7 @@ public class LQStudentService {
         return lqStudentRepository.save(lqStudent);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         lqStudentRepository.deleteById(id);
     }
 }
