@@ -1,13 +1,11 @@
 // FilterTable.jsx
-
-// 버튼 로직부터 다시 하기
 import React, { useState } from 'react';
 import './FilterTable.css';
 
 export function FilterTable() {
-    const [sucpi, setSucpi] = useState([]);
-    const [grade, setGrade] = useState([]);
-    const [department, setDepartment] = useState([]);
+    const [sucpi, setSucpi] = useState(['전체']);
+    const [grade, setGrade] = useState(['전체']);
+    const [department, setDepartment] = useState(['전체']);
 
     const allSucpiOptions = ['전체', 'LQ', 'CQ', 'RQ'];
     const allGradeOptions = ['전체', '1', '2', '3', '4', '5+'];
@@ -26,11 +24,7 @@ export function FilterTable() {
                 }
             }
 
-            // If all options except "전체" are selected, activate "전체" and deactivate others
-            if (newState.length === allOptions.length - 1) {
-                return ['전체'];
-            }
-
+            console.log(`Category: ${category}, New state:`, newState);
             return newState;
         });
     };

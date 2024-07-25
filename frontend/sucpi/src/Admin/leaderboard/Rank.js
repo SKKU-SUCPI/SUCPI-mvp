@@ -50,7 +50,7 @@ export function Rank() {
             <div className="search-bar">
                 <input 
                     type="text" 
-                    placeholder="학생 검색" 
+                    placeholder="이름 또는 학번 검색" 
                     value={searchTerm} 
                     onChange={(e) => setSearchTerm(e.target.value)} 
                 />
