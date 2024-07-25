@@ -10,6 +10,7 @@ import { ICTVolunteer } from './Student/ict-volunteer/ICTVolunteer';
 import { KoreaChallenge } from './Student/korea-challenge/KoreaChallenge';
 import { Profile } from './Student/profile/Profile';
 import { Leaderboard } from './Admin/leaderboard/Leaderboard';
+import { Statistic } from './Admin/statistic/Statistic';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -32,6 +33,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             
             <Route path='/admin/leaderboard' element={<Leaderboard />} />
+            <Route path='/admin/statistic' element={<Statistic />} />
           </Routes>
         </main>
       </div>
