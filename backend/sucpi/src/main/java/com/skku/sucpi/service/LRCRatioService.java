@@ -10,6 +10,7 @@ import com.skku.sucpi.repository.LRCRatioRepository;
 
 @Service
 public class LRCRatioService {
+    
 
     @Autowired
     private LRCRatioRepository lrcRatioRepository;
@@ -29,5 +30,20 @@ public class LRCRatioService {
     public void deleteById(Long id) {
         lrcRatioRepository.deleteById(id);
     }
+
+
+    // 기존 LRCRatio 업데이트
+    public LRCRatio update(LRCRatio newRatio) {
+        Long fixedId = 1L; // 고정된 ID 값
+        LRCRatio ratio = lrcRatioRepository.findById(fixedId)
+            .orElseThrow(() -> new RuntimeException("Ratio not found with id: " + fixedId));
+
+        ratio.setLqRatio(newRatio.getLqRatio());
+        ratio.setRqRatio(newRatio.getRqRatio());
+        ratio.setCqRatio(newRatio.getCqRatio());
+        return lrcRatioRepository.save(ratio);
+    }
+
+    //LRCq 비율 계산
 }
 
