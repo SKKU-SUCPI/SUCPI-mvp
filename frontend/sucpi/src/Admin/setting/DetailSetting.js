@@ -49,8 +49,8 @@ export function DetailSetting({ data }) {
                     </button>
                 </div>
                 <div className="button-group">
-                    <button className="button-secondary">추가</button>
-                    <button className="button-secondary">삭제</button>
+                    {/* <button className="button-secondary">추가</button>
+                    <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary">비교</button>
                 </div>
             </div>
