@@ -1,0 +1,50 @@
+-- LQ_WEIGHT 테이블 초기화
+INSERT INTO LQ_WEIGHT (dataname, name, weight) VALUES 
+('lq_edu_activity1', '교내외 교육활동', 2),
+('lq_edu_activity2', '교육조교 활동', 3),
+('lq_grade_4_0_to_4_5', '교육성취도 4.0-4.5', 4),
+('lq_grade_3_5_to_4_0', '교육성취도 3.5-4.0', 3),
+('lq_grade_3_0_to_3_5', '교육성취도 3.0-3.5', 2),
+('lq_open_source_activity1', 'OS커뮤니티 생성 및 활성도', 4),
+('lq_open_source_activity2', '커미터로서의 활동', 3);
+
+-- CQ_WEIGHT 테이블 초기화
+INSERT INTO CQ_WEIGHT (dataname, name, weight) VALUES 
+('cq_coop', '산학협력 건수', 5),
+('cq_internship', '인턴십 건수', 4),
+('cq_startup', '창업 건수', 5),
+('cq_oversea_volunteer', '해외봉사 건수', 3),
+('cq_lecture_seminar', '화상강연, 세미나', 2),
+('cq_alimi', '알리미', 2),
+('cq_student_council', '학생회', 3),
+('cq_media_promotion', '미디어홍보(기자단)', 3),
+('cq_studio_contribution', '미디어 갤러리 참여', 4),
+('cq_study_group', 'SCG, MAV 스꾸딩 등등', 2);
+
+-- RQ_WEIGHT 테이블 초기화
+INSERT INTO RQ_WEIGHT (dataname, name, weight) VALUES 
+('rq_yul_jcr_5_main', '율전 - JCR 5%이내 주저', 5),
+('rq_yul_jcr_5_part', '율전 - JCR 5% 이내 공저', 4),
+('rq_yul_jcr_10_main', '율전 - JCR 10%이내 주저', 4),
+('rq_yul_jcr_10_part', '율전 - JCR 10% 이내 공저', 3),
+('rq_yul_jcr_20_main', '율전 - JCR 20%이내 주저', 3),
+('rq_yul_jcr_20_part', '율전 - JCR 20% 이내 공저', 2),
+('rq_yul_known_speech', '율전 - 저명 국제학술 발표 - 구두', 4),
+('rq_yul_known_poster', '율전 - 저명 국제학술 발표 - 포스터', 3),
+('rq_yul_normal_speech', '율전 - 일반 국제학술 발표 - 구두', 3),
+('rq_yul_normal_poster', '율전 - 일반 국제학술 발표 - 포스터', 2),
+('rq_yul_national_speech', '율전 - 국내 학술 대회 발표 - 구두', 2),
+('rq_yul_national_poster', '율전 - 국내 학술 대회 발표 - 포스터', 1),
+('rq_yul_win_big_competition', '율전 국제/대규모 공모전 대상/입상', 5),
+('rq_yul_play_big_competition', '율전 국제/대규모 공모전 참여', 2),
+('rq_yul_win_school_competition', '율전 교내/지역 공모전 대상/입상', 3),
+('rq_yul_play_school_competition', '율전 교내/지역 공모전 참여', 1),
+('rq_myeong_over_kci', '명륜 SCI, SSCI, A&HCI 급 학술지', 5),
+('rq_myeong_kci_excellent', 'KCI 우수등재', 4),
+('rq_myeong_kci', 'KCI 등재', 3),
+('rq_myeong_kci_candidate', 'KCI 후보, 기타 국제', 2),
+('rq_myeong_known_speech', '저명 국제학술 대회 발표', 4),
+('rq_myeong_normal_speech', '일반 국제학술 대회 발표', 3),
+('rq_myeong_national_speech', '국내학술대회 발표', 2),
+('rq_myeong_big_competition', '국제/대규모 공모전', 4),
+('rq_myeong_school_competition', '교내/지역 공모전', 2);
