@@ -25,11 +25,27 @@ export function RightMenu({ editable, onSaveClick, onEditClick }) {
 export function Profile() {
     const [editable, setEditable] = useState(false);
     const [studentInfoData, setStudentInfoData] = useState(data.result.studentInfo);
+    const [studentLQData, setStudentLQData] = useState(data.result.LQInfo);
 
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
         setEditable(false);
         alert("저장이 완료되었습니다.");
+        // 여기서 데이터를 서버에 저장하는 로직을 추가할 수 있습니다.
+    };
+
+    const handleInfoChange = (name, value) => {
+        setStudentInfoData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleLQDataChange = (name, value) => {
+        setStudentLQData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
     };
 
     return (
@@ -37,10 +53,10 @@ export function Profile() {
             <div className="profile" style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
                 <h1>내 정보</h1>
                 <AccordionItem title="개인정보">
-                    <PersonalInfo studentInfo={studentInfoData} editable={editable} />
+                    <PersonalInfo studentInfo={studentInfoData} onInfoChange={handleInfoChange} editable={editable} />
                 </AccordionItem>
                 <AccordionItem title="교과활동">
-                    <LQInfo />
+                    <LQInfo studentLQData={studentLQData} onLQDataChange={handleLQDataChange} editable={editable} />
                 </AccordionItem>
                 <AccordionItem title="연구활동">
                     <RQInfo />
@@ -53,7 +69,6 @@ export function Profile() {
         </div>
     );
 }
-
 
 
 // 더미 데이터

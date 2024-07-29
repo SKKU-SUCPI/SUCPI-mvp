@@ -1,14 +1,18 @@
 import React from 'react';
 import './AccordionItem.css';
 
-export function PersonalInfo({ studentInfo, editable }) {
+export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
     const inputStyle = editable ? { backgroundColor: 'white' } : {};
     
-    // 매핑 테이블을 생성하여 studentMajor 값을 소속 학과 이름으로 변환
     const majorMapping = {
         "SW": "소프트웨어학과",
         "GC": "글로벌융합학부",
         "AI": "지능형 소프트웨어학과"
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        onInfoChange(name, value);
     };
 
     return (
@@ -18,7 +22,9 @@ export function PersonalInfo({ studentInfo, editable }) {
                 <input 
                     type='text' 
                     className='form-control' 
-                    defaultValue={studentInfo.studentName} 
+                    name="studentName"
+                    value={studentInfo.studentName} 
+                    onChange={handleChange}
                     disabled={true} 
                 />
             </div>
@@ -27,8 +33,10 @@ export function PersonalInfo({ studentInfo, editable }) {
                 <input 
                     type='text' 
                     className='form-control' 
-                    defaultValue={studentInfo.studentId} 
-                    disabled={true} 
+                    name="studentId"
+                    value={studentInfo.studentId} 
+                    onChange={handleChange}
+                    disabled={true}
                 />
             </div>
             <div className='form-group form-group-row'>
@@ -36,8 +44,10 @@ export function PersonalInfo({ studentInfo, editable }) {
                 <input 
                     type='text' 
                     className='form-control' 
-                    defaultValue={majorMapping[studentInfo.studentMajor] || "학과를 선택해 주세요"} 
-                    disabled={true} 
+                    name="studentMajor"
+                    value={majorMapping[studentInfo.studentMajor] || "학과를 선택해 주세요"} 
+                    onChange={handleChange}
+                    disabled={true}
                 />
             </div>
             <div className='form-group form-group-row'>
@@ -45,21 +55,27 @@ export function PersonalInfo({ studentInfo, editable }) {
                 <input 
                     type='text' 
                     className='form-control-contact' 
-                    defaultValue={studentInfo.studentPhoneNum.split('-')[0]} 
+                    name="studentPhoneNum1"
+                    value={studentInfo.studentPhoneNum.split('-')[0]} 
+                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: e.target.value + '-' + studentInfo.studentPhoneNum.split('-')[1] + '-' + studentInfo.studentPhoneNum.split('-')[2] } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 /> - 
                 <input 
                     type='text' 
                     className='form-control' 
-                    defaultValue={studentInfo.studentPhoneNum.split('-')[1]} 
+                    name="studentPhoneNum2"
+                    value={studentInfo.studentPhoneNum.split('-')[1]} 
+                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: studentInfo.studentPhoneNum.split('-')[0] + '-' + e.target.value + '-' + studentInfo.studentPhoneNum.split('-')[2] } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 /> - 
                 <input 
                     type='text' 
                     className='form-control' 
-                    defaultValue={studentInfo.studentPhoneNum.split('-')[2]} 
+                    name="studentPhoneNum3"
+                    value={studentInfo.studentPhoneNum.split('-')[2]} 
+                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: studentInfo.studentPhoneNum.split('-')[0] + '-' + studentInfo.studentPhoneNum.split('-')[1] + '-' + e.target.value } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 />
