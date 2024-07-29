@@ -5,7 +5,7 @@ import { LQInfo } from "./LQInfo";
 import { RQInfo } from "./RQInfo";
 import { CQInfo } from "./CQInfo";
 import './Profile.css'
-import menuImage from '../../../assets/menu.png'
+import menuImage from '../../assets/menu.png'
 
 
 

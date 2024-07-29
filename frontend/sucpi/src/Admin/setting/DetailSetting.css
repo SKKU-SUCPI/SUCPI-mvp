@@ -1,0 +1,64 @@
+.detail-setting-container {
+    padding: 16px 36px 12px;
+}
+
+.detail-setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+.table-container {
+    padding: 32px 48px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.detail-input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F0F0F0;
+    width: 140px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+.detail-table {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.detail-table-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* 텍스트 크기 설정 */
+}
+
+.detail-table-th, .detail-table-td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center; /* 가운데 정렬 */
+}
+
+.detail-table-th {
+    background-color: #f2f2f2;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center; /* 입력 필드 가운데 정렬 */
+    font-size: 16px; /* 텍스트 크기 설정 */
+}

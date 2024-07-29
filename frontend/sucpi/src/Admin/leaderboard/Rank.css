@@ -1,0 +1,62 @@
+/* Rank.css */
+.rank-container {
+    padding: 20px;
+}
+
+.search-bar {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.search-bar input {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.rank-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.rank-table th, .rank-table td {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 18px 48px;
+    text-align: center;
+}
+
+.rank-table th {
+    background-color: #F8F8F8;
+}
+
+.rank-table th:first-child, .rank-table td:first-child {
+    border-left: 1px solid #dddddd;
+}
+
+.rank-table th:last-child, .rank-table td:last-child {
+    border-right: 1px solid #dddddd;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button:hover:not(.active) {
+    background-color: #ddd;
+}

@@ -1,0 +1,52 @@
+/* Table.css */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0px 55px;
+}
+
+.custom-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+
+.custom-table th {
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.custom-table td {
+    background-color: #F8F8F8;
+}
+
+.custom-table .btn {
+    background-color: #e0e0e0;
+    border: none;
+    color: #555;
+    padding: 10px 24px;
+    max-width: 160px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.custom-table .btn.active {
+    background-color: #2C4F21;
+    color: white;
+}
+
+.custom-table .btn:hover {
+    background-color: #2C4F21;
+    color: white;
+}

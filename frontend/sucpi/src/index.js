@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Header } from './Student/components/Header/Header';
-import { Sidebar } from './Student/components/Sidebar/Sidebar';
-import { Home } from './Student/pages/Home';
-import { GlobalChallenge } from './Student/pages/global-challenge/GlobalChallenge';
-import { ICTVolunteer } from './Student/pages/ict-volunteer/ICTVolunteer';
-import { KoreaChallenge } from './Student/pages/korea-challenge/KoreaChallenge';
-import { Profile } from './Student/pages/profile/Profile';
+import { Header } from './components/Header/Header';
+import { Sidebar } from './components/Sidebar/Sidebar';
+import { Home } from './Student/Home';
+import { GlobalChallenge } from './Student/global-challenge/GlobalChallenge';
+import { ICTVolunteer } from './Student/ict-volunteer/ICTVolunteer';
+import { KoreaChallenge } from './Student/korea-challenge/KoreaChallenge';
+import { Profile } from './Student/profile/Profile';
+import { Leaderboard } from './Admin/leaderboard/Leaderboard';
+import { Statistic } from './Admin/statistic/Statistic';
+import { Setting } from './Admin/setting/Setting';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -29,6 +32,10 @@ function App() {
             <Route path="ict-volunteer" element={<ICTVolunteer />} />
             <Route path="korea-challenge" element={<KoreaChallenge />} />
             <Route path="profile" element={<Profile />} />
+            
+            <Route path='/admin/leaderboard' element={<Leaderboard />} />
+            <Route path='/admin/statistic' element={<Statistic />} />
+            <Route path='/admin/setting' element={<Setting />} />
           </Routes>
         </main>
       </div>

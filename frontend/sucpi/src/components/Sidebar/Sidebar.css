@@ -11,11 +11,11 @@
 }
 
 .sidebar.open {
-    width: 200px; /* 열린 상태의 너비 */
+    min-width: 200px;
 }
 
 .sidebar.closed {
-    width: 50px; /* 닫힌 상태의 너비 */
+    min-width: 50px;
 }
 
 .menu {
