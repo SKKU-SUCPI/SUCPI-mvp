@@ -53,6 +53,7 @@ export function Rank() {
                     placeholder="이름 또는 학번 검색" 
                     value={searchTerm} 
                     onChange={(e) => setSearchTerm(e.target.value)} 
+                    style={{width: "160px"}}
                 />
             </div>
             <table className="rank-table">

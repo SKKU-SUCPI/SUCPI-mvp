@@ -11,6 +11,7 @@ import { KoreaChallenge } from './Student/korea-challenge/KoreaChallenge';
 import { Profile } from './Student/profile/Profile';
 import { Leaderboard } from './Admin/leaderboard/Leaderboard';
 import { Statistic } from './Admin/statistic/Statistic';
+import { Setting } from './Admin/setting/Setting';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -34,6 +35,7 @@ function App() {
             
             <Route path='/admin/leaderboard' element={<Leaderboard />} />
             <Route path='/admin/statistic' element={<Statistic />} />
+            <Route path='/admin/setting' element={<Setting />} />
           </Routes>
         </main>
       </div>
