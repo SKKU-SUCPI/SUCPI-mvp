@@ -5,8 +5,16 @@ INSERT INTO LQ_WEIGHT (category, dataname, name, weight) VALUES
 ('교육 성취도', 'lq_grade_4_0_to_4_5', '교육성취도 4.0-4.5', 4),
 ('교육 성취도', 'lq_grade_3_5_to_4_0', '교육성취도 3.5-4.0', 3),
 ('교육 성취도', 'lq_grade_3_0_to_3_5', '교육성취도 3.0-3.5', 2),
-('오픈소스 SW활동', 'lq_open_source_activity1', 'OS커뮤니티 생성 및 활성도', 4),
-('오픈소스 SW활동', 'lq_open_source_activity2', '커미터로서의 활동', 3);
+('오픈소스 SW활동', 'lq_open_source_activity1Star1', 'OS커뮤니티 생성 및 활성도:스타점수1', 1),
+('오픈소스 SW활동', 'lq_open_source_activity1Star2', 'OS커뮤니티 생성 및 활성도:스타점수2', 2),
+('오픈소스 SW활동', 'lq_open_source_activity1Star3', 'OS커뮤니티 생성 및 활성도:스타점수3', 3),
+('오픈소스 SW활동', 'lq_open_source_activity1Star4', 'OS커뮤니티 생성 및 활성도:스타점수4', 4),
+('오픈소스 SW활동', 'lq_open_source_activity1Star5', 'OS커뮤니티 생성 및 활성도:스타점수5', 5),
+('오픈소스 SW활동', 'lq_open_source_activity2Star1', '커미터로서의 활동:스타점수1', 1),
+('오픈소스 SW활동', 'lq_open_source_activity2Star2', '커미터로서의 활동:스타점수2', 2),
+('오픈소스 SW활동', 'lq_open_source_activity2Star3', '커미터로서의 활동:스타점수3', 3),
+('오픈소스 SW활동', 'lq_open_source_activity2Star4', '커미터로서의 활동:스타점수4', 4),
+('오픈소스 SW활동', 'lq_open_source_activity2Star5', '커미터로서의 활동:스타점수5', 5);
 
 -- CQ_WEIGHT 테이블 초기화
 INSERT INTO CQ_WEIGHT (category, dataname, name, weight) VALUES 
