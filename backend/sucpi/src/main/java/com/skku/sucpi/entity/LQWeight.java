@@ -19,6 +19,7 @@ public class LQWeight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String category;
     private String dataname;
     private String name;
     private float weight;
