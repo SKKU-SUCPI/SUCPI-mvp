@@ -1,3 +1,5 @@
+--이건 H2-console창에 입력하여 더미데이터 생성
+
 -- LQ_WEIGHT 테이블 초기화
 INSERT INTO LQ_WEIGHT (category, dataname, name, weight) VALUES 
 ('교육활동', 'lq_edu_activity1', '교내외 교육활동', 2),
