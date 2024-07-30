@@ -1,8 +1,8 @@
 // /components/QSetting.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './QSetting.css';
 
-export function QSetting({ initialRatios }) {
+export function QSetting({ initialRatios, setRatios }) {
     const [overallRatios, setOverallRatios] = useState({
         LQ: initialRatios.lqRatio,
         RQ: initialRatios.rqRatio,
@@ -16,6 +16,10 @@ export function QSetting({ initialRatios }) {
             [name]: parseFloat(value)
         }));
     };
+
+    useEffect(() => {
+        setRatios(overallRatios);
+    }, [overallRatios, setRatios]);
 
     return (
         <div className="qsetting-container">

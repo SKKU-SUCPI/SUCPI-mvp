@@ -3,19 +3,18 @@ import { QSetting } from './QSetting';
 import { DetailSetting } from './DetailSetting';
 import { CompareGraph } from './CompareGraph';
 
-export function Setting()
-{
+export function Setting() {
+    const [ratios, setRatios] = useState(threeQData.result[0]);
 
     return (
         <div>
             <h1 style={{padding:"16px 36px 12px"}}>설정</h1>
-            <QSetting initialRatios={threeQData.result[0]} />
+            <QSetting initialRatios={ratios} setRatios={setRatios} />
             <DetailSetting data={data.result} />
-            <CompareGraph />
+            <CompareGraph ratios={ratios} />
         </div>
     );
 }
-
 
 const data = {
     "status": 200,
