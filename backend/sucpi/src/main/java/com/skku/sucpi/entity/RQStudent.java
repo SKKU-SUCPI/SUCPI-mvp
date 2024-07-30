@@ -28,8 +28,10 @@ public class RQStudent {
     private int rqYulNormalPoster;
     private int rqYulNationalSpeech;
     private int rqYulNationalPoster;
+    private int rqYulTopBigCompetition;
     private int rqYulWinBigCompetition;
     private int rqYulPlayBigCompetition;
+    private int rqYulTopSchoolCompetition;
     private int rqYulWinSchoolCompetition;
     private int rqYulPlaySchoolCompetition;
     private int rqMyeongOverKci;
@@ -39,6 +41,10 @@ public class RQStudent {
     private int rqMyeongKnownSpeech;
     private int rqMyeongNormalSpeech;
     private int rqMyeongNationalSpeech;
-    private int rqMyeongBigCompetition;
-    private int rqMyeongSchoolCompetition;
+    private int rqMyeongTopBigCompetition;
+    private int rqMyeongWinBigCompetition;
+    private int rqMyeongPlayBigCompetition;
+    private int rqMyeongTopSchoolCompetition;
+    private int rqMyeongWinSchoolCompetition;
+    private int rqMyeongPlaySchoolCompetition;
 }

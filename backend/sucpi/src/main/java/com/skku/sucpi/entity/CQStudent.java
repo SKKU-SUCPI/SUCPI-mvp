@@ -21,9 +21,17 @@ public class CQStudent {
     private int cqStartup;
     private int cqOverseaVolunteer;
     private int cqLectureSeminar;
-    private int cqAlimi;
-    private int cqStudentCouncil;
-    private int cqMediaPromotion;
+    private int cqAlimiLeader;
+    private int cqAlimiSemiLeader;
+    private int cqAlimiPlay;
+    private int cqStudentCouncilLeader;
+    private int cqStudentCouncilSemiLeader;
+    private int cqStudentCouncilPlay;
+    private int cqMediaPromotionLeader;
+    private int cqMediaPromotionSemiLeader;
+    private int cqMediaPromotionPlay;
     private int cqStudioContribution;
-    private int cqStudyGroup;
+    private int cqStudyGroupLeader;
+    private int cqStudyGroupSemiLeader;
+    private int cqStudyGroupPlay;
 }

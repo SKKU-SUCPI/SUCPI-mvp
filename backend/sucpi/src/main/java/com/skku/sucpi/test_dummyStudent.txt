@@ -1,0 +1,279 @@
+/*얘는 Post형태입니다.*/
+
+{
+  "student": {
+    "studentId": "1234",
+    "studentMajor": "SW",
+    "studentName": "테스터1",
+    "studentGrade": 1,
+    "studentPhoneNum": "010-2345-6789"
+  },
+  "lqStudent": {
+    "studentId": "1234",
+    "lqEduActivity1": 2,
+    "lqEduActivity2": 1,
+    "lqGrade40TO45": 1,
+    "lqGrade35TO40": 0,
+    "lqGrade30TO35": 0,
+    "lqGrade00TO30": 0,
+    "lqOpenSourceActivity1Star0": 0,
+    "lqOpenSourceActivity1Star3": 1,
+    "lqOpenSourceActivity1Star4": 0,
+    "lqOpenSourceActivity1Star5": 0,
+    "lqOpenSourceActivity2Star0": 0,
+    "lqOpenSourceActivity2Star3": 1,
+    "lqOpenSourceActivity2Star4": 0,
+    "lqOpenSourceActivity2Star5": 0
+  },
+  "rqStudent": {
+    "studentId": "1234",
+    "rqYulJcr5Main": 0,
+    "rqYulJcr5Part": 0,
+    "rqYulJcr10Main": 0,
+    "rqYulJcr10Part": 1,
+    "rqYulJcr20Main": 0,
+    "rqYulJcr20Part": 0,
+    "rqYulKnownSpeech": 0,
+    "rqYulKnownPoster": 0,
+    "rqYulNormalSpeech": 0,
+    "rqYulNormalPoster": 0,
+    "rqYulNationalSpeech": 0,
+    "rqYulNationalPoster": 0,
+    "rqYulTopBigCompetition": 0,
+    "rqYulWinBigCompetition": 2,
+    "rqYulPlayBigCompetition": 0,
+    "rqYulTopSchoolCompetition": 0,
+    "rqYulWinSchoolCompetition": 0,
+    "rqYulPlaySchoolCompetition": 0,
+    "rqMyeongOverKci": 0,
+    "rqMyeongKciExcellent": 0,
+    "rqMyeongKci": 0,
+    "rqMyeongKciCandidate": 0,
+    "rqMyeongKnownSpeech": 0,
+    "rqMyeongNormalSpeech": 0,
+    "rqMyeongNationalSpeech": 0,
+    "rqMyeongTopBigCompetition": 0,
+    "rqMyeongWinBigCompetition": 0,
+    "rqMyeongPlayBigCompetition": 0,
+    "rqMyeongTopSchoolCompetition": 0,
+    "rqMyeongWinSchoolCompetition": 0,
+    "rqMyeongPlaySchoolCompetition": 0
+  },
+  "cqStudent": {
+    "studentId": "1234",
+    "cqCoop": 0,
+    "cqInternship": 1,
+    "cqStartup": 0,
+    "cqOverseaVolunteer": 0,
+    "cqLectureSeminar": 2,
+    "cqAlimiLeader": 0,
+    "cqAlimiSemiLeader": 0,
+    "cqAlimiPlay": 1,
+    "cqStudentCouncilLeader": 0,
+    "cqStudentCouncilSemiLeader": 0,
+    "cqStudentCouncilPlay": 0,
+    "cqMediaPromotionLeader": 0,
+    "cqMediaPromotionSemiLeader": 0,
+    "cqMediaPromotionPlay": 0,
+    "cqStudioContribution": 0,
+    "cqStudyGroupLeader": 0,
+    "cqStudyGroupSemiLeader": 0,
+    "cqStudyGroupPlay": 0
+  },
+  "lrcContents":[
+    {
+        "studentId": "1234",
+        "dataname": "lqEduActivity1",
+        "contents":"xx고등학교에서 고등학생들을 대상으로 파이썬 교육을 진행한 적 있습니다"
+    },
+    {
+        "studentId": "1234",
+        "dataname":"lqEduActivity1",
+        "contents": "성균관대학교 파이썬 사전교육 x조의 멘토를 수행하였습니다."
+    },
+    {
+        "studentId":"1234",
+        "dataname":"lqEduActivity2",
+        "contents":"zz강의에서 yyy교수님의 조교로 1-2학기 수행하였습니다."
+    },
+    {
+        "studentId":"1234",
+        "dataname":"rqYulJcr10Part",
+        "contents": "xx의 yy에 관한 고찰을 담은 논문 어쩌구저쩌구"
+    },
+    {
+        "studentId":"1234",
+        "dataname":"rqYulWinBigCompetition",
+        "contents":"율전 국제 공모전1에서 입상을 하였습니다."
+    },
+    {
+        "studentId":"1234",
+        "dataname":"rqYulWinBigCompetition",
+        "contents":"율전 국제 공모전2에서 입상을 하였습니다."
+    },
+    {
+        "studentId":"1234",
+        "dataname":"cqInternship",
+        "contents":"xx기업에서 6개월간 인턴으로 근무하였습니다. / {파일링크주소}"
+    },
+    {
+        "studentId":"1234",
+        "dataname":"cqLectureSeminar",
+        "contents":"킹고인의 만남 제 11회"
+    },
+    {
+        "studentId":"1234",
+        "dataname":"cqLectureSeminar",
+        "contents":"킹고인의 만남 제 14회"
+    },
+    {
+        "studentId":"1234",
+        "dataname":"cqAlimiPlay",
+        "contents":"제 XX대 알리미 인원이었습니다."
+    }
+
+  ]
+}
+
+/*하나 더 있습니다*/
+/*얘는 Post형태입니다.*/
+
+{
+  "student": {
+    "studentId": "2345",
+    "studentMajor": "SW",
+    "studentName": "테스터2",
+    "studentGrade": 3,
+    "studentPhoneNum": "010-2375-6289"
+  },
+  "lqStudent": {
+    "studentId": "2345",
+    "lqEduActivity1": 2,
+    "lqEduActivity2": 1,
+    "lqGrade40TO45": 1,
+    "lqGrade35TO40": 0,
+    "lqGrade30TO35": 0,
+    "lqGrade00TO30": 0,
+    "lqOpenSourceActivity1Star0": 0,
+    "lqOpenSourceActivity1Star3": 1,
+    "lqOpenSourceActivity1Star4": 0,
+    "lqOpenSourceActivity1Star5": 0,
+    "lqOpenSourceActivity2Star0": 0,
+    "lqOpenSourceActivity2Star3": 1,
+    "lqOpenSourceActivity2Star4": 0,
+    "lqOpenSourceActivity2Star5": 0
+  },
+  "rqStudent": {
+    "studentId": "2345",
+    "rqYulJcr5Main": 0,
+    "rqYulJcr5Part": 0,
+    "rqYulJcr10Main": 0,
+    "rqYulJcr10Part": 1,
+    "rqYulJcr20Main": 0,
+    "rqYulJcr20Part": 0,
+    "rqYulKnownSpeech": 0,
+    "rqYulKnownPoster": 0,
+    "rqYulNormalSpeech": 0,
+    "rqYulNormalPoster": 0,
+    "rqYulNationalSpeech": 0,
+    "rqYulNationalPoster": 0,
+    "rqYulTopBigCompetition": 0,
+    "rqYulWinBigCompetition": 2,
+    "rqYulPlayBigCompetition": 0,
+    "rqYulTopSchoolCompetition": 0,
+    "rqYulWinSchoolCompetition": 0,
+    "rqYulPlaySchoolCompetition": 0,
+    "rqMyeongOverKci": 0,
+    "rqMyeongKciExcellent": 0,
+    "rqMyeongKci": 0,
+    "rqMyeongKciCandidate": 0,
+    "rqMyeongKnownSpeech": 0,
+    "rqMyeongNormalSpeech": 0,
+    "rqMyeongNationalSpeech": 0,
+    "rqMyeongTopBigCompetition": 0,
+    "rqMyeongWinBigCompetition": 0,
+    "rqMyeongPlayBigCompetition": 0,
+    "rqMyeongTopSchoolCompetition": 0,
+    "rqMyeongWinSchoolCompetition": 0,
+    "rqMyeongPlaySchoolCompetition": 0
+  },
+  "cqStudent": {
+    "studentId": "2345",
+    "cqCoop": 0,
+    "cqInternship": 1,
+    "cqStartup": 1,
+    "cqOverseaVolunteer": 0,
+    "cqLectureSeminar": 2,
+    "cqAlimiLeader": 0,
+    "cqAlimiSemiLeader": 0,
+    "cqAlimiPlay": 1,
+    "cqStudentCouncilLeader": 0,
+    "cqStudentCouncilSemiLeader": 0,
+    "cqStudentCouncilPlay": 0,
+    "cqMediaPromotionLeader": 0,
+    "cqMediaPromotionSemiLeader": 0,
+    "cqMediaPromotionPlay": 0,
+    "cqStudioContribution": 0,
+    "cqStudyGroupLeader": 0,
+    "cqStudyGroupSemiLeader": 0,
+    "cqStudyGroupPlay": 0
+  },
+  "lrcContents":[
+    {
+        "studentId": "2345",
+        "dataname": "lqEduActivity1",
+        "contents":"2345가 xx고등학교에서 고등학생들을 대상으로 파이썬 교육을 진행한 적 있습니다"
+    },
+    {
+        "studentId": "2345",
+        "dataname":"lqEduActivity1",
+        "contents": "2345가 성균관대학교 파이썬 사전교육 x조의 멘토를 수행하였습니다."
+    },
+    {
+        "studentId":"2345",
+        "dataname":"lqEduActivity2",
+        "contents":"2345가 zz강의에서 yyy교수님의 조교로 1-2학기 수행하였습니다."
+    },
+    {
+        "studentId":"2345",
+        "dataname":"rqYulJcr10Part",
+        "contents": "2345가 xx의 yy에 관한 고찰을 담은 논문 어쩌구저쩌구"
+    },
+    {
+        "studentId":"2345",
+        "dataname":"rqYulWinBigCompetition",
+        "contents":"2345 율전 국제 공모전1에서 입상을 하였습니다."
+    },
+    {
+        "studentId":"2345",
+        "dataname":"rqYulWinBigCompetition",
+        "contents":"2345 율전 국제 공모전2에서 입상을 하였습니다."
+    },
+    {
+        "studentId":"2345",
+        "dataname":"cqInternship",
+        "contents":"2345 xx기업에서 6개월간 인턴으로 근무하였습니다. / {파일링크주소}"
+    },
+    {
+        "studentId":"2345",
+        "dataname":"cqLectureSeminar",
+        "contents":"2345 킹고인의 만남 제 11회"
+    },
+    {
+        "studentId":"2345",
+        "dataname":"cqLectureSeminar",
+        "contents":"2345 킹고인의 만남 제 14회"
+    },
+    {
+        "studentId":"2345",
+        "dataname":"cqAlimiPlay",
+        "contents":"2345 제 XX대 알리미 인원이었습니다."
+    },
+    {
+        "studentId":"2345",
+        "dataname":"cqStartup",
+        "contents":"2345 창업도 했답니다.."
+    }
+
+  ]
+}
