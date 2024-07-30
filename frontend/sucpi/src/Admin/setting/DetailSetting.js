@@ -15,7 +15,7 @@ export function DetailSetting({ data }) {
         <div className="detail-setting-container">
             <div className="detail-setting-header">
                 <h3>세부 항목</h3>
-                <div className="button-group">
+                <div className="detail-button-group">
                     <button className="button-save" style={{ backgroundColor: "#3C3C3C" }}>점수표</button>
                     <button className="button-save">저장</button>
                 </div>
@@ -48,7 +48,7 @@ export function DetailSetting({ data }) {
                         {selected === 'CQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
-                <div className="button-group">
+                <div className="detail-button-group">
                     {/* <button className="button-secondary">추가</button>
                     <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary">비교</button>

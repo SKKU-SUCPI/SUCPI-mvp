@@ -1,35 +1,39 @@
-/* QSetting.css */
-
 .qsetting-container {
     padding: 16px 36px 12px;
+    background-color: #f9f9f9;
 }
 
-.qsetting-container-column {
+.qsetting-container-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 16px;
 }
 
-.table-container {
+.qsetting-ratio-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 32px 48px;
+    padding: 24px 48px;
     border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    margin-bottom: 16px;
 }
 
-.input-group {
+.current-ratio, .compare-ratio {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.qs-input-group {
+    display: flex;
     align-items: center;
     gap: 16px;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .input-field {
-    width: 90px;
+    width: 80px;
     text-align: center;
     margin-top: 5px;
     background-color: #f0f0f0;
@@ -38,10 +42,8 @@
     padding: 5px;
 }
 
-.input-field::-webkit-outer-spin-button,
-.input-field::-webkit-inner-spin-button {
-    -webkit-appearance: none; /* Chrome, Safari, Edge에서 스핀 버튼 제거 */
-    margin: 0;
+.input-field:disabled {
+    background-color: #e0e0e0;
 }
 
 .button-save {
@@ -52,18 +54,23 @@
     cursor: pointer;
     border-radius: 4px;
     min-width: 120px;
-    margin-left: 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-secondary {
-    background-color: #B9B9B9;
-    stroke: #8A8A8A;
+    background-color: #b9b9b9;
     color: white;
     border: none;
-    padding: 10px 10px;
+    padding: 10px;
     cursor: pointer;
-    margin-left: 10px;
     width: 80px;
+    height: 40px;
     font-size: 16px;
-    white-space: nowrap;
+    border-radius: 4px;
 }
