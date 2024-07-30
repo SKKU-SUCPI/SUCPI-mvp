@@ -1,11 +1,12 @@
+// /components/QSetting.js
 import React, { useState } from 'react';
 import './QSetting.css';
 
-export function QSetting() {
+export function QSetting({ initialRatios }) {
     const [overallRatios, setOverallRatios] = useState({
-        LQ: 0,
-        RQ: 0,
-        CQ: 0
+        LQ: initialRatios.lqRatio,
+        RQ: initialRatios.rqRatio,
+        CQ: initialRatios.cqRatio
     });
 
     const handleRatioChange = (event) => {
@@ -57,8 +58,8 @@ export function QSetting() {
                     />
                 </div>
                 <div className="button-group">
-                    <button className="button-secondary">추가</button>
-                    <button className="button-secondary">삭제</button>
+                    {/* <button className="button-secondary">추가</button>
+                    <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary">비교</button>
                 </div>
             </div>

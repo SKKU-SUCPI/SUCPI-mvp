@@ -9,7 +9,7 @@ export function Setting()
     return (
         <div>
             <h1 style={{padding:"16px 36px 12px"}}>설정</h1>
-            <QSetting />
+            <QSetting initialRatios={threeQData.result[0]} />
             <DetailSetting data={data.result} />
             <CompareGraph />
         </div>
@@ -469,4 +469,17 @@ const data = {
             },
         ]
     }
+}
+
+const threeQData = {
+    "status": 200,
+    "message": "All LRCq ratio retrieved successfully",
+    "result": [
+        {
+            "id": 1,
+            "lqRatio": 33.3,
+            "rqRatio": 33.3,
+            "cqRatio": 33.3
+        }
+    ]
 }
