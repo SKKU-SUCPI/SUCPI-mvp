@@ -1,4 +1,3 @@
-// Rank.jsx
 import React, { useState } from 'react';
 import './Rank.css';
 
@@ -8,9 +7,9 @@ export function Rank({ data }) {
     const itemsPerPage = 10;
 
     const filteredData = data.filter(item => 
-        item.name.includes(searchTerm) || 
-        item.id.includes(searchTerm) ||
-        item.department.includes(searchTerm)
+        item.studentName.includes(searchTerm) || 
+        item.studentId.includes(searchTerm) ||
+        item.studentMajor.includes(searchTerm)
     );
 
     const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -41,7 +40,7 @@ export function Rank({ data }) {
                         <th>이름/학번</th>
                         <th>학년</th>
                         <th>학과</th>
-                        <th>SUCPI</th>
+                        <th>Total</th>
                         <th>LQ</th>
                         <th>CQ</th>
                         <th>RQ</th>
@@ -51,13 +50,13 @@ export function Rank({ data }) {
                     {displayedData.map((item, index) => (
                         <tr key={index}>
                             <td>{item.rank}</td>
-                            <td>{item.name}/{item.id}</td>
-                            <td>{item.grade}</td>
-                            <td>{item.department}</td>
-                            <td>{item.sucpi}</td>
-                            <td>{item.lq}</td>
-                            <td>{item.cq}</td>
-                            <td>{item.rq}</td>
+                            <td>{item.studentName}/{item.studentId}</td>
+                            <td>{item.studentGrade}</td>
+                            <td>{item.studentMajor}</td>
+                            <td>{item.totalScore}</td>
+                            <td>{item.lqScore}</td>
+                            <td>{item.cqScore}</td>
+                            <td>{item.rqScore}</td>
                         </tr>
                     ))}
                 </tbody>
