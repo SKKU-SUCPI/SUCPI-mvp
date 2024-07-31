@@ -3,19 +3,19 @@ import { QSetting } from './QSetting';
 import { DetailSetting } from './DetailSetting';
 import { CompareGraph } from './CompareGraph';
 
-export function Setting()
-{
+export function Setting() {
+    const [ratios, setRatios] = useState(threeQData.result[0]);
+    const [comparisonRatios, setComparisonRatios] = useState({ compareLQ: threeQData.result[0].lqRatio, compareRQ: threeQData.result[0].rqRatio, compareCQ: threeQData.result[0].cqRatio });
 
     return (
         <div>
             <h1 style={{padding:"16px 36px 12px"}}>설정</h1>
-            <QSetting />
+            <QSetting initialRatios={ratios} setRatios={setRatios} setComparisonRatios={setComparisonRatios} />
             <DetailSetting data={data.result} />
-            <CompareGraph />
+            <CompareGraph ratios={ratios} comparisonRatios={comparisonRatios} />
         </div>
     );
 }
-
 
 const data = {
     "status": 200,
@@ -469,4 +469,17 @@ const data = {
             },
         ]
     }
+}
+
+const threeQData = {
+    "status": 200,
+    "message": "All LRCq ratio retrieved successfully",
+    "result": [
+        {
+            "id": 1,
+            "lqRatio": 33.3,
+            "rqRatio": 33.3,
+            "cqRatio": 33.3
+        }
+    ]
 }
