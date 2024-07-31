@@ -12,6 +12,12 @@ export function Rank({ data }) {
         item.studentMajor.includes(searchTerm)
     );
 
+    const departmentMapping = {
+        'SW': '소프트웨어학과',
+        'GC': '글로벌융합학부',
+        'AI': '지능형소프트웨어학과',
+    };
+
     const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -52,7 +58,7 @@ export function Rank({ data }) {
                             <td>{item.rank}</td>
                             <td>{item.studentName}/{item.studentId}</td>
                             <td>{item.studentGrade}</td>
-                            <td>{item.studentMajor}</td>
+                            <td>{departmentMapping[item.studentMajor]}</td> {/* 학과 이름 변환 */}
                             <td>{item.totalScore}</td>
                             <td>{item.lqScore}</td>
                             <td>{item.cqScore}</td>

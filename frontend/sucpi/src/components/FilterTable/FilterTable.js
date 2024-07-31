@@ -10,6 +10,12 @@ export function FilterTable({ data, setFilteredData }) {
     const allGradeOptions = ['전체', '1', '2', '3', '4', '5+'];
     const allDepartmentOptions = ['전체', '소프트웨어학과', '글로벌융합학부', '지능형소프트웨어학과'];
 
+    const departmentMapping = {
+        '소프트웨어학과': 'SW',
+        '글로벌융합학부': 'GC',
+        '지능형소프트웨어학과': 'AI',
+    };
+
     const handleButtonClick = (category, setCategory, value) => {
         setCategory(prevState => {
             let newState;
@@ -42,15 +48,19 @@ export function FilterTable({ data, setFilteredData }) {
     useEffect(() => {
         let filteredData = data;
 
-        // Grade filtering
+        // 학년 필터링
         if (!grade.includes('전체')) {
             filteredData = filteredData.filter(item => grade.includes(item.studentGrade.toString()));
         }
 
-        // Additional filtering logic can be added here for SUCPI and department
+        // 학과 필터링
+        if (!department.includes('전체')) {
+            const selectedDepartments = department.map(dep => departmentMapping[dep]);
+            filteredData = filteredData.filter(item => selectedDepartments.includes(item.studentMajor));
+        }
         
         setFilteredData(filteredData);
-    }, [grade, data, setFilteredData]);
+    }, [grade, department, sucpi, data, setFilteredData]);
 
     return (
         <div className="table-container">

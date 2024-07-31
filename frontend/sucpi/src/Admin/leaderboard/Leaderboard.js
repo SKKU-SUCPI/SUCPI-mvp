@@ -7,7 +7,7 @@ export function Leaderboard()
 {
     const [data, setData] = useState(lbData.result)
     const [filteredData, setFilteredData] = useState(lbData.result)
-    
+
     useEffect(() => {
         setFilteredData(data);
     }, [data]);
@@ -32,7 +32,7 @@ const lbData = {
             "studentName": "홍채은",
             "studentId": "10987642",
             "studentGrade": 1,
-            "studentMajor": "AI",
+            "studentMajor": "SW",
             "lqScore": 19.5,
             "rqScore": 25.5,
             "cqScore": 29.5,
