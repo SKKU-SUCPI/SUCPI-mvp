@@ -30,7 +30,7 @@ const lbData = {
     "message": "Leaderboard data retrieved successfully",
     "result": [
         {
-            "rank": 45,
+            "rank": 1,
             "studentName": "홍채은",
             "studentId": "10987642",
             "studentGrade": 1,
@@ -52,7 +52,7 @@ const lbData = {
             "totalScore": 72.0
         },
         {
-            "rank": 33,
+            "rank": 3,
             "studentName": "이유진",
             "studentId": "32198765",
             "studentGrade": 1,
@@ -63,7 +63,7 @@ const lbData = {
             "totalScore": 72.0
         },
         {
-            "rank": 50,
+            "rank": 4,
             "studentName": "홍서준",
             "studentId": "65432197",
             "studentGrade": 2,
@@ -74,7 +74,7 @@ const lbData = {
             "totalScore": 72.0
         },
         {
-            "rank": 42,
+            "rank": 5,
             "studentName": "박지수",
             "studentId": "43209876",
             "studentGrade": 2,
@@ -85,7 +85,7 @@ const lbData = {
             "totalScore": 71.5
         },
         {
-            "rank": 23,
+            "rank": 6,
             "studentName": "이채원",
             "studentId": "32109876",
             "studentGrade": 3,
@@ -96,7 +96,7 @@ const lbData = {
             "totalScore": 71.0
         },
         {
-            "rank": 6,
+            "rank": 7,
             "studentName": "김영희",
             "studentId": "67890123",
             "studentGrade": 2,
@@ -107,7 +107,7 @@ const lbData = {
             "totalScore": 70.5
         },
         {
-            "rank": 12,
+            "rank": 8,
             "studentName": "박민수",
             "studentId": "23450987",
             "studentGrade": 4,
@@ -118,7 +118,7 @@ const lbData = {
             "totalScore": 69.0
         },
         {
-            "rank": 16,
+            "rank": 9,
             "studentName": "김지혜",
             "studentId": "09876543",
             "studentGrade": 4,
@@ -129,7 +129,7 @@ const lbData = {
             "totalScore": 69.0
         },
         {
-            "rank": 34,
+            "rank": 10,
             "studentName": "최태민",
             "studentId": "21087654",
             "studentGrade": 2,
@@ -140,7 +140,7 @@ const lbData = {
             "totalScore": 68.5
         },
         {
-            "rank": 14,
+            "rank": 11,
             "studentName": "최지훈",
             "studentId": "45098765",
             "studentGrade": 2,
@@ -151,7 +151,7 @@ const lbData = {
             "totalScore": 66.5
         },
         {
-            "rank": 28,
+            "rank": 12,
             "studentName": "이승현",
             "studentId": "87654320",
             "studentGrade": 4,
@@ -162,7 +162,7 @@ const lbData = {
             "totalScore": 66.5
         },
         {
-            "rank": 24,
+            "rank": 13,
             "studentName": "최유진",
             "studentId": "21098765",
             "studentGrade": 4,
@@ -173,7 +173,7 @@ const lbData = {
             "totalScore": 66.0
         },
         {
-            "rank": 35,
+            "rank": 14,
             "studentName": "홍은지",
             "studentId": "10976543",
             "studentGrade": 3,
@@ -184,7 +184,7 @@ const lbData = {
             "totalScore": 66.0
         },
         {
-            "rank": 20,
+            "rank": 15,
             "studentName": "홍서준",
             "studentId": "65432109",
             "studentGrade": 4,
@@ -195,7 +195,7 @@ const lbData = {
             "totalScore": 66.0
         },
         {
-            "rank": 15,
+            "rank": 16,
             "studentName": "홍지훈",
             "studentId": "50987654",
             "studentGrade": 3,
@@ -206,7 +206,7 @@ const lbData = {
             "totalScore": 67.5
         },
         {
-            "rank": 27,
+            "rank": 17,
             "studentName": "박민호",
             "studentId": "98765421",
             "studentGrade": 3,
@@ -217,7 +217,7 @@ const lbData = {
             "totalScore": 65.0
         },
         {
-            "rank": 13,
+            "rank": 18,
             "studentName": "이도현",
             "studentId": "34509876",
             "studentGrade": 1,
@@ -228,7 +228,7 @@ const lbData = {
             "totalScore": 65.0
         },
         {
-            "rank": 26,
+            "rank": 19,
             "studentName": "김채원",
             "studentId": "09876542",
             "studentGrade": 2,
@@ -239,7 +239,7 @@ const lbData = {
             "totalScore": 65.0
         },
         {
-            "rank": 44,
+            "rank": 20,
             "studentName": "최준혁",
             "studentId": "21097654",
             "studentGrade": 4,
@@ -250,7 +250,7 @@ const lbData = {
             "totalScore": 60.0
         },
         {
-            "rank": 3,
+            "rank": 21,
             "studentName": "최철수",
             "studentId": "34567890",
             "studentGrade": 3,
@@ -261,7 +261,7 @@ const lbData = {
             "totalScore": 60.0
         },
         {
-            "rank": 7,
+            "rank": 22,
             "studentName": "박철수",
             "studentId": "78901234",
             "studentGrade": 3,
@@ -272,7 +272,7 @@ const lbData = {
             "totalScore": 60.5
         },
         {
-            "rank": 10,
+            "rank": 23,
             "studentName": "홍민수",
             "studentId": "01234567",
             "studentGrade": 2,
@@ -283,7 +283,7 @@ const lbData = {
             "totalScore": 60.0
         },
         {
-            "rank": 11,
+            "rank": 24,
             "studentName": "김정훈",
             "studentId": "12345098",
             "studentGrade": 3,
@@ -294,7 +294,7 @@ const lbData = {
             "totalScore": 60.0
         },
         {
-            "rank": 31,
+            "rank": 25,
             "studentName": "김태희",
             "studentId": "54321987",
             "studentGrade": 3,
@@ -305,7 +305,7 @@ const lbData = {
             "totalScore": 57.5
         },
         {
-            "rank": 29,
+            "rank": 26,
             "studentName": "최현우",
             "studentId": "76543219",
             "studentGrade": 1,
@@ -316,7 +316,7 @@ const lbData = {
             "totalScore": 56.5
         },
         {
-            "rank": 47,
+            "rank": 27,
             "studentName": "박서진",
             "studentId": "98765410",
             "studentGrade": 3,
@@ -327,7 +327,7 @@ const lbData = {
             "totalScore": 56.0
         },
         {
-            "rank": 38,
+            "rank": 28,
             "studentName": "이현서",
             "studentId": "87653210",
             "studentGrade": 2,
@@ -338,7 +338,7 @@ const lbData = {
             "totalScore": 56.0
         },
         {
-            "rank": 19,
+            "rank": 29,
             "studentName": "최하은",
             "studentId": "76543210",
             "studentGrade": 3,
@@ -349,7 +349,7 @@ const lbData = {
             "totalScore": 55.0
         },
         {
-            "rank": 17,
+            "rank": 30,
             "studentName": "박정우",
             "studentId": "98765432",
             "studentGrade": 1,
@@ -360,7 +360,7 @@ const lbData = {
             "totalScore": 54.0
         },
         {
-            "rank": 21,
+            "rank": 31,
             "studentName": "김도현",
             "studentId": "54321098",
             "studentGrade": 1,
@@ -371,7 +371,7 @@ const lbData = {
             "totalScore": 53.0
         },
         {
-            "rank": 25,
+            "rank": 32,
             "studentName": "홍하은",
             "studentId": "10987654",
             "studentGrade": 1,
@@ -382,7 +382,7 @@ const lbData = {
             "totalScore": 53.0
         },
         {
-            "rank": 5,
+            "rank": 33,
             "studentName": "홍길동",
             "studentId": "56789012",
             "studentGrade": 1,
@@ -393,7 +393,7 @@ const lbData = {
             "totalScore": 61.0
         },
         {
-            "rank": 4,
+            "rank": 34,
             "studentName": "이정훈",
             "studentId": "45678901",
             "studentGrade": 4,
@@ -404,7 +404,7 @@ const lbData = {
             "totalScore": 66.5
         },
         {
-            "rank": 48,
+            "rank": 35,
             "studentName": "이하은",
             "studentId": "87654329",
             "studentGrade": 4,
@@ -415,7 +415,7 @@ const lbData = {
             "totalScore": 63.0
         },
         {
-            "rank": 39,
+            "rank": 36,
             "studentName": "최우진",
             "studentId": "76542109",
             "studentGrade": 3,
@@ -426,7 +426,7 @@ const lbData = {
             "totalScore": 67.0
         },
         {
-            "rank": 49,
+            "rank": 37,
             "studentName": "최지훈",
             "studentId": "76543218",
             "studentGrade": 1,
@@ -437,7 +437,7 @@ const lbData = {
             "totalScore": 62.5
         },
         {
-            "rank": 22,
+            "rank": 38,
             "studentName": "박지훈",
             "studentId": "43210987",
             "studentGrade": 2,
@@ -448,7 +448,7 @@ const lbData = {
             "totalScore": 63.5
         },
         {
-            "rank": 46,
+            "rank": 39,
             "studentName": "김현서",
             "studentId": "09876541",
             "studentGrade": 2,
@@ -459,7 +459,7 @@ const lbData = {
             "totalScore": 67.0
         },
         {
-            "rank": 30,
+            "rank": 40,
             "studentName": "홍지원",
             "studentId": "65432198",
             "studentGrade": 2,
@@ -481,7 +481,7 @@ const lbData = {
             "totalScore": 62.0
         },
         {
-            "rank": 32,
+            "rank": 42,
             "studentName": "박준영",
             "studentId": "43219876",
             "studentGrade": 4,
@@ -492,7 +492,7 @@ const lbData = {
             "totalScore": 47.0
         },
         {
-            "rank": 36,
+            "rank": 43,
             "studentName": "김재훈",
             "studentId": "09875432",
             "studentGrade": 4,
@@ -503,7 +503,7 @@ const lbData = {
             "totalScore": 63.0
         },
         {
-            "rank": 37,
+            "rank": 44,
             "studentName": "박수민",
             "studentId": "98764321",
             "studentGrade": 1,
@@ -514,7 +514,7 @@ const lbData = {
             "totalScore": 60.5
         },
         {
-            "rank": 9,
+            "rank": 45,
             "studentName": "최지혜",
             "studentId": "90123456",
             "studentGrade": 1,
@@ -525,7 +525,7 @@ const lbData = {
             "totalScore": 49.0
         },
         {
-            "rank": 40,
+            "rank": 46,
             "studentName": "홍정현",
             "studentId": "65431098",
             "studentGrade": 4,
@@ -536,4 +536,4 @@ const lbData = {
             "totalScore": 49.0
         }
     ]
-}
+};
