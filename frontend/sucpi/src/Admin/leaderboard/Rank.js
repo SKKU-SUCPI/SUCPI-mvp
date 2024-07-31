@@ -42,7 +42,7 @@ export function Rank({ data }) {
             <table className="rank-table">
                 <thead>
                     <tr>
-                        <th>순위</th>
+                        <th>전체 순위</th>
                         <th>이름/학번</th>
                         <th>학년</th>
                         <th>학과</th>
