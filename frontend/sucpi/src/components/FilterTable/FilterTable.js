@@ -58,6 +58,23 @@ export function FilterTable({ data, setFilteredData }) {
             const selectedDepartments = department.map(dep => departmentMapping[dep]);
             filteredData = filteredData.filter(item => selectedDepartments.includes(item.studentMajor));
         }
+
+        // SUCPI 필터링 및 정렬
+        if (!sucpi.includes('전체')) {
+            filteredData = filteredData
+                .map(item => {
+                    // 선택된 SUCPI 필터 옵션의 점수 합계를 계산
+                    const totalSucpi = sucpi.reduce((acc, curr) => {
+                        if (curr === 'LQ') return acc + item.lqScore;
+                        if (curr === 'CQ') return acc + item.cqScore;
+                        if (curr === 'RQ') return acc + item.rqScore;
+                        return acc;
+                    }, 0);
+                    return { ...item, totalSucpi };
+                })
+                // SUCPI 점수 합계를 기준으로 내림차순 정렬
+                .sort((a, b) => b.totalSucpi - a.totalSucpi);
+        }
         
         setFilteredData(filteredData);
     }, [grade, department, sucpi, data, setFilteredData]);
