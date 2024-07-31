@@ -31,7 +31,7 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<String>> saveStudent(@RequestBody StudentDTO studentDTO) {
-        StudentDTO savedStudent = studentService.saveStudent(studentDTO);
+        studentService.saveStudent(studentDTO);
         return ResponseEntity.ok(new ApiResponse<>(200, "Student saved successfully", "Student saved successfully"));
     }
 }
