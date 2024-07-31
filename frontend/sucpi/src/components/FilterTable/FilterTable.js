@@ -7,8 +7,8 @@ export function FilterTable({ data, setFilteredData }) {
     const [department, setDepartment] = useState(['전체']);
 
     const allSucpiOptions = ['전체', 'LQ', 'CQ', 'RQ'];
-    const allGradeOptions = ['전체', '1', '2', '3', '4'];
-    const allDepartmentOptions = ['전체', 'SW', 'GC', 'AI'];
+    const allGradeOptions = ['전체', '1', '2', '3', '4', '5+'];
+    const allDepartmentOptions = ['전체', '소프트웨어학과', '글로벌융합학부', '지능형소프트웨어학과'];
 
     const handleButtonClick = (category, setCategory, value) => {
         setCategory(prevState => {
@@ -40,23 +40,17 @@ export function FilterTable({ data, setFilteredData }) {
     );
 
     useEffect(() => {
-        let filtered = data;
+        let filteredData = data;
 
-        if (!sucpi.includes('전체') && sucpi.length > 0) {
-            filtered = filtered.filter(item => {
-                if (sucpi.includes('LQ') && item.lqScore > item.cqScore && item.lqScore > item.rqScore) return true;
-                if (sucpi.includes('CQ') && item.cqScore > item.lqScore && item.cqScore > item.rqScore) return true;
-                if (sucpi.includes('RQ') && item.rqScore > item.lqScore && item.rqScore > item.cqScore) return true;
-                return false;
-            });
+        // Grade filtering
+        if (!grade.includes('전체')) {
+            filteredData = filteredData.filter(item => grade.includes(item.studentGrade.toString()));
         }
 
-        if (sucpi.includes('전체') || (sucpi.includes('LQ') && sucpi.includes('CQ') && sucpi.includes('RQ'))) {
-            filtered = filtered.sort((a, b) => b.totalScore - a.totalScore);
-        }
-
-        setFilteredData(filtered);
-    }, [sucpi, data, setFilteredData]);
+        // Additional filtering logic can be added here for SUCPI and department
+        
+        setFilteredData(filteredData);
+    }, [grade, data, setFilteredData]);
 
     return (
         <div className="table-container">

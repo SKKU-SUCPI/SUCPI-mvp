@@ -7,12 +7,10 @@ export function Leaderboard()
 {
     const [data, setData] = useState(lbData.result)
     const [filteredData, setFilteredData] = useState(lbData.result)
-
+    
     useEffect(() => {
-        const sortedData = lbData.result.sort((a, b) => b.totalScore - a.totalScore);
-        setData(sortedData);
-        setFilteredData(sortedData);
-    }, []);
+        setFilteredData(data);
+    }, [data]);
 
     return (
         <div>
