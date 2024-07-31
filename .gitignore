@@ -79,5 +79,5 @@ yarn-error.log*
 #spring boot db
 /data/
 /target/
-*.db #DB를 올리기 위한 주석처리
+*.db
 Thumbs.db
