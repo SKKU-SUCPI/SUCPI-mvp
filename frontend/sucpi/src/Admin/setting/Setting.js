@@ -5,13 +5,14 @@ import { CompareGraph } from './CompareGraph';
 
 export function Setting() {
     const [ratios, setRatios] = useState(threeQData.result[0]);
+    const [comparisonRatios, setComparisonRatios] = useState({ compareLQ: threeQData.result[0].lqRatio, compareRQ: threeQData.result[0].rqRatio, compareCQ: threeQData.result[0].cqRatio });
 
     return (
         <div>
             <h1 style={{padding:"16px 36px 12px"}}>설정</h1>
-            <QSetting initialRatios={ratios} setRatios={setRatios} />
+            <QSetting initialRatios={ratios} setRatios={setRatios} setComparisonRatios={setComparisonRatios} />
             <DetailSetting data={data.result} />
-            <CompareGraph ratios={ratios} />
+            <CompareGraph ratios={ratios} comparisonRatios={comparisonRatios} />
         </div>
     );
 }

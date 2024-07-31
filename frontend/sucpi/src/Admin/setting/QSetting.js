@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './QSetting.css';
 
-export function QSetting({ initialRatios, setRatios }) {
+export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
     const [overallRatios, setOverallRatios] = useState({
         LQ: initialRatios.lqRatio,
         RQ: initialRatios.rqRatio,
         CQ: initialRatios.cqRatio
     });
 
-    const [isComparisonActive, setIsComparisonActive] = useState(false);
+    const [comparisonRatios, setComparisonRatiosLocal] = useState({
+        compareLQ: initialRatios.lqRatio,
+        compareRQ: initialRatios.rqRatio,
+        compareCQ: initialRatios.cqRatio
+    });
 
     const handleRatioChange = (event) => {
         const { name, value } = event.target;
@@ -18,8 +22,16 @@ export function QSetting({ initialRatios, setRatios }) {
         }));
     };
 
+    const handleComparisonChange = (event) => {
+        const { name, value } = event.target;
+        setComparisonRatiosLocal(prevState => ({
+            ...prevState,
+            [name]: parseFloat(value) || 0
+        }));
+    };
+
     const handleCompareClick = () => {
-        setIsComparisonActive(true);
+        setComparisonRatios(comparisonRatios);
     };
 
     useEffect(() => {
@@ -79,9 +91,10 @@ export function QSetting({ initialRatios, setRatios }) {
                         <input 
                             type="text" 
                             name="compareLQ" 
+                            value={comparisonRatios.compareLQ} 
+                            onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
-                            disabled={!isComparisonActive}
                             placeholder='비율을 입력해주세요.'
                         />
                     </div>
@@ -90,9 +103,10 @@ export function QSetting({ initialRatios, setRatios }) {
                         <input 
                             type="text" 
                             name="compareRQ" 
+                            value={comparisonRatios.compareRQ} 
+                            onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
-                            disabled={!isComparisonActive}
                             placeholder='비율을 입력해주세요.'
                         />
                     </div>
@@ -101,16 +115,15 @@ export function QSetting({ initialRatios, setRatios }) {
                         <input 
                             type="text" 
                             name="compareCQ" 
+                            value={comparisonRatios.compareCQ} 
+                            onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
-                            disabled={!isComparisonActive}
                             placeholder='비율을 입력해주세요.'
                         />
                     </div>
                 </div>
                 <div className="button-group">
-                    {/* <button className="button-secondary">추가</button>
-                    <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary" onClick={handleCompareClick}>비교</button>
                 </div>
             </div>
