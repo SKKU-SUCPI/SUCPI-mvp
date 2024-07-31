@@ -1,0 +1,73 @@
+--이건 H2-console창에 입력하여 더미데이터 생성
+
+-- LQ_WEIGHT 테이블 초기화
+INSERT INTO LQ_WEIGHT (category, dataName, name, weight) VALUES 
+('교육활동', 'lqEduActivity1', '교내외 교육활동', 2),
+('교육활동', 'lqEduActivity2', '교육조교 활동', 3),
+('교육 성취도', 'lqGrade40To45', '학점 4.0이상 4.5이하', 4),
+('교육 성취도', 'lqGrade35To40', '학점 3.5이상 3.99이하', 3),
+('교육 성취도', 'lqGrade30To35', '학점 3.0이상 3.49이하', 2),
+('교육 성취도', 'lqGrade00To30', '학점 2.99이하', 0),
+('오픈소스 SW활동', 'lqOpenSourceActivity1Star0', 'OS커뮤니티 생성 및 활성도:스타점수0', 0),
+('오픈소스 SW활동', 'lqOpenSourceActivity1Star3', 'OS커뮤니티 생성 및 활성도:스타점수3', 3),
+('오픈소스 SW활동', 'lqOpenSourceActivity1Star4', 'OS커뮤니티 생성 및 활성도:스타점수4', 4),
+('오픈소스 SW활동', 'lqOpenSourceActivity1Star5', 'OS커뮤니티 생성 및 활성도:스타점수5', 5),
+('오픈소스 SW활동', 'lqOpenSourceActivity2Star0', '커미터로서의 활동:스타점수0', 0),
+('오픈소스 SW활동', 'lqOpenSourceActivity2Star3', '커미터로서의 활동:스타점수3', 3),
+('오픈소스 SW활동', 'lqOpenSourceActivity2Star4', '커미터로서의 활동:스타점수4', 4),
+('오픈소스 SW활동', 'lqOpenSourceActivity2Star5', '커미터로서의 활동:스타점수5', 5);
+
+-- CQ_WEIGHT 테이블 초기화
+INSERT INTO CQ_WEIGHT (category, dataName, name, weight) VALUES 
+('산학프로젝트', 'cqCoop', '산학프로젝트', 10),
+('인턴십', 'cqInternship', '인턴십', 10),
+('창업', 'cqStartup', '창업', 30),
+('해외봉사', 'cqOverseaVolunteer', '해외봉사', 10),
+('화상강연 / 세미나 참여', 'cqLectureSeminar', '화상강연 / 세미나 참여', 1),
+('알리미', 'cqAlimiLeader', '알리미-회장', 5),
+('알리미', 'cqAlimiSemiLeader', '알리미-부회장', 3),
+('알리미', 'cqAlimiPlay', '알리미-참여', 2),
+('학생회', 'cqStudentCouncilLeader', '학생회-회장', 5),
+('학생회', 'cqStudentCouncilSemiLeader', '학생회-부회장', 3),
+('학생회', 'cqStudentCouncilPlay', '학생회-참여', 2),
+('미디어홍보', 'cqMediaPromotionLeader', '기자단-회장', 5),
+('미디어홍보', 'cqMediaPromotionSemiLeader', '기자단-부회장', 3),
+('미디어홍보', 'cqMediaPromotionPlay', '기자단-참여', 2),
+('스튜디오기여', 'cqStudioContribution', 'ARS Electronica 작품 제공', 2),
+('스터디 그룹', 'cqStudyGroupLeader', 'SCG, MAV 스꾸딩 등 - 회장', 5),
+('스터디 그룹', 'cqStudyGroupSemiLeader', 'SCG, MAV 스꾸딩 등 - 부회장', 3),
+('스터디 그룹', 'cqStudyGroupPlay', 'SCG, MAV 스꾸딩 등 - 참여', 2);
+
+-- RQ_WEIGHT 테이블 초기화
+INSERT INTO RQ_WEIGHT (category, dataName, name, weight) VALUES
+('학술지 논문 게재', 'rqYulJcr5Main', '과학기술 - JCR 5%이내 주저', 5),
+('학술지 논문 게재', 'rqYulJcr5Part', '과학기술 - JCR 5% 이내 공저', 4),
+('학술지 논문 게재', 'rqYulJcr10Main', '과학기술 - JCR 10%이내 주저', 4),
+('학술지 논문 게재', 'rqYulJcr10Part', '과학기술 - JCR 10% 이내 공저', 3),
+('학술지 논문 게재', 'rqYulJcr20Main', '과학기술 - JCR 20%이내 주저', 3),
+('학술지 논문 게재', 'rqYulJcr20Part', '과학기술 - JCR 20% 이내 공저', 2),
+('학술대회 발표', 'rqYulKnownSpeech', '과학기술 - 저명 국제학술 발표 - 구두', 4),
+('학술대회 발표', 'rqYulKnownPoster', '과학기술 - 저명 국제학술 발표 - 포스터', 3),
+('학술대회 발표', 'rqYulNormalSpeech', '과학기술 - 일반 국제학술 발표 - 구두', 3),
+('학술대회 발표', 'rqYulNormalPoster', '과학기술 - 일반 국제학술 발표 - 포스터', 2),
+('학술대회 발표', 'rqYulNationalSpeech', '과학기술 - 국내 학술 대회 발표 - 구두', 2),
+('학술대회 발표', 'rqYulNationalPoster', '과학기술 - 국내 학술 대회 발표 - 포스터', 1),
+('공모전 / ICPC', 'rqYulTopBigCompetition', '과학기술 - 국제/대규모 공모전 대상', 10),
+('공모전 / ICPC', 'rqYulWinBigCompetition', '과학기술 - 국제/대규모 공모전 입상', 4),
+('공모전 / ICPC', 'rqYulPlayBigCompetition', '과학기술 - 국제/대규모 공모전 참여', 2),
+('공모전 / ICPC', 'rqYulTopSchoolCompetition', '과학기술 - 교내/지역 공모전 대상/입상', 3),
+('공모전 / ICPC', 'rqYulWinSchoolCompetition', '과학기술 - 교내/지역 공모전 대상/입상', 1),
+('공모전 / ICPC', 'rqYulPlaySchoolCompetition', '과학기술 - 교내/지역 공모전 참여', 0.5),
+('학술지 논문 게재', 'rqMyeongOverKci', '인문사회 - SCI, SSCI, A&HCI 급 학술지', 5),
+('학술지 논문 게재', 'rqMyeongKciExcellent', '인문사회 - KCI 우수등재', 4),
+('학술지 논문 게재', 'rqMyeongKci', '인문사회 -  KCI 등재', 3),
+('학술지 논문 게재', 'rqMyeongKciCandidate', '인문사회 - KCI 후보, 기타 국제', 2),
+('학술대회 발표', 'rqMyeongKnownSpeech', '인문사회 - 저명 국제학술 대회 발표', 4),
+('학술대회 발표', 'rqMyeongNormalSpeech', '인문사회 - 일반 국제학술 대회 발표', 3),
+('학술대회 발표', 'rqMyeongNationalSpeech', '인문사회 - 국내학술대회 발표', 2),
+('공모전 / ICPC', 'rqMyeongTopBigCompetition', '인문사회 - 국제/대규모 공모전 대상', 10),
+('공모전 / ICPC', 'rqMyeongWinBigCompetition', '인문사회 - 국제/대규모 공모전 입상', 4),
+('공모전 / ICPC', 'rqMyeongPlayBigCompetition', '인문사회 - 국제/대규모 공모전 참여', 2),
+('공모전 / ICPC', 'rqMyeongTopSchoolCompetition', '인문사회 - 교내/지역 공모전 대상', 3),
+('공모전 / ICPC', 'rqMyeongWinSchoolCompetition', '인문사회 - 교내/지역 공모전 입상', 1),
+('공모전 / ICPC', 'rqMyeongPlaySchoolCompetition', '인문사회 - 교내/지역 공모전 참여', 0.5);
