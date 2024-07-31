@@ -2,32 +2,10 @@
 import React, { useState } from 'react';
 import './Rank.css';
 
-export function Rank() {
+export function Rank({ data }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
-
-    const data = [
-        // 샘플 데이터
-        { rank: 1, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 2, name: '2홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 3, name: '3홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 4, name: '4홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 5, name: '5홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 6, name: '6', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 7, name: '7', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 8, name: '8', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 9, name: '9', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 10, name: '10', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 11, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 4, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 5, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 6, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 7, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 8, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 9, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 10, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 }
-    ];
 
     const filteredData = data.filter(item => 
         item.name.includes(searchTerm) || 
