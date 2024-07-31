@@ -1,39 +1,22 @@
-// Rank.jsx
 import React, { useState } from 'react';
 import './Rank.css';
 
-export function Rank() {
+export function Rank({ data }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-    const data = [
-        // 샘플 데이터
-        { rank: 1, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 2, name: '2홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 3, name: '3홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 4, name: '4홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 5, name: '5홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 6, name: '6', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 7, name: '7', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 8, name: '8', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 9, name: '9', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 10, name: '10', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 11, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 4, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 5, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 6, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 7, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 8, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 9, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 },
-        { rank: 10, name: '홍길동', id: '2020311234', grade: 2, department: '소프트웨어학과', sucpi: 75, lq: 30, cq: 20, rq: 25 }
-    ];
-
     const filteredData = data.filter(item => 
-        item.name.includes(searchTerm) || 
-        item.id.includes(searchTerm) ||
-        item.department.includes(searchTerm)
+        item.studentName.includes(searchTerm) || 
+        item.studentId.includes(searchTerm) ||
+        item.studentMajor.includes(searchTerm)
     );
+
+    const departmentMapping = {
+        'SW': '소프트웨어학과',
+        'GC': '글로벌융합학부',
+        'AI': '지능형소프트웨어학과',
+    };
 
     const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
@@ -59,11 +42,11 @@ export function Rank() {
             <table className="rank-table">
                 <thead>
                     <tr>
-                        <th>순위</th>
+                        <th>전체 순위</th>
                         <th>이름/학번</th>
                         <th>학년</th>
                         <th>학과</th>
-                        <th>SUCPI</th>
+                        <th>Total</th>
                         <th>LQ</th>
                         <th>CQ</th>
                         <th>RQ</th>
@@ -73,13 +56,13 @@ export function Rank() {
                     {displayedData.map((item, index) => (
                         <tr key={index}>
                             <td>{item.rank}</td>
-                            <td>{item.name}/{item.id}</td>
-                            <td>{item.grade}</td>
-                            <td>{item.department}</td>
-                            <td>{item.sucpi}</td>
-                            <td>{item.lq}</td>
-                            <td>{item.cq}</td>
-                            <td>{item.rq}</td>
+                            <td>{item.studentName}/{item.studentId}</td>
+                            <td>{item.studentGrade}</td>
+                            <td>{departmentMapping[item.studentMajor]}</td> {/* 학과 이름 변환 */}
+                            <td>{item.totalScore}</td>
+                            <td>{item.lqScore}</td>
+                            <td>{item.cqScore}</td>
+                            <td>{item.rqScore}</td>
                         </tr>
                     ))}
                 </tbody>
