@@ -1,11 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QSetting } from './QSetting';
 import { DetailSetting } from './DetailSetting';
 import { CompareGraph } from './CompareGraph';
 
 export function Setting() {
-    const [ratios, setRatios] = useState(threeQData.result[0]);
-    const [comparisonRatios, setComparisonRatios] = useState({ compareLQ: threeQData.result[0].lqRatio, compareRQ: threeQData.result[0].rqRatio, compareCQ: threeQData.result[0].cqRatio });
+    const [ratios, setRatios] = useState(null);
+    const [comparisonRatios, setComparisonRatios] = useState(null);
+
+    useEffect(() => {
+        // 데이터 가져오기
+        fetch('http://localhost:8080/api/admin/settings')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    const result = data.result[0];
+                    setRatios(result);
+                    setComparisonRatios({
+                        compareLQ: result.lqRatio,
+                        compareRQ: result.rqRatio,
+                        compareCQ: result.cqRatio
+                    });
+                } else {
+                    console.error('Error retrieving data:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+    if (!ratios || !comparisonRatios) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
@@ -16,6 +42,7 @@ export function Setting() {
         </div>
     );
 }
+
 
 const data = {
     "status": 200,
@@ -471,15 +498,15 @@ const data = {
     }
 }
 
-const threeQData = {
-    "status": 200,
-    "message": "All LRCq ratio retrieved successfully",
-    "result": [
-        {
-            "id": 1,
-            "lqRatio": 33.3,
-            "rqRatio": 33.3,
-            "cqRatio": 33.3
-        }
-    ]
-}
+// const threeQData = {
+//     "status": 200,
+//     "message": "All LRCq ratio retrieved successfully",
+//     "result": [
+//         {
+//             "id": 1,
+//             "lqRatio": 33.3,
+//             "rqRatio": 33.3,
+//             "cqRatio": 33.3
+//         }
+//     ]
+// }
