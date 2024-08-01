@@ -82,7 +82,7 @@ export function StudentDetail() {
             <div className='profile' style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
                 <h1>학생 상세 정보</h1>
                 <AccordionItem title="개인정보">
-                    <AdminPersonal />
+                    <AdminPersonal studentInfo={studentData.student}/>
                 </AccordionItem>
                 <AccordionItem title="교과활동">
 
