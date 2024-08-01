@@ -38,7 +38,7 @@ function App() {
             <Route path='/admin/statistic' element={<Statistic />} />
             <Route path='/admin/setting' element={<Setting />} />
 
-            <Route path='/admin/students/:studentId' element={<StudentDetail />} />
+            <Route path="/admin/students/:id" element={<StudentDetail />} />
           </Routes>
         </main>
       </div>

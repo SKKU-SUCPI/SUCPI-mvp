@@ -30,10 +30,10 @@ export function Rank({ data }) {
         }
     };
 
-    // 행 클릭 시 해당 학생의 데이터를 state로 전달하여 페이지 이동
-    const handleRowClick = (student) => {
-        navigate(`/admin/students/${student}`, { state: { student } });
+    const handleRowClick = (studentId) => {
+        navigate(`/admin/students/${studentId}`);
     };
+    
 
     return (
         <div className="rank-container">
