@@ -13,8 +13,11 @@ import com.skku.sucpi.ApiResponse;
 import com.skku.sucpi.dto.StudentDTO;
 import com.skku.sucpi.service.StudentService;
 
+/*관리자가 학생을 보는 것입니다.
+ * 모든 자료를 GET할 수 있다는 거죠.
+ */
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/admin/students")
 public class StudentController {
 
     @Autowired
