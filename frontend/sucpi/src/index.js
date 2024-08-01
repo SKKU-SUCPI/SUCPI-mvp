@@ -12,6 +12,7 @@ import { Profile } from './Student/profile/Profile';
 import { Leaderboard } from './Admin/leaderboard/Leaderboard';
 import { Statistic } from './Admin/statistic/Statistic';
 import { Setting } from './Admin/setting/Setting';
+import { StudentDetail } from './Admin/studentInfo/StudentDetail';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -36,6 +37,8 @@ function App() {
             <Route path='/admin/leaderboard' element={<Leaderboard />} />
             <Route path='/admin/statistic' element={<Statistic />} />
             <Route path='/admin/setting' element={<Setting />} />
+
+            <Route path='/admin/students/:studentId' element={<StudentDetail />} />
           </Routes>
         </main>
       </div>

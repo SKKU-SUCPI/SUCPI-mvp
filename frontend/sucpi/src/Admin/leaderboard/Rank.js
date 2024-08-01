@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Rank.css';
 
 export function Rank({ data }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const navigate = useNavigate();
 
     const filteredData = data.filter(item => 
         item.studentName.includes(searchTerm) || 
@@ -26,6 +28,11 @@ export function Rank({ data }) {
         if (page > 0 && page <= totalPages) {
             setCurrentPage(page);
         }
+    };
+
+    // 행 클릭 시 해당 학생의 데이터를 state로 전달하여 페이지 이동
+    const handleRowClick = (student) => {
+        navigate(`/admin/students/${student}`, { state: { student } });
     };
 
     return (
@@ -54,7 +61,11 @@ export function Rank({ data }) {
                 </thead>
                 <tbody>
                     {displayedData.map((item, index) => (
-                        <tr key={index}>
+                        <tr
+                            key={index}
+                            onClick={() => handleRowClick(item.studentId)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <td>{item.rank}</td>
                             <td>{item.studentName}/{item.studentId}</td>
                             <td>{item.studentGrade}</td>
