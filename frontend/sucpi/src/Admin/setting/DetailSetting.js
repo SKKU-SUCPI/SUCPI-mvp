@@ -9,7 +9,8 @@ export function DetailSetting({ data }) {
         setSelected(prevSelected => (prevSelected === type ? '' : type));
     };
 
-    const selectedWeights = data[selected.toLowerCase() + 'weights'];
+    // 선택된 카테고리에 해당하는 데이터 필터링
+    const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
     return (
         <div className="detail-setting-container">
@@ -21,6 +22,7 @@ export function DetailSetting({ data }) {
                 </div>
             </div>
             <div className="table-container">
+                {/* LQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>LQ</span>
                     <button
@@ -30,6 +32,8 @@ export function DetailSetting({ data }) {
                         {selected === 'LQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
+                {/* RQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>RQ</span>
                     <button
@@ -39,6 +43,8 @@ export function DetailSetting({ data }) {
                         {selected === 'RQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
+                {/* CQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>CQ</span>
                     <button
@@ -48,12 +54,13 @@ export function DetailSetting({ data }) {
                         {selected === 'CQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
                 <div className="detail-button-group">
-                    {/* <button className="button-secondary">추가</button>
-                    <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary">비교</button>
                 </div>
             </div>
+
+            {/* 선택된 항목이 있을 경우 테이블 표시 */}
             {selected && selectedWeights && (
                 <div className="detail-table">
                     <table className="detail-table-table">
@@ -71,7 +78,13 @@ export function DetailSetting({ data }) {
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
                                     <td className="detail-table-td">{row.weight}</td>
-                                    <td className="detail-table-td"><input type="text" value={row.weight} style={{ width: "68px", textAlign: "right" }} /> 점</td>
+                                    <td className="detail-table-td">
+                                        <input 
+                                            type="text" 
+                                            defaultValue={row.weight} 
+                                            style={{ width: "68px", textAlign: "right" }} 
+                                        /> 점
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
