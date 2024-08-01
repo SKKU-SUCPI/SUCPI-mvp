@@ -4,12 +4,19 @@ import './DetailSetting.css';
 
 export function DetailSetting({ data }) {
     const [selected, setSelected] = useState('');
+    const [weights, setWeights] = useState({});
 
     const handleToggle = (type) => {
         setSelected(prevSelected => (prevSelected === type ? '' : type));
     };
 
-    // 선택된 카테고리에 해당하는 데이터 필터링
+    const handleWeightChange = (id, newWeight) => {
+        setWeights(prevWeights => ({
+            ...prevWeights,
+            [id]: newWeight
+        }));
+    };
+
     const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
     return (
@@ -22,7 +29,6 @@ export function DetailSetting({ data }) {
                 </div>
             </div>
             <div className="table-container">
-                {/* LQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>LQ</span>
                     <button
@@ -33,7 +39,6 @@ export function DetailSetting({ data }) {
                     </button>
                 </div>
 
-                {/* RQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>RQ</span>
                     <button
@@ -44,7 +49,6 @@ export function DetailSetting({ data }) {
                     </button>
                 </div>
 
-                {/* CQ 카테고리 */}
                 <div className="detail-input-group">
                     <span>CQ</span>
                     <button
@@ -60,7 +64,6 @@ export function DetailSetting({ data }) {
                 </div>
             </div>
 
-            {/* 선택된 항목이 있을 경우 테이블 표시 */}
             {selected && selectedWeights && (
                 <div className="detail-table">
                     <table className="detail-table-table">
@@ -73,15 +76,16 @@ export function DetailSetting({ data }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {selectedWeights.map((row, index) => (
-                                <tr key={index}>
+                            {selectedWeights.map((row) => (
+                                <tr key={row.id}>
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
                                     <td className="detail-table-td">{row.weight}</td>
                                     <td className="detail-table-td">
                                         <input 
                                             type="text" 
-                                            defaultValue={row.weight} 
+                                            value={weights[row.id] || row.weight} 
+                                            onChange={(e) => handleWeightChange(row.id, e.target.value)}
                                             style={{ width: "68px", textAlign: "right" }} 
                                         /> 점
                                     </td>
