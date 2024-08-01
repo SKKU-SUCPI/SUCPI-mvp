@@ -4,12 +4,20 @@ import './DetailSetting.css';
 
 export function DetailSetting({ data }) {
     const [selected, setSelected] = useState('');
+    const [weights, setWeights] = useState({});
 
     const handleToggle = (type) => {
         setSelected(prevSelected => (prevSelected === type ? '' : type));
     };
 
-    const selectedWeights = data[selected.toLowerCase() + 'weights'];
+    const handleWeightChange = (id, newWeight) => {
+        setWeights(prevWeights => ({
+            ...prevWeights,
+            [id]: newWeight
+        }));
+    };
+
+    const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
     return (
         <div className="detail-setting-container">
@@ -30,6 +38,7 @@ export function DetailSetting({ data }) {
                         {selected === 'LQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
                 <div className="detail-input-group">
                     <span>RQ</span>
                     <button
@@ -39,6 +48,7 @@ export function DetailSetting({ data }) {
                         {selected === 'RQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
                 <div className="detail-input-group">
                     <span>CQ</span>
                     <button
@@ -48,12 +58,12 @@ export function DetailSetting({ data }) {
                         {selected === 'CQ' ? <BiSolidDownArrow className="accordion-icon" /> : <BiSolidRightArrow className="accordion-icon" />}
                     </button>
                 </div>
+
                 <div className="detail-button-group">
-                    {/* <button className="button-secondary">추가</button>
-                    <button className="button-secondary">삭제</button> */}
                     <button className="button-secondary">비교</button>
                 </div>
             </div>
+
             {selected && selectedWeights && (
                 <div className="detail-table">
                     <table className="detail-table-table">
@@ -66,12 +76,19 @@ export function DetailSetting({ data }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {selectedWeights.map((row, index) => (
-                                <tr key={index}>
+                            {selectedWeights.map((row) => (
+                                <tr key={row.id}>
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
                                     <td className="detail-table-td">{row.weight}</td>
-                                    <td className="detail-table-td"><input type="text" value={row.weight} style={{ width: "68px", textAlign: "right" }} /> 점</td>
+                                    <td className="detail-table-td">
+                                        <input 
+                                            type="text" 
+                                            value={weights[row.id] || row.weight} 
+                                            onChange={(e) => handleWeightChange(row.id, e.target.value)}
+                                            style={{ width: "68px", textAlign: "right" }} 
+                                        /> 점
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
