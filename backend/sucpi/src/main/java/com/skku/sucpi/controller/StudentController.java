@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +30,9 @@ public class StudentController {
         return ResponseEntity.ok(new ApiResponse<>(200, "Student retrieved successfully", studentDTO));
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<ApiResponse<String>> saveStudent(@RequestBody StudentDTO studentDTO) {
         studentService.saveStudent(studentDTO);
         return ResponseEntity.ok(new ApiResponse<>(200, "Student saved successfully", "Student saved successfully"));
-    }
+    }*/
 }
