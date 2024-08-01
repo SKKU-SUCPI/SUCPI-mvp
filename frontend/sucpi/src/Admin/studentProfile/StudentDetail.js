@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { AccordionItem } from "../../Student/profile/AccordionItem";
 import '../../Student/profile/Profile.css'
 import { AdminPersonal } from './AdminPersonal';
+import { AdminLQInfo } from './AdminLQInfo';
 
 export function StudentDetail() {
     const { id } = useParams();
@@ -84,8 +85,8 @@ export function StudentDetail() {
                 <AccordionItem title="개인정보">
                     <AdminPersonal studentInfo={studentData.student}/>
                 </AccordionItem>
-                <AccordionItem title="교과활동">
-
+                <AccordionItem title="교과활동 --> 이후는 추후 API 변경 이후 개발 예정">
+                    <AdminLQInfo lqInfo={studentData.lqStudent} />
                 </AccordionItem>
                 <AccordionItem title="연구활동">
 
