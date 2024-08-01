@@ -12,7 +12,7 @@ import { Profile } from './Student/profile/Profile';
 import { Leaderboard } from './Admin/leaderboard/Leaderboard';
 import { Statistic } from './Admin/statistic/Statistic';
 import { Setting } from './Admin/setting/Setting';
-import { StudentDetail } from './Admin/studentInfo/StudentDetail';
+import { StudentDetail } from './Admin/studentProfile/StudentDetail';
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
