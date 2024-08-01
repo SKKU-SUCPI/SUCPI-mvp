@@ -13,7 +13,7 @@ import com.skku.sucpi.dto.WeightDTO;
 import com.skku.sucpi.service.WeightService;
 
 @RestController
-@RequestMapping("/api/weights")
+@RequestMapping("/api/admin/weights")
 public class WeightController {
 
     @Autowired
