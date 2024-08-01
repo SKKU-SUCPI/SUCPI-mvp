@@ -21,7 +21,7 @@ public class StudentProfileController {
     private StudentProfileService studentProfileService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<StudentProfileDTO>> getStudentProfileById(@PathVariable String id) {
+    public ResponseEntity<ApiResponse<StudentProfileDTO>> getStudentProfileById(@PathVariable("id") String id) {
         StudentProfileDTO studentProfileDTO = studentProfileService.getStudentProfileById(id);
         if (studentProfileDTO == null) {
             return ResponseEntity.status(404).body(new ApiResponse<>(404, "Student profile not found", null));

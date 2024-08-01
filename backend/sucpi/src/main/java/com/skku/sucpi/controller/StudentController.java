@@ -22,7 +22,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable String id) {
+    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable("id") String id) {
         StudentDTO studentDTO = studentService.getStudentById(id);
         if (studentDTO == null) {
             return ResponseEntity.status(404).body(new ApiResponse<>(404, "Student not found", null));
