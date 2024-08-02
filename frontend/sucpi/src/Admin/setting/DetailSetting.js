@@ -56,7 +56,7 @@ export function DetailSetting({ data }) {
     const handleSaveClick = async () => {
         // 데이터를 저장할 객체를 생성
         const payload = {
-            lqweights: data.cqweights.map(item => ({
+            lqweights: data.lqweights.map(item => ({
                 ...item,
                 weight: weights.LQ[item.id] || item.weight
             })),
