@@ -7,7 +7,7 @@ export function DonutChart({ data, title }) {
     const customColors = ['#072B61', '#8DC63F', '#FF6C0F', '#0E341B'];
 
     useEffect(() => {
-        console.log('DonutChart data updated:', data);
+        // console.log('DonutChart data updated:', data);
     }, [data]);
 
     return (
