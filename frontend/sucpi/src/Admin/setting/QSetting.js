@@ -54,12 +54,14 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
                 throw new Error('비율 설정을 저장하는 데 실패했습니다.');
             }
 
-            // 비율 저장이 성공하면 전체 비율을 새로운 값으로 업데이트
+            // 비율 저장이 성공하면 전체 비율을 새로운 값으로 업데이트하고, 부모 상태도 업데이트
             setOverallRatios({
                 LQ: ratiosToSave.lqRatio,
                 RQ: ratiosToSave.rqRatio,
                 CQ: ratiosToSave.cqRatio
             });
+
+            setRatios(ratiosToSave); // 부모 컴포넌트의 상태도 업데이트
 
             alert('비율 설정이 성공적으로 저장되었습니다.');
         } catch (error) {

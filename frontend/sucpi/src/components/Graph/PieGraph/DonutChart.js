@@ -1,10 +1,14 @@
 // DonutChart.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import '../../../Admin/statistic/Statistic.css'
 
 export function DonutChart({ data, title }) {
     const customColors = ['#072B61', '#8DC63F', '#FF6C0F', '#0E341B'];
+
+    useEffect(() => {
+        console.log('DonutChart data updated:', data);
+    }, [data]);
 
     return (
         <div className="chart-container">
