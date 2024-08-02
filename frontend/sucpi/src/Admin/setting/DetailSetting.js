@@ -9,6 +9,11 @@ export function DetailSetting({ data }) {
         RQ: {},
         CQ: {},
     });
+    const [savedWeights, setSavedWeights] = useState({
+        LQ: {},
+        RQ: {},
+        CQ: {},
+    });
 
     // 초기 weight 값을 설정하는 useEffect
     useEffect(() => {
@@ -28,7 +33,8 @@ export function DetailSetting({ data }) {
                 }, {})
             };
             setWeights(initialWeights);
-            console.log("Initial weights set:", initialWeights); // 초기 설정된 weights 확인
+            setSavedWeights(initialWeights); // 초기 값을 savedWeights에도 설정
+            console.log("Initial weights set:", initialWeights);
         }
     }, [data]);
 
@@ -37,8 +43,8 @@ export function DetailSetting({ data }) {
     };
 
     const handleWeightChange = (type, id, newWeight) => {
-        const numericWeight = parseInt(newWeight, 10) || 0; // 문자열을 정수로 변환 (잘못된 값은 0으로 처리)
-        
+        const numericWeight = parseInt(newWeight, 10) || 0;
+
         setWeights(prevWeights => {
             const updatedWeights = {
                 ...prevWeights,
@@ -54,7 +60,6 @@ export function DetailSetting({ data }) {
     };
 
     const handleSaveClick = async () => {
-        // 데이터를 저장할 객체를 생성
         const payload = {
             lqweights: data.lqweights.map(item => ({
                 ...item,
@@ -84,6 +89,23 @@ export function DetailSetting({ data }) {
             }
 
             alert('가중치 설정이 성공적으로 저장되었습니다.');
+
+            // 서버에 저장된 값을 savedWeights 상태로 업데이트
+            setSavedWeights({
+                LQ: payload.lqweights.reduce((acc, item) => {
+                    acc[item.id] = item.weight;
+                    return acc;
+                }, {}),
+                RQ: payload.rqweights.reduce((acc, item) => {
+                    acc[item.id] = item.weight;
+                    return acc;
+                }, {}),
+                CQ: payload.cqweights.reduce((acc, item) => {
+                    acc[item.id] = item.weight;
+                    return acc;
+                }, {})
+            });
+
         } catch (error) {
             alert(error.message);
         }
@@ -152,7 +174,8 @@ export function DetailSetting({ data }) {
                                 <tr key={row.id}>
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
-                                    <td className="detail-table-td">{row.weight}</td>
+                                    {/* 저장된 후에만 업데이트된 값을 보여줌 */}
+                                    <td className="detail-table-td">{savedWeights[selected][row.id]}</td>
                                     <td className="detail-table-td">
                                         <input 
                                             type="text" 
