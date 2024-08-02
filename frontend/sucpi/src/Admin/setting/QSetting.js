@@ -34,6 +34,39 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
         setComparisonRatios(comparisonRatios);
     };
 
+    const handleSaveClick = async () => {
+        const ratiosToSave = {
+            lqRatio: comparisonRatios.compareLQ,
+            rqRatio: comparisonRatios.compareRQ,
+            cqRatio: comparisonRatios.compareCQ
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/api/admin/settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(ratiosToSave)
+            });
+
+            if (!response.ok) {
+                throw new Error('비율 설정을 저장하는 데 실패했습니다.');
+            }
+
+            // 비율 저장이 성공하면 전체 비율을 새로운 값으로 업데이트
+            setOverallRatios({
+                LQ: ratiosToSave.lqRatio,
+                RQ: ratiosToSave.rqRatio,
+                CQ: ratiosToSave.cqRatio
+            });
+
+            alert('비율 설정이 성공적으로 저장되었습니다.');
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
     useEffect(() => {
         setRatios(overallRatios);
     }, [overallRatios, setRatios]);
@@ -42,7 +75,7 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
         <div className="qsetting-container">
             <div className='qsetting-container-header'>
                 <h3>전체 비율</h3>
-                <button className="button-save">저장</button>
+                <button className="button-save" onClick={handleSaveClick}>저장</button>
             </div>
             <div className="qsetting-ratio-container">
                 <div className="current-ratio">
