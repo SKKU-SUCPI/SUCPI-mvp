@@ -26,6 +26,7 @@ export function Profile() {
     const [editable, setEditable] = useState(false);
     const [studentInfoData, setStudentInfoData] = useState(data.result.studentInfo);
     const [studentLQData, setStudentLQData] = useState(data.result.lqInfo);
+    const [studentCQData, setStudentCQData] = useState(data.result.cqInfo);
 
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
@@ -48,6 +49,13 @@ export function Profile() {
         }));
     };
 
+    const handleCQDataChange = (name, value) => {
+        setStudentCQData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
     return (
         <div className="profile-container">
             <div className="profile" style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
@@ -62,7 +70,7 @@ export function Profile() {
                     <RQInfo />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
-                    <CQInfo />
+                    <CQInfo studentCQData={studentCQData} onCQDataChange={handleCQDataChange} editable={editable} />
                 </AccordionItem>
             </div>
             <RightMenu onSaveClick={handleSaveClick} onEditClick={handleEditClick} editable={editable} />

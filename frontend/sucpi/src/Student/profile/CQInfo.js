@@ -1,56 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './AccordionItem'
 
-
-
-
-const FileUpload = ({ label }) => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const fileInputRef = useRef(null);
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type === 'application/pdf') {
-            setSelectedFile(file);
-        } else {
-            alert('PDF 파일만 업로드할 수 있습니다.');
-            setSelectedFile(null);
-        }
-    };
-
-    const handleFileUpload = () => {
-        fileInputRef.current.click();
-    };
-
-    return (
-        <div className='form-group form-group-row'>
-            <label style={{ marginRight: '24px' }}>{label}</label>
-            <input type='text' className='form-control' placeholder='기업명과 본인의 역할 및 수행 내용을 작성해 주세요.' style={{ width: "80%" }} />
-            <div className='file-upload-row'>
-                {selectedFile && (
-                    <span className='file-name'>{selectedFile.name}</span>
-                )}
-                <button className='upload-button' onClick={handleFileUpload}>파일 업로드</button>
-                <input
-                    type='file'
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                    accept='application/pdf'
-                />
-            </div>
-        </div>
-    );
-};
-
-
-
-
-
-export function CQInfo()
+export function CQInfo({ studentCQData, onCQDataChange, editable })
 {
+    const inputStyle = editable ? { backgroundColor: 'white' } : {};
+
+    
+
     return (
-        <div className='form-container'>
+        <div className='form-container' style={{ whiteSpace: "nowrap" }}>
             <div className='form-group form-group-row' >
                 <label style={{ marginRight: '24px' }}>산학프로젝트</label>
                 <input type='text' className='form-control' placeholder='기업명과 본인의 역할 및 수행 내용을 작성해 주세요.' style={{width: "80%", paddingLeft: "24px"}}/>
@@ -128,3 +86,46 @@ export function CQInfo()
         </div>
     );
 }
+
+
+
+
+// 파일 업로드
+const FileUpload = ({ label }) => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            setSelectedFile(file);
+        } else {
+            alert('PDF 파일만 업로드할 수 있습니다.');
+            setSelectedFile(null);
+        }
+    };
+
+    const handleFileUpload = () => {
+        fileInputRef.current.click();
+    };
+
+    return (
+        <div className='form-group form-group-row'>
+            <label style={{ marginRight: '24px' }}>{label}</label>
+            <input type='text' className='form-control' placeholder='기업명과 본인의 역할 및 수행 내용을 작성해 주세요.' style={{ width: "80%" }} />
+            <div className='file-upload-row'>
+                {selectedFile && (
+                    <span className='file-name'>{selectedFile.name}</span>
+                )}
+                <button className='upload-button' onClick={handleFileUpload}>파일 업로드</button>
+                <input
+                    type='file'
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                    accept='application/pdf'
+                />
+            </div>
+        </div>
+    );
+};
