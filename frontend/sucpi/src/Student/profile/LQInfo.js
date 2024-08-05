@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 export function LQInfo({ studentLQData, onLQDataChange, editable }) {
     const inputStyle = editable ? { backgroundColor: 'white' } : {};
 
     // 학점 추출 및 설정
     useEffect(() => {
-        const { lqGrade40TO45, lqGrade35TO40, lqGrade30TO35, lqGrade00TO30 } = studentLQData;
+        const { grade40TO45, grade35TO40, grade30TO35, grade00TO30, LQGrade } = studentLQData;
         let selectedGrade = "";
 
-        if (lqGrade40TO45 === 1) {
+        if (grade40TO45 === 1) {
             selectedGrade = "4To4.5";
-        } else if (lqGrade35TO40 === 1) {
+        } else if (grade35TO40 === 1) {
             selectedGrade = "3.5To3.99";
-        } else if (lqGrade30TO35 === 1) {
+        } else if (grade30TO35 === 1) {
             selectedGrade = "3.0To3.49";
-        } else if (lqGrade00TO30 === 1) {
+        } else if (grade00TO30 === 1) {
             selectedGrade = "~2.99";
         }
 
-        // LQGrade를 업데이트합니다.
-        onLQDataChange("LQGrade", selectedGrade);
-    }, [studentLQData, onLQDataChange]);
+        // LQGrade가 현재 선택된 값과 다른 경우에만 업데이트
+        if (selectedGrade && selectedGrade !== LQGrade) {
+            onLQDataChange("LQGrade", selectedGrade);
+        }
+    }, [studentLQData.grade40TO45, studentLQData.grade35TO40, studentLQData.grade30TO35, studentLQData.grade00TO30, studentLQData.LQGrade, onLQDataChange]);
 
     const handleSelectChange = (e) => {
         const { name, value } = e.target;
@@ -31,6 +33,14 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
         const { name, value } = e.target;
         onLQDataChange(name, value);
     };
+
+    // 컨텐츠 필터링
+    const eduContents = studentLQData.contents.filter(item => item.dataname === "activityEdu");
+    const TAContents = studentLQData.contents.filter(item => item.dataname === "activityTA");
+
+    // 콘솔에 출력
+    console.log("Edu -> ", eduContents);
+    console.log("TA -> ", TAContents);
 
     return (
         <div className='form-container'>
@@ -56,30 +66,36 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                     <label>교내ㆍ외 교육 활동</label>
                     <button className='add-item' disabled={!editable}>항목 추가</button>
                 </div>
-                <textarea
-                    className='form-control textarea-expanded'
-                    rows="2"
-                    name="LQEduActivity1"
-                    value={studentLQData.LQEduActivity1}
-                    onChange={handleTextChange}
-                    disabled={!editable}
-                    style={inputStyle}
-                ></textarea>
+                {eduContents.map((item, index) => (
+                    <textarea
+                        key={index}
+                        className='form-control textarea-expanded'
+                        rows="2"
+                        name={`activityEdu_${index}`}
+                        value={item.contents}
+                        onChange={handleTextChange}
+                        disabled={!editable}
+                        style={inputStyle}
+                    ></textarea>
+                ))}
             </div>
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>교육 조교 활동</label>
                     <button className='add-item' disabled={!editable}>항목 추가</button>
                 </div>
-                <textarea
-                    className='form-control textarea-expanded'
-                    rows="2"
-                    name="LQEduActivity2"
-                    value={studentLQData.LQEduActivity2}
-                    onChange={handleTextChange}
-                    disabled={!editable}
-                    style={inputStyle}
-                ></textarea>
+                {TAContents.map((item, index) => (
+                    <textarea
+                        key={index}
+                        className='form-control textarea-expanded'
+                        rows="2"
+                        name={`activityTA_${index}`}
+                        value={item.contents}
+                        onChange={handleTextChange}
+                        disabled={!editable}
+                        style={inputStyle}
+                    ></textarea>
+                ))}
             </div>
             <div className='form-group form-group-row' style={{ whiteSpace: "nowrap", gap: "50%" }}>
                 <label>오픈소스커뮤니티 생성 및 활성도</label>
