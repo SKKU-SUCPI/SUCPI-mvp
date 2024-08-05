@@ -1,7 +1,26 @@
-import './AccordionItem'
+import React, { useState, useEffect } from "react";
 
 export function LQInfo({ studentLQData, onLQDataChange, editable }) {
     const inputStyle = editable ? { backgroundColor: 'white' } : {};
+
+    // 학점 추출 및 설정
+    useEffect(() => {
+        const { lqGrade40TO45, lqGrade35TO40, lqGrade30TO35, lqGrade00TO30 } = studentLQData;
+        let selectedGrade = "";
+
+        if (lqGrade40TO45 === 1) {
+            selectedGrade = "4To4.5";
+        } else if (lqGrade35TO40 === 1) {
+            selectedGrade = "3.5To3.99";
+        } else if (lqGrade30TO35 === 1) {
+            selectedGrade = "3.0To3.49";
+        } else if (lqGrade00TO30 === 1) {
+            selectedGrade = "~2.99";
+        }
+
+        // LQGrade를 업데이트합니다.
+        onLQDataChange("LQGrade", selectedGrade);
+    }, [studentLQData, onLQDataChange]);
 
     const handleSelectChange = (e) => {
         const { name, value } = e.target;
