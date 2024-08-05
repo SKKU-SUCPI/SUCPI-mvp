@@ -143,6 +143,30 @@
     background-color: #666666; /* 호버 시 배경색 */
 }
 
+.remove-item {
+    background-color: #ff4d4f;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-item:hover {
+    background-color: #d9363e;
+}
+
+.remove-item:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .upload-button {
     display: inline-block;
     padding: 8px 15px; /* 버튼의 내부 여백 */

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './AccordionItem'
 
 export function CQInfo({ studentCQData, onCQDataChange, editable }) {
@@ -20,6 +20,11 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
         onCQDataChange("seminar", newSeminars);
     };
 
+    const handleRemoveSeminar = (index) => {
+        const newSeminars = studentCQData.seminar.filter((_, i) => i !== index);
+        onCQDataChange("seminar", newSeminars);
+    };
+
     const handleStudioContributionChange = (index, event) => {
         const newContributions = [...studentCQData.studioContribution];
         newContributions[index] = event.target.value;
@@ -28,6 +33,11 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
 
     const handleAddStudioContribution = () => {
         const newContributions = [...studentCQData.studioContribution, ""];
+        onCQDataChange("studioContribution", newContributions);
+    };
+
+    const handleRemoveStudioContribution = (index) => {
+        const newContributions = studentCQData.studioContribution.filter((_, i) => i !== index);
         onCQDataChange("studioContribution", newContributions);
     };
 
@@ -95,57 +105,16 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                             onChange={(e) => handleSeminarChange(index, e)}
                             disabled={!editable}
                         ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveSeminar(index)}
+                            >
+                                삭제
+                            </button>
+                        )}
                     </div>
                 ))}
-            </div>
-            <hr className='divider' />
-            <div className='form-group form-group-row' style={{whiteSpace: "nowrap", gap: "30%", marginBottom: "24px"}}>
-                <label>알리미</label>
-                <select 
-                    className='form-control' 
-                    name="alimi_leader" 
-                    value={studentCQData.alimi_leader || ''} 
-                    onChange={handleInputChange} 
-                    style={inputStyle}
-                    disabled={!editable}
-                >
-                    <option value="">직급 선택</option>
-                    <option value="1">회장</option>
-                    <option value="0.5">부회장</option>
-                    <option value="0.1">참여</option>
-                </select>
-            </div>
-            <div className='form-group form-group-row' style={{whiteSpace: "nowrap", gap: "30%", marginBottom: "24px"}}>
-                <label>학생회</label>
-                <select 
-                    className='form-control' 
-                    name="council_leader" 
-                    value={studentCQData.council_leader || ''} 
-                    onChange={handleInputChange} 
-                    style={inputStyle}
-                    disabled={!editable}
-                >
-                    <option value="">직급 선택</option>
-                    <option value="1">회장</option>
-                    <option value="0.5">부회장</option>
-                    <option value="0.1">참여</option>
-                </select>
-            </div>
-            <div className='form-group form-group-row' style={{whiteSpace: "nowrap", gap: "30%", marginBottom: "24px"}}>
-                <label>기자단</label>
-                <select 
-                    className='form-control' 
-                    name="reporter_leader" 
-                    value={studentCQData.reporter_leader || ''} 
-                    onChange={handleInputChange} 
-                    style={inputStyle}
-                    disabled={!editable}
-                >
-                    <option value="">직급 선택</option>
-                    <option value="1">회장</option>
-                    <option value="0.5">부회장</option>
-                    <option value="0.1">참여</option>
-                </select>
             </div>
             <hr className='divider' />
             <div className='form-group form-group-column'>
@@ -168,6 +137,14 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                             onChange={(e) => handleStudioContributionChange(index, e)}
                             disabled={!editable}
                         ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveStudioContribution(index)}
+                            >
+                                삭제
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
