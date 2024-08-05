@@ -25,7 +25,7 @@ export function RightMenu({ editable, onSaveClick, onEditClick }) {
 export function Profile() {
     const [editable, setEditable] = useState(false);
     const [studentInfoData, setStudentInfoData] = useState(data.result.studentInfo);
-    const [studentLQData, setStudentLQData] = useState(data.result.lqStudent);
+    const [studentLQData, setStudentLQData] = useState(data.result.lqInfo);
 
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
@@ -121,33 +121,33 @@ const data = {
             "RQMyeongKci": 0,
             "RQMyeongKciCandidate": 0
         },
-        "lqStudent": {
+        "lqInfo": {
             "studentId": "20220020",
-            "lqActivityEdu": 2,
-            "lqActivityTA": 1,
-            "lqGrade40TO45": 1,
-            "lqGrade35TO40": 0,
-            "lqGrade30TO35": 0,
-            "lqGrade00TO30": 0,
-            "lqOpenSourceActivity1Star0": 0,
-            "lqOpenSourceActivity1Star3": 0,
-            "lqOpenSourceActivity1Star4": 1,
-            "lqOpenSourceActivity1Star5": 0,
-            "lqOpenSourceActivity2Star0": 1,
-            "lqOpenSourceActivity2Star3": 0,
-            "lqOpenSourceActivity2Star4": 0,
-            "lqOpenSourceActivity2Star5": 0,
+            "activityEdu": 2,
+            "activityTA": 1,
+            "grade40TO45": 1,
+            "grade35TO40": 0,
+            "grade30TO35": 0,
+            "grade00TO30": 0,
+            "openSourceActivity1Star0": 0,
+            "openSourceActivity1Star3": 0,
+            "openSourceActivity1Star4": 1,
+            "openSourceActivity1Star5": 0,
+            "openSourceActivity2Star0": 1,
+            "openSourceActivity2Star3": 0,
+            "openSourceActivity2Star4": 0,
+            "openSourceActivity2Star5": 0,
             "contents": [
                 {
                     "id": 346,
                     "studentId": "20200020",
-                    "dataname": "lqActivityEdu",
+                    "dataname": "activityEdu",
                     "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
                 },
                                 {
                     "id": 346,
                     "studentId": "20200020",
-                    "dataname": "lqActivityEdu",
+                    "dataname": "activityEdu",
                     "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
                 }
             ]
