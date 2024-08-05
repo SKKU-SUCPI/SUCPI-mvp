@@ -94,8 +94,8 @@
 }
 
 .textarea-expanded {
-    width: 90%; /* 텍스트 영역의 너비를 100%로 확장 */
     resize: none;
+    width: 320px;
     overflow: hidden;
 }
 
