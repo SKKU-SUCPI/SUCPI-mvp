@@ -76,17 +76,25 @@ const data = {
     "status": 200,
     "message": "Student details retrieved successfully",
     "result": {
-        "CQInfo": {
-            "CQCoop": 0,
-            "CQInternship": 0,
-            "CQStartup": 0,
-            "CQStudentCouncil": 0,
-            "CQLectureSeminar": 0,
-            "CQOverseaVolunteer": 0,
-            "CQMediaPromotion": 0,
-            "CQStudyGroup": 0,
-            "CQStudioContribution": 0,
-            "CQAlimi": 0
+        "cqInfo": {
+            "coop": "2022년 웅진 씽크빅에서 게임봇 및 챗봇을 개발하였습니다.",
+            "internship": "",
+            "startup": "",
+            "overseaVolunteer": "2024 하계 ICT 해외봉사를 다녀왔습니다.",
+            "seminar": ["AWS Korea의 강연을 들었습니다.", "Meta의 강연을 들었습니다."],
+            "alimi_leader": 0,
+            "alimi_vise_leader": 0,
+            "alimi_participate": 0,
+            "council_leader": 1,
+            "council_vise_leader": 0,
+            "council_particiapte": 0,
+            "reporter_leader": 1,
+            "reporter_vise_leader": 0,
+            "reporter_participate": 0,
+            "studioContribution": ["ARS Electronica 작품을 제작하였습니다."],
+            "studyGroup_leader": 0,
+            "studyGroup_vise_leader": 1,
+            "studyGroup_participate": 0
         },
         "studentInfo": {
             "Id": "2020123123",
