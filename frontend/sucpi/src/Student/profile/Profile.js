@@ -123,8 +123,8 @@ const data = {
         },
         "lqStudent": {
             "studentId": "20220020",
-            "lqEduActivity1": 2,
-            "lqEduActivity2": 1,
+            "lqActivityEdu": 2,
+            "lqActivityTA": 1,
             "lqGrade40TO45": 1,
             "lqGrade35TO40": 0,
             "lqGrade30TO35": 0,
@@ -141,13 +141,13 @@ const data = {
                 {
                     "id": 346,
                     "studentId": "20200020",
-                    "dataname": "lqEduActivity1",
+                    "dataname": "lqActivityEdu",
                     "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
                 },
                                 {
                     "id": 346,
                     "studentId": "20200020",
-                    "dataname": "lqEduActivity1",
+                    "dataname": "lqActivityEdu",
                     "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
                 }
             ]
