@@ -26,7 +26,7 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
 
     // 오픈소스활성도 추출 및 설정
     useEffect(() => {
-        const { openSourceActivityStar0, openSourceActivityStar3, openSourceActivityStar4, openSourceActivityStar5, LQOpenSourceActivity } = studentLQData;
+        const { openSourceActivityStar0, openSourceActivityStar3, openSourceActivityStar4, openSourceActivityStar5, OpenSourceActivity } = studentLQData;
         let selectedOSStar = "";
         
         if (openSourceActivityStar5 == 1) {
@@ -38,9 +38,29 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
         } else if (openSourceActivityStar0 == 1) {
             selectedOSStar = "0";
         }
-        // LQOpenSourceActivity가 현재 선택된 값과 다른 경우에만 업데이트
-        if (selectedOSStar && selectedOSStar !== LQOpenSourceActivity) {
-            onLQDataChange("LQOpenSourceActivity", selectedOSStar);
+        // OpenSourceActivity가 현재 선택된 값과 다른 경우에만 업데이트
+        if (selectedOSStar && selectedOSStar !== OpenSourceActivity) {
+            onLQDataChange("OpenSourceActivity", selectedOSStar);
+        }
+    }, [studentLQData, onLQDataChange]);
+
+    // 커미터 추출 및 설정
+    useEffect(() => {
+        const { committerStar0, committerStar3, committerStar4, committerStar5, CommitterActivity } = studentLQData;
+        let selectedCommitter = "";
+
+        if (committerStar5 == 1) {
+            selectedCommitter = "5";
+        } else if (committerStar4 == 1) {
+            selectedCommitter = "4";
+        } else if (committerStar3 == 1) {
+            selectedCommitter = "3";
+        } else if (committerStar0 == 1) {
+            selectedCommitter = "0";
+        }
+
+        if (selectedCommitter && selectedCommitter !== CommitterActivity) {
+            onLQDataChange("CommitterActivity", selectedCommitter);
         }
     }, [studentLQData, onLQDataChange]);
 
@@ -117,8 +137,8 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <label>오픈소스커뮤니티 생성 및 활성도</label>
                 <select
                     className='form-control'
-                    name="LQOpenSourceActivity"
-                    value={studentLQData.LQOpenSourceActivity}
+                    name="OpenSourceActivity"
+                    value={studentLQData.OpenSourceActivity}
                     onChange={handleSelectChange}
                     disabled={!editable}
                     style={inputStyle}
@@ -133,17 +153,16 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <label>커미터로서의 활동</label>
                 <select
                     className='form-control'
-                    name="LQCommitterActivity"
-                    value={studentLQData.LQCommitterActivity}
+                    name="CommitterActivity"
+                    value={studentLQData.CommitterActivity}
                     onChange={handleSelectChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
-                    <option value="">(기준)</option>
-                    <option value="4To4.5">4.0~4.5</option>
-                    <option value="3.5To3.99">3.5~3.99</option>
-                    <option value="3.0To3.49">3.0~3.49</option>
-                    <option value="~2.99">~2.99</option>
+                    <option value="0">0점</option>
+                    <option value="3">3점</option>
+                    <option value="4">4점</option>
+                    <option value="5">5점</option>
                 </select>
             </div>
         </div>

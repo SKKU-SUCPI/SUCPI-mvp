@@ -133,8 +133,8 @@ const data = {
             "openSourceActivityStar3": 0,
             "openSourceActivityStar4": 1,
             "openSourceActivityStar5": 0,
-            "committerStar0": 1,
-            "committerStar3": 0,
+            "committerStar0": 0,
+            "committerStar3": 1,
             "committerStar4": 0,
             "committerStar5": 0,
             "contents": [
