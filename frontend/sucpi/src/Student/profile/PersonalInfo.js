@@ -23,6 +23,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentName"
+                    style={{ width: "240px" }}
                     value={studentInfo.name} 
                     onChange={handleChange}
                     disabled={true} 
@@ -34,6 +35,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentId"
+                    style={{ width: "240px" }}
                     value={studentInfo.Id} 
                     onChange={handleChange}
                     disabled={true}
@@ -45,6 +47,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentMajor"
+                    style={{ width: "240px" }}
                     value={majorMapping[studentInfo.major] || "학과를 선택해 주세요"} 
                     onChange={handleChange}
                     disabled={true}
@@ -59,7 +62,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     value={studentInfo.phone.split('-')[0]} 
                     onChange={(e) => handleChange({ target: { name: 'phone', value: e.target.value + '-' + studentInfo.phone.split('-')[1] + '-' + studentInfo.phone.split('-')[2] } })}
                     disabled={!editable} 
-                    style={inputStyle} 
+                    style={{ ...inputStyle, width: "80px"}} 
                 /> - 
                 <input 
                     type='text' 
@@ -68,7 +71,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     value={studentInfo.phone.split('-')[1]} 
                     onChange={(e) => handleChange({ target: { name: 'phone', value: studentInfo.phone.split('-')[0] + '-' + e.target.value + '-' + studentInfo.phone.split('-')[2] } })}
                     disabled={!editable} 
-                    style={inputStyle} 
+                    style={{ ...inputStyle, width: "80px"}} 
                 /> - 
                 <input 
                     type='text' 
@@ -77,7 +80,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     value={studentInfo.phone.split('-')[2]} 
                     onChange={(e) => handleChange({ target: { name: 'phone', value: studentInfo.phone.split('-')[0] + '-' + studentInfo.phone.split('-')[1] + '-' + e.target.value } })}
                     disabled={!editable} 
-                    style={inputStyle} 
+                    style={{ ...inputStyle, width: "80px"}} 
                 />
             </div>
         </div>
