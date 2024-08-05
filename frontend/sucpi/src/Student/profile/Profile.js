@@ -144,11 +144,17 @@ const data = {
                     "dataname": "activityEdu",
                     "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
                 },
-                                {
-                    "id": 346,
+                {
+                    "id": 347,
                     "studentId": "20200020",
                     "dataname": "activityEdu",
                     "contents": "고등학교에서 파이썬 기초 교육을 진행했습니다."
+                },
+                {
+                    "id": 348,
+                    "studentId": "20200020",
+                    "dataname": "activityTA",
+                    "contents": "인공지능 개론 조교를 수행했습니다."
                 }
             ]
         }
