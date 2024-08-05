@@ -151,7 +151,7 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
             <hr className='divider' />
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
-                    <label>스튜디오 기여</label>
+                    <label>스터디 그룹</label>
                     <span className='sub-label'>SCG MAV 스꾸딩 스꾸디 S-CAR HIT GDSC SST NPC 소속 학생</span>
                     <select 
                         className='form-control' 
@@ -174,22 +174,27 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
 
 // 파일 업로드 컴포넌트
 const FileUpload = ({ label, fileName, editable, onCQDataChange, fieldName, inputStyle }) => {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(fileName || ""); // Keep the initial file name if provided
     const fileInputRef = useRef(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type === 'application/pdf') {
-            setSelectedFile(file);
-            onCQDataChange(fieldName, file.name);
+            setSelectedFile(file.name); // Set the selected file name but don't update the text input
+            onCQDataChange(`${fieldName}FileName`, file.name); // Store file name separately
         } else {
             alert('PDF 파일만 업로드할 수 있습니다.');
-            setSelectedFile(null);
+            setSelectedFile(""); // Clear selected file if not a valid PDF
         }
     };
 
     const handleFileUpload = () => {
         fileInputRef.current.click();
+    };
+
+    const handleTextChange = (event) => {
+        const { value } = event.target;
+        onCQDataChange(fieldName, value); // Update the text input value in the parent component's state
     };
 
     return (
@@ -198,14 +203,15 @@ const FileUpload = ({ label, fileName, editable, onCQDataChange, fieldName, inpu
             <input 
                 type='text' 
                 className='form-control' 
-                value={fileName || ''} 
+                value={fileName || ''}  // Keep the original text input value separate
                 placeholder='기업명과 본인의 역할 및 수행 내용을 작성해 주세요.' 
                 style={{ ...inputStyle, width: "80%" }} 
-                readOnly
+                onChange={handleTextChange}  // Allow editing the input field
+                disabled={!editable}  // Disable input when not in edit mode
             />
             <div className='file-upload-row'>
                 {selectedFile && (
-                    <span className='file-name'>{selectedFile.name}</span>
+                    <span className='file-name'>{selectedFile}</span>
                 )}
                 <button className='upload-button' onClick={handleFileUpload} disabled={!editable}>파일 업로드</button>
                 <input
