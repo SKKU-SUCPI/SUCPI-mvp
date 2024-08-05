@@ -89,10 +89,10 @@ const data = {
             "CQAlimi": 0
         },
         "studentInfo": {
-            "studentId": "2020123123",
-            "studentMajor": "SW",
-            "studentName": "홍길동",
-            "studentPhoneNum": "010-1234-5678"
+            "Id": "2020123123",
+            "major": "SW",
+            "name": "홍길동",
+            "phone": "010-1234-5678"
         },
         "RQInfo": {
             "RQYulNationalPoster": 0,

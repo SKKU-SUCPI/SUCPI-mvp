@@ -23,7 +23,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentName"
-                    value={studentInfo.studentName} 
+                    value={studentInfo.name} 
                     onChange={handleChange}
                     disabled={true} 
                 />
@@ -34,7 +34,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentId"
-                    value={studentInfo.studentId} 
+                    value={studentInfo.Id} 
                     onChange={handleChange}
                     disabled={true}
                 />
@@ -45,7 +45,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentMajor"
-                    value={majorMapping[studentInfo.studentMajor] || "학과를 선택해 주세요"} 
+                    value={majorMapping[studentInfo.major] || "학과를 선택해 주세요"} 
                     onChange={handleChange}
                     disabled={true}
                 />
@@ -56,8 +56,8 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control-contact' 
                     name="studentPhoneNum1"
-                    value={studentInfo.studentPhoneNum.split('-')[0]} 
-                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: e.target.value + '-' + studentInfo.studentPhoneNum.split('-')[1] + '-' + studentInfo.studentPhoneNum.split('-')[2] } })}
+                    value={studentInfo.phone.split('-')[0]} 
+                    onChange={(e) => handleChange({ target: { name: 'phone', value: e.target.value + '-' + studentInfo.phone.split('-')[1] + '-' + studentInfo.phone.split('-')[2] } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 /> - 
@@ -65,8 +65,8 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentPhoneNum2"
-                    value={studentInfo.studentPhoneNum.split('-')[1]} 
-                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: studentInfo.studentPhoneNum.split('-')[0] + '-' + e.target.value + '-' + studentInfo.studentPhoneNum.split('-')[2] } })}
+                    value={studentInfo.phone.split('-')[1]} 
+                    onChange={(e) => handleChange({ target: { name: 'phone', value: studentInfo.phone.split('-')[0] + '-' + e.target.value + '-' + studentInfo.phone.split('-')[2] } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 /> - 
@@ -74,8 +74,8 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     type='text' 
                     className='form-control' 
                     name="studentPhoneNum3"
-                    value={studentInfo.studentPhoneNum.split('-')[2]} 
-                    onChange={(e) => handleChange({ target: { name: 'studentPhoneNum', value: studentInfo.studentPhoneNum.split('-')[0] + '-' + studentInfo.studentPhoneNum.split('-')[1] + '-' + e.target.value } })}
+                    value={studentInfo.phone.split('-')[2]} 
+                    onChange={(e) => handleChange({ target: { name: 'phone', value: studentInfo.phone.split('-')[0] + '-' + studentInfo.phone.split('-')[1] + '-' + e.target.value } })}
                     disabled={!editable} 
                     style={inputStyle} 
                 />
