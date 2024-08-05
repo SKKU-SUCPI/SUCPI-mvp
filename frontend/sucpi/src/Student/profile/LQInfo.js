@@ -24,6 +24,26 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
         }
     }, [studentLQData.grade40TO45, studentLQData.grade35TO40, studentLQData.grade30TO35, studentLQData.grade00TO30, studentLQData.LQGrade, onLQDataChange]);
 
+    // 오픈소스활성도 추출 및 설정
+    useEffect(() => {
+        const { openSourceActivityStar0, openSourceActivityStar3, openSourceActivityStar4, openSourceActivityStar5, LQOpenSourceActivity } = studentLQData;
+        let selectedOSStar = "";
+        
+        if (openSourceActivityStar5 == 1) {
+            selectedOSStar = "5";
+        } else if (openSourceActivityStar4 == 1) {
+            selectedOSStar = "4";
+        } else if (openSourceActivityStar3 == 1) {
+            selectedOSStar = "3";
+        } else if (openSourceActivityStar0 == 1) {
+            selectedOSStar = "0";
+        }
+        // LQOpenSourceActivity가 현재 선택된 값과 다른 경우에만 업데이트
+        if (selectedOSStar && selectedOSStar !== LQOpenSourceActivity) {
+            onLQDataChange("LQOpenSourceActivity", selectedOSStar);
+        }
+    }, [studentLQData, onLQDataChange]);
+
     const handleSelectChange = (e) => {
         const { name, value } = e.target;
         onLQDataChange(name, value);
@@ -37,10 +57,6 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
     // 컨텐츠 필터링
     const eduContents = studentLQData.contents.filter(item => item.dataname === "activityEdu");
     const TAContents = studentLQData.contents.filter(item => item.dataname === "activityTA");
-
-    // 콘솔에 출력
-    console.log("Edu -> ", eduContents);
-    console.log("TA -> ", TAContents);
 
     return (
         <div className='form-container'>
@@ -107,11 +123,10 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                     disabled={!editable}
                     style={inputStyle}
                 >
-                    <option value="">(기준)</option>
-                    <option value="4To4.5">4.0~4.5</option>
-                    <option value="3.5To3.99">3.5~3.99</option>
-                    <option value="3.0To3.49">3.0~3.49</option>
-                    <option value="~2.99">~2.99</option>
+                    <option value="0">0점</option>
+                    <option value="3">3점</option>
+                    <option value="4">4점</option>
+                    <option value="5">5점</option>
                 </select>
             </div>
             <div className='form-group form-group-row' style={{ whiteSpace: "nowrap", gap: "50%" }}>
