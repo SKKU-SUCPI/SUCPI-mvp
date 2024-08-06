@@ -25,7 +25,8 @@ export function RightMenu({ editable, onSaveClick, onEditClick }) {
 export function Profile() {
     const [editable, setEditable] = useState(false);
     const [studentInfoData, setStudentInfoData] = useState(data.result.studentInfo);
-    const [studentLQData, setStudentLQData] = useState(data.result.LQInfo);
+    const [studentLQData, setStudentLQData] = useState(data.result.lqInfo);
+    const [studentCQData, setStudentCQData] = useState(data.result.cqInfo);
 
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
@@ -48,6 +49,13 @@ export function Profile() {
         }));
     };
 
+    const handleCQDataChange = (name, value) => {
+        setStudentCQData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
     return (
         <div className="profile-container">
             <div className="profile" style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
@@ -62,7 +70,7 @@ export function Profile() {
                     <RQInfo />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
-                    <CQInfo />
+                    <CQInfo studentCQData={studentCQData} onCQDataChange={handleCQDataChange} editable={editable} />
                 </AccordionItem>
             </div>
             <RightMenu onSaveClick={handleSaveClick} onEditClick={handleEditClick} editable={editable} />
@@ -76,23 +84,31 @@ const data = {
     "status": 200,
     "message": "Student details retrieved successfully",
     "result": {
-        "CQInfo": {
-            "CQCoop": 0,
-            "CQInternship": 0,
-            "CQStartup": 0,
-            "CQStudentCouncil": 0,
-            "CQLectureSeminar": 0,
-            "CQOverseaVolunteer": 0,
-            "CQMediaPromotion": 0,
-            "CQStudyGroup": 0,
-            "CQStudioContribution": 0,
-            "CQAlimi": 0
+        "cqInfo": {
+            "coop": "2022년 웅진 씽크빅에서 게임봇 및 챗봇을 개발하였습니다.",
+            "internship": "",
+            "startup": "",
+            "overseaVolunteer": "2024 하계 ICT 해외봉사를 다녀왔습니다.",
+            "seminar": ["AWS Korea의 강연을 들었습니다.", "Meta의 강연을 들었습니다."],
+            "alimi_leader": 0,
+            "alimi_vise_leader": 0,
+            "alimi_participate": 0,
+            "council_leader": 1,
+            "council_vise_leader": 0,
+            "council_particiapte": 0,
+            "reporter_leader": 1,
+            "reporter_vise_leader": 0,
+            "reporter_participate": 0,
+            "studioContribution": ["ARS Electronica 작품을 제작하였습니다."],
+            "studyGroup_leader": 0,
+            "studyGroup_vise_leader": 1,
+            "studyGroup_participate": 0
         },
         "studentInfo": {
-            "studentId": "2020123123",
-            "studentMajor": "SW",
-            "studentName": "홍길동",
-            "studentPhoneNum": "010-1234-5678"
+            "Id": "2020123123",
+            "major": "SW",
+            "name": "홍길동",
+            "phone": "010-1234-5678"
         },
         "RQInfo": {
             "RQYulNationalPoster": 0,
@@ -121,22 +137,42 @@ const data = {
             "RQMyeongKci": 0,
             "RQMyeongKciCandidate": 0
         },
-        "LQInfo": {
-            "LQGrade35TO40": 0,
-            "LQOpenSourceActivity1Star4": 0,
-            "LQOpenSourceActivity2Star2": 0,
-            "LQGrade30TO35": 0,
-            "LQOpenSourceActivity1Star5": 0,
-            "LQOpenSourceActivity2Star1": 0,
-            "LQOpenSourceActivity1Star2": 0,
-            "LQOpenSourceActivity1Star3": 0,
-            "LQEduActivity1": 5,
-            "LQOpenSourceActivity1Star1": 0,
-            "LQOpenSourceActivity2Star5": 0,
-            "LQOpenSourceActivity2Star4": 0,
-            "LQEduActivity2": 0,
-            "LQOpenSourceActivity2Star3": 0,
-            "LQGrade40TO45": 0
+        "lqInfo": {
+            "studentId": "20220020",
+            "activityEdu": 2,
+            "activityTA": 1,
+            "grade40TO45": 1,
+            "grade35TO40": 0,
+            "grade30TO35": 0,
+            "grade00TO30": 0,
+            "openSourceActivityStar0": 0,
+            "openSourceActivityStar3": 0,
+            "openSourceActivityStar4": 1,
+            "openSourceActivityStar5": 0,
+            "committerStar0": 0,
+            "committerStar3": 1,
+            "committerStar4": 0,
+            "committerStar5": 0,
+            "contents": [
+                {
+                    "id": 346,
+                    "studentId": "20200020",
+                    "dataname": "activityEdu",
+                    "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
+                },
+                {
+                    "id": 347,
+                    "studentId": "20200020",
+                    "dataname": "activityEdu",
+                    "contents": "고등학교에서 파이썬 기초 교육을 진행했습니다."
+                },
+                {
+                    "id": 348,
+                    "studentId": "20200020",
+                    "dataname": "activityTA",
+                    "contents": "인공지능 개론 조교를 수행했습니다."
+                }
+            ]
         }
     }
 };

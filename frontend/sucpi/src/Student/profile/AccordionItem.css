@@ -55,8 +55,8 @@
 
 .form-group-row {
     flex-direction: row; /* 수평 배치 */
-    min-width: 360px;
-    max-width: 400px;
+    /* min-width: 360px;
+    max-width: 400px; */
     align-items: center;
 }
 
@@ -94,8 +94,8 @@
 }
 
 .textarea-expanded {
-    width: 90%; /* 텍스트 영역의 너비를 100%로 확장 */
     resize: none;
+    width: 320px;
     overflow: hidden;
 }
 
@@ -141,6 +141,30 @@
 
 .add-item:hover {
     background-color: #666666; /* 호버 시 배경색 */
+}
+
+.remove-item {
+    background-color: #FF3B3B;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-item:hover {
+    background-color: #d9363e;
+}
+
+.remove-item:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 .upload-button {
