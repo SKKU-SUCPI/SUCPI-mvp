@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import '../../Student/profile/AccordionItem'
 
 export function AdminLQInfo({ lqInfo }) {
 

@@ -4,6 +4,7 @@ import { AccordionItem } from "../../Student/profile/AccordionItem";
 import '../../Student/profile/Profile.css'
 import { AdminPersonal } from './AdminPersonal';
 import { AdminLQInfo } from './AdminLQInfo';
+import { AdminRQInfo } from './AdminRQInfo';
 
 export function StudentDetail() {
     const { id } = useParams();
@@ -89,7 +90,7 @@ export function StudentDetail() {
                     <AdminLQInfo lqInfo={studentData.lqStudent} />
                 </AccordionItem>
                 <AccordionItem title="연구활동">
-
+                    <AdminRQInfo />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
 
