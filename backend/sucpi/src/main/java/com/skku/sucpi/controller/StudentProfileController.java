@@ -14,13 +14,13 @@ import com.skku.sucpi.dto.StudentProfileDTO;
 import com.skku.sucpi.service.StudentProfileService;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentProfileController {
 
     @Autowired
     private StudentProfileService studentProfileService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<ApiResponse<StudentProfileDTO>> getStudentProfileById(@PathVariable("id") String id) {
         StudentProfileDTO studentProfileDTO = studentProfileService.getStudentProfileById(id);
         if (studentProfileDTO == null) {
@@ -29,9 +29,18 @@ public class StudentProfileController {
         return ResponseEntity.ok(new ApiResponse<>(200, "Student profile retrieved successfully", studentProfileDTO));
     }
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<String>> saveStudentProfile(@RequestBody StudentProfileDTO studentProfileDTO) {
+    @PostMapping("/students")
+    public ResponseEntity<ApiResponse<String>> saveAdminStudentProfile(@RequestBody StudentProfileDTO studentProfileDTO) {
         studentProfileService.saveStudentProfile(studentProfileDTO);
         return ResponseEntity.ok(new ApiResponse<>(200, "Student profile saved successfully", "Student profile saved successfully"));
+    }
+
+    @GetMapping("/admin/students/{id}")
+    public ResponseEntity<ApiResponse<StudentProfileDTO>> getAdminStudentProfileById(@PathVariable("id") String id) {
+        StudentProfileDTO studentProfileDTO = studentProfileService.getStudentProfileById(id);
+        if (studentProfileDTO == null) {
+            return ResponseEntity.status(404).body(new ApiResponse<>(404, "Student profile not found", null));
+        }
+        return ResponseEntity.ok(new ApiResponse<>(200, "Student profile retrieved successfully", studentProfileDTO));
     }
 }
