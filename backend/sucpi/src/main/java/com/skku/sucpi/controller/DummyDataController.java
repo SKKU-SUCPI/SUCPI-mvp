@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skku.sucpi.ApiResponse;
-import com.skku.sucpi.dto.StudentDTO;
-import com.skku.sucpi.service.StudentService;
+import com.skku.sucpi.dto.StudentProfileDTO;
+import com.skku.sucpi.service.StudentProfileService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class DummyDataController {
 
     @Autowired
-    private StudentService studentService;
+    private StudentProfileService studentProfileService;
 
     @PostMapping("/dummydata")
-    public ResponseEntity<ApiResponse<String>> saveDummyData(@RequestBody List<StudentDTO> studentDTOList) {
-        for (StudentDTO studentDTO : studentDTOList) {
-            studentService.saveStudent(studentDTO);
+    public ResponseEntity<ApiResponse<String>> postDummyData(@RequestBody List<StudentProfileDTO> studentProfiles) {
+        for (StudentProfileDTO studentProfile : studentProfiles) {
+            studentProfileService.saveStudentProfile(studentProfile);
         }
-        return ResponseEntity.ok(new ApiResponse<>(200, "All dummy data saved successfully", "All dummy data saved successfully"));
+        ApiResponse<String> response = new ApiResponse<>(200, "Dummy data posted successfully", "Success");
+        return ResponseEntity.ok(response);
     }
 }
