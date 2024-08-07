@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsiveBar } from '@nivo/bar';
 
 import './CompareGraph.css'
+import { DetailSetting } from "../../setting/DetailSetting";
 
 export function CompareGraph()
 {
+    const [detailData, setDetailData] = useState(null);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/api/admin/weights')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200) {
+                setDetailData(data.result);
+            } else {
+                console.error('Error retrieving weights:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching weights:', error);
+        });
+    }, []);
+
     return (
-        <div className="compare-graph-container">
-            <LQGraph />
-            <RQGraph />
-            <CQGraph />
-            <TotalGraph />
-        </div>
+        <>
+            <DetailSetting data={detailData} />
+            <hr className="divider" />
+            <div className="compare-graph-container">
+                <LQGraph />
+                <RQGraph />
+                <CQGraph />
+                <TotalGraph />
+            </div>
+        </>
     );
 }
 
