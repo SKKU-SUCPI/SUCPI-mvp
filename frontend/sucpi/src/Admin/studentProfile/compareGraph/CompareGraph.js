@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveBar } from '@nivo/bar';
 
 import './CompareGraph.css'
-import { DetailSetting } from "../../setting/DetailSetting";
+import { CompareDetailSetting } from "./CompareDetailSetting";
 
 export function CompareGraph()
 {
@@ -25,7 +25,7 @@ export function CompareGraph()
 
     return (
         <>
-            <DetailSetting data={detailData} />
+            <CompareDetailSetting data={detailData} />
             <hr className="divider" />
             <div className="compare-graph-container">
                 <LQGraph />
