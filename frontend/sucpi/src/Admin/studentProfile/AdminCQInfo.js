@@ -8,7 +8,6 @@ export function AdminCQInfo() {
     const startupText = cqInfo.startup || "(데이터가 존재하지 않습니다.)";
     const ictVolunteerText = cqInfo.overseaVolunteer || "(데이터가 존재하지 않습니다.)";
 
-    // Filtering alimi fields with a value of 1
     const alimiFields = Object.keys(cqInfo)
     .filter(key => key.startsWith('alimi_') && cqInfo[key] === 1)
     .map(key => {
@@ -21,7 +20,30 @@ export function AdminCQInfo() {
     });
     const alimiText = alimiFields.length > 0 ? alimiFields.join(', ') : '해당없음';
 
+    const councilFields = Object.keys(cqInfo)
+    .filter(key => key.startsWith('council_') && cqInfo[key] === 1)
+    .map(key => {
+        const labelMap = {
+            council_leader: "회장",
+            council_vise_leader: "부회장",
+            council_participate: "참여"
+        };
+        return labelMap[key] || key; // Map to human-readable labels if available
+    });
 
+    const councilText = councilFields.length > 0 ? councilFields.join(', ') : '해당없음';
+
+    const reporterFields = Object.keys(cqInfo)
+    .filter(key => key.startsWith('reporter_') && cqInfo[key] === 1)
+    .map(key => {
+        const labelMap = {
+            reporter_leader: "회장",
+            reporter_vise_leader: "부회장",
+            reporter_participate: "참여"
+        };
+        return labelMap[key] || key; // Map to human-readable labels if available
+    });
+    const reporterText = reporterFields.length > 0 ? reporterFields.join(', ') : '해당없음';
 
     return (
         <div className='form-container' style={{ whiteSpace: "nowrap" }}>
@@ -98,8 +120,8 @@ export function AdminCQInfo() {
                         type='text'
                         className='form-control textarea-expanded'
                         style={{ width: '40%', textAlign: 'center' }}
-                        name='alimi'
-                        value={alimiText}
+                        name='council'
+                        value={councilText}
                         disabled={true}
                     />
                 </div>
@@ -109,8 +131,8 @@ export function AdminCQInfo() {
                         type='text'
                         className='form-control textarea-expanded'
                         style={{ width: '40%', textAlign: 'center' }}
-                        name='alimi'
-                        value={alimiText}
+                        name='reporter'
+                        value={reporterText}
                         disabled={true}
                     />
                 </div>
