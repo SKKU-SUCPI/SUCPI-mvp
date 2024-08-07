@@ -95,7 +95,7 @@ export function StudentDetail() {
                     <AdminRQInfo />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
-                    <AdminCQInfo />
+                    <AdminCQInfo cqInfo={studentData.cqInfo} />
                 </AccordionItem>
                 <hr className='divider' />
                 <h1 style={{paddingTop: "60px", marginBottom: '44px'}}>비교 하기</h1>
