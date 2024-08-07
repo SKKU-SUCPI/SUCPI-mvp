@@ -5,6 +5,7 @@ import '../../Student/profile/Profile.css'
 import { AdminPersonal } from './AdminPersonal';
 import { AdminLQInfo } from './AdminLQInfo';
 import { AdminRQInfo } from './AdminRQInfo';
+import { AdminCQInfo } from './AdminCQInfo';
 
 export function StudentDetail() {
     const { id } = useParams();
@@ -93,7 +94,7 @@ export function StudentDetail() {
                     <AdminRQInfo />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
-
+                    <AdminCQInfo />
                 </AccordionItem>
                 <h1 style={{paddingTop: "60px" }}>변화 추이</h1>
             </div>
