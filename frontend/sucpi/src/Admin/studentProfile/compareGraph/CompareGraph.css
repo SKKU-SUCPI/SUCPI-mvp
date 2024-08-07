@@ -1,0 +1,61 @@
+/* CompareGraph.css */
+
+.compare-graph-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4등분하여 4개의 그래프를 균등하게 배치 */
+    gap: 20px; /* 그래프들 사이의 간격 */
+    padding: 20px;
+}
+
+.graph {
+    text-align: center; /* 그래프 내용 중앙 정렬 */
+    height: 440px;
+    box-sizing: border-box;
+    margin-bottom: 60px; /* 개별 그래프의 하단에 추가적인 여백을 설정 */
+
+    display: flex;
+    flex-direction: column; /* 수직 방향으로 정렬 */
+    align-items: center; /* 가로 방향 중앙 정렬 */
+    justify-content: center; /* 세로 방향 중앙 정렬 */
+}
+
+
+.percentage-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* 너비 조정 가능 */
+    height: 50px; /* 높이 조정 가능 */
+    border: 1px solid #E0E0E0;
+    background-color: #FAFAFA;
+    border-radius: 5px;
+}
+
+.percentage {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.positive {
+    color: #FF0000; /* 양수일 경우 빨간색 */
+}
+
+.negative {
+    color: #0000FF; /* 음수일 경우 파란색 */
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+}
+
+.up {
+    border-bottom: 12px solid #FF0000; /* 위를 향한 빨간 삼각형 */
+}
+
+.down {
+    border-top: 12px solid #0000FF; /* 아래를 향한 파란 삼각형 */
+}

@@ -6,6 +6,7 @@ import { AdminPersonal } from './AdminPersonal';
 import { AdminLQInfo } from './AdminLQInfo';
 import { AdminRQInfo } from './AdminRQInfo';
 import { AdminCQInfo } from './AdminCQInfo';
+import { CompareGraph } from './compareGraph/CompareGraph';
 
 export function StudentDetail() {
     const { id } = useParams();
@@ -96,7 +97,9 @@ export function StudentDetail() {
                 <AccordionItem title="비교과활동">
                     <AdminCQInfo />
                 </AccordionItem>
-                <h1 style={{paddingTop: "60px" }}>변화 추이</h1>
+                <hr className='divider' />
+                <h1 style={{paddingTop: "60px", marginBottom: '44px'}}>비교 하기</h1>
+                <CompareGraph />
             </div>
         </div>
     );
