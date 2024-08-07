@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "cq_students")
+@Table(name = "cqInfo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,22 +16,22 @@ public class CQStudent {
 
     @Id
     private String studentId;
-    private int cqCoop;
-    private int cqInternship;
-    private int cqStartup;
-    private int cqOverseaVolunteer;
-    private int cqLectureSeminar;
-    private int cqAlimiLeader;
-    private int cqAlimiSemiLeader;
-    private int cqAlimiPlay;
-    private int cqStudentCouncilLeader;
-    private int cqStudentCouncilSemiLeader;
-    private int cqStudentCouncilPlay;
-    private int cqMediaPromotionLeader;
-    private int cqMediaPromotionSemiLeader;
-    private int cqMediaPromotionPlay;
-    private int cqStudioContribution;
-    private int cqStudyGroupLeader;
-    private int cqStudyGroupSemiLeader;
-    private int cqStudyGroupPlay;
+    private int coop;
+    private int internship;
+    private int startup;
+    private int overseaVolunteer;
+    private int seminar;
+    private int alimi_leader;
+    private int alimi_vice_leader;
+    private int alimi_participate;
+    private int council_leader;
+    private int council_vice_leader;
+    private int council_participate;
+    private int reporter_leader;
+    private int reporter_vice_leader;
+    private int reporter_participate;
+    private int studioContribution;
+    private int studyGroup_leader;
+    private int studyGroup_vice_leader;
+    private int studyGroup_participate;
 }

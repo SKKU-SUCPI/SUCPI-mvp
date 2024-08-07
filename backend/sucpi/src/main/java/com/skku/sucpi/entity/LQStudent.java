@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "lq_students")
+@Table(name = "lqInfo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,18 +16,18 @@ public class LQStudent {
 
     @Id
     private String studentId;
-    private int lqEduActivity1;
-    private int lqEduActivity2;
-    private int lqGrade40TO45;
-    private int lqGrade35TO40;
-    private int lqGrade30TO35;
-    private int lqGrade00TO30;
-    private int lqOpenSourceActivity1Star0;
-    private int lqOpenSourceActivity1Star3;
-    private int lqOpenSourceActivity1Star4;
-    private int lqOpenSourceActivity1Star5;
-    private int lqOpenSourceActivity2Star0;
-    private int lqOpenSourceActivity2Star3;
-    private int lqOpenSourceActivity2Star4;
-    private int lqOpenSourceActivity2Star5;
+    private int activityEdu;
+    private int activityTA;
+    private int grade40TO45;
+    private int grade35TO40;
+    private int grade30TO35;
+    private int grade00TO30;
+    private int openSourceActivityStar0;
+    private int openSourceActivityStar3;
+    private int openSourceActivityStar4;
+    private int openSourceActivityStar5;
+    private int committerStar0;
+    private int committerStar3;
+    private int committerStar4;
+    private int committerStar5;
 }

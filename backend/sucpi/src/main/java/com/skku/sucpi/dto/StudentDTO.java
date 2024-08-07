@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudentDTO {
     private Student student;
-    private LQStudent lqStudent;
-    private RQStudent rqStudent;
-    private CQStudent cqStudent;
+    private LQStudent lqInfo;
+    private RQStudent rqInfo;
+    private CQStudent cqInfo;
     private List<LRCContent> lrcContents;
 }

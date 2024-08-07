@@ -84,9 +84,9 @@ public class StudentService {
     @Transactional
     public StudentDTO saveStudent(StudentDTO studentDTO) {
         Student savedStudent = studentRepository.save(studentDTO.getStudent());
-        lqStudentRepository.save(studentDTO.getLqStudent());
-        rqStudentRepository.save(studentDTO.getRqStudent());
-        cqStudentRepository.save(studentDTO.getCqStudent());
+        lqStudentRepository.save(studentDTO.getLqInfo());
+        rqStudentRepository.save(studentDTO.getRqInfo());
+        cqStudentRepository.save(studentDTO.getCqInfo());
 
         // 기존 LRCContent 삭제
         //lrcContentRepository.deleteByStudentId(savedStudent.getStudentId());
@@ -99,7 +99,7 @@ public class StudentService {
         // LQ, RQ, CQ의 건수 및 점수를 업데이트
         updateStudentScores(savedStudent.getStudentId());
 
-        return new StudentDTO(savedStudent, studentDTO.getLqStudent(), studentDTO.getRqStudent(), studentDTO.getCqStudent(), studentDTO.getLrcContents());
+        return new StudentDTO(savedStudent, studentDTO.getLqInfo(), studentDTO.getRqInfo(), studentDTO.getCqInfo(), studentDTO.getLrcContents());
     }
 
     private void updateStudentScores(String studentId) {
