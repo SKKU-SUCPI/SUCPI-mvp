@@ -17,7 +17,7 @@ export function StudentDetail() {
     useEffect(() => {
         const fetchStudentData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/admin/students/${id}`);
+                const response = await fetch(`http://localhost:8080/api/students/${id}`);
                 if (!response.ok) {
                     throw new Error('학생 정보를 가져오는 데 실패했습니다.');
                 }
@@ -86,10 +86,10 @@ export function StudentDetail() {
             <div className='profile' style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
                 <h1>학생 상세 정보</h1>
                 <AccordionItem title="개인정보">
-                    <AdminPersonal studentInfo={studentData.student}/>
+                    <AdminPersonal studentInfo={studentData.studentInfo}/>
                 </AccordionItem>
-                <AccordionItem title="교과활동 --> 이후는 추후 API 변경 이후 개발 예정">
-                    <AdminLQInfo lqInfo={studentData.lqStudent} />
+                <AccordionItem title="교과활동">
+                    <AdminLQInfo lqInfo={studentData.lqInfo} />
                 </AccordionItem>
                 <AccordionItem title="연구활동">
                     <AdminRQInfo />

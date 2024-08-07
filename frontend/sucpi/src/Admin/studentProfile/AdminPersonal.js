@@ -17,20 +17,20 @@ export function AdminPersonal({ studentInfo }) {
         <div className='form-container'>
             <div className='form-group form-group-row'>
                 <label>이름</label>
-                <label>{studentInfo.studentName}</label>
+                <label>{studentInfo.name}</label>
             </div>
             <div className='form-group form-group-row'>
                 <label>학번</label>
-                <label>{studentInfo.studentId}</label>
+                <label>{studentInfo.id}</label>
             </div>
             <div className='form-group form-group-row'>
                 <label>소속 학과</label>
-                <label style={{ whiteSpace: "nowrap" }}>{majorMapping[studentInfo.studentMajor]}</label>
+                <label style={{ whiteSpace: "nowrap" }}>{majorMapping[studentInfo.major]}</label>
             </div>
             <div className='form-group form-group-row'>
                 <label style={{ whiteSpace: "nowrap" }}>연락처</label>
                 <label style={{ whiteSpace: "nowrap" }}>
-                    {studentInfo.studentPhoneNum.split('-')[0]} - {studentInfo.studentPhoneNum.split('-')[1]} - {studentInfo.studentPhoneNum.split('-')[2]}
+                    {studentInfo.phone.split('-')[0]} - {studentInfo.phone.split('-')[1]} - {studentInfo.phone.split('-')[2]}
                 </label>
             </div>
         </div>
