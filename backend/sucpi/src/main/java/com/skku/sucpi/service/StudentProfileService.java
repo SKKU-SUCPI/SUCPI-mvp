@@ -130,6 +130,7 @@ public class StudentProfileService {
             cqInfo.setStartup(getSingleContent(lrcContents, "startup"));
             cqInfo.setOverseaVolunteer(getSingleContent(lrcContents, "overseaVolunteer"));
             cqInfo.setSeminar(getContentsList(lrcContents, "seminar"));
+            cqInfo.setStudioContribution(getSingleContent(lrcContents, "studioContribution"));
             // 나머지 항목들은 그대로 설정
             cqInfo.setAlimi_leader(cqStudentOpt.get().getAlimi_leader());
             cqInfo.setAlimi_vice_leader(cqStudentOpt.get().getAlimi_vice_leader());
@@ -140,7 +141,7 @@ public class StudentProfileService {
             cqInfo.setReporter_leader(cqStudentOpt.get().getReporter_leader());
             cqInfo.setReporter_vice_leader(cqStudentOpt.get().getReporter_vice_leader());
             cqInfo.setReporter_participate(cqStudentOpt.get().getReporter_participate());
-            cqInfo.setStudioContribution(cqStudentOpt.get().getStudioContribution());
+            //cqInfo.setStudioContribution(cqStudentOpt.get().getStudioContribution());
             cqInfo.setStudyGroup_leader(cqStudentOpt.get().getStudyGroup_leader());
             cqInfo.setStudyGroup_vice_leader(cqStudentOpt.get().getStudyGroup_vice_leader());
             cqInfo.setStudyGroup_participate(cqStudentOpt.get().getStudyGroup_participate());
@@ -220,6 +221,7 @@ public class StudentProfileService {
         cqStudent.setStartup(isBlank(studentProfileDTO.getCqInfo().getStartup()) ? 0 : 1);
         cqStudent.setOverseaVolunteer(isBlank(studentProfileDTO.getCqInfo().getOverseaVolunteer()) ? 0 : 1);
         cqStudent.setSeminar(studentProfileDTO.getCqInfo().getSeminar().size());
+        cqStudent.setStudioContribution(isBlank(studentProfileDTO.getCqInfo().getStudioContribution()) ? 0 : 1);
         // 나머지 항목들은 그대로 설정
         cqStudent.setAlimi_leader(studentProfileDTO.getCqInfo().getAlimi_leader());
         cqStudent.setAlimi_vice_leader(studentProfileDTO.getCqInfo().getAlimi_vice_leader());
@@ -230,7 +232,7 @@ public class StudentProfileService {
         cqStudent.setReporter_leader(studentProfileDTO.getCqInfo().getReporter_leader());
         cqStudent.setReporter_vice_leader(studentProfileDTO.getCqInfo().getReporter_vice_leader());
         cqStudent.setReporter_participate(studentProfileDTO.getCqInfo().getReporter_participate());
-        cqStudent.setStudioContribution(studentProfileDTO.getCqInfo().getStudioContribution());
+        //cqStudent.setStudioContribution(studentProfileDTO.getCqInfo().getStudioContribution());
         cqStudent.setStudyGroup_leader(studentProfileDTO.getCqInfo().getStudyGroup_leader());
         cqStudent.setStudyGroup_vice_leader(studentProfileDTO.getCqInfo().getStudyGroup_vice_leader());
         cqStudent.setStudyGroup_participate(studentProfileDTO.getCqInfo().getStudyGroup_participate());
@@ -279,6 +281,7 @@ public class StudentProfileService {
         saveContents(student.getStudentId(), "startup", studentProfileDTO.getCqInfo().getStartup());
         saveContents(student.getStudentId(), "overseaVolunteer", studentProfileDTO.getCqInfo().getOverseaVolunteer());
         saveContents(student.getStudentId(), "seminar", studentProfileDTO.getCqInfo().getSeminar());
+        saveContents(student.getStudentId(), "studioContribution", studentProfileDTO.getCqInfo().getStudioContribution());
 
         studentRepository.save(student);
 
