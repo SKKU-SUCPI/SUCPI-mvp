@@ -3,9 +3,10 @@ import '../../Student/profile/AccordionItem';
 
 export function AdminCQInfo({ cqInfo }) {
 
-    const internshipText = cqInfo.internship || "(데이터가 존재하지 않습니다.)";
-    const startupText = cqInfo.startup || "(데이터가 존재하지 않습니다.)";
-    const ictVolunteerText = cqInfo.overseaVolunteer || "(데이터가 존재하지 않습니다.)";
+    const coopText = cqInfo.coop || "해당 활동에 대한 이력이 존재하지 않습니다."
+    const internshipText = cqInfo.internship || "해당 활동에 대한 이력이 존재하지 않습니다.";
+    const startupText = cqInfo.startup || "해당 활동에 대한 이력이 존재하지 않습니다.";
+    const ictVolunteerText = cqInfo.overseaVolunteer || "해당 활동에 대한 이력이 존재하지 않습니다.";
 
     const alimiFields = Object.keys(cqInfo)
     .filter(key => key.startsWith('alimi_') && cqInfo[key] === 1)
@@ -101,18 +102,29 @@ export function AdminCQInfo({ cqInfo }) {
                 />
                 <hr className='divider' />
                 <label style={{ marginRight: '24px', marginTop: '24px' }}>화상 강연 / 세미나 참여</label>
-                {cqInfo.seminar.map((seminarItem, index) => (
-                    <textarea
-                        key={index}
-                        type='text'
-                        className='form-control textarea-expanded'
-                        style={{ width: '100%', marginTop: '12px' }}
-                        name={`seminar_${index}`}
-                        rows="2"
-                        value={seminarItem}
-                        disabled={true}
-                    />
-                ))}
+                {cqInfo.seminar.length > 0 ? (
+                        cqInfo.seminar.map((seminarItem, index) => (
+                        <textarea
+                            key={index}
+                            type='text'
+                            className='form-control textarea-expanded'
+                            style={{ width: '100%', marginTop: '12px' }}
+                            name={`seminar_${index}`}
+                            rows="2"
+                            value={seminarItem}
+                            disabled={true}
+                        />
+                        ))
+                    ) : (
+                        <textarea
+                            type='text'
+                            className='form-control textarea-expanded'
+                            style={{ width: '100%', marginTop: '12px', fontStyle: "italic"}}
+                            rows="2"
+                            value={"해당 활동에 대한 이력이 존재하지 않습니다."}
+                            disabled={true}
+                        />
+                    )}
                 <hr className='divider' />
                 <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
                     <label style={{ marginRight: '24px' }}>알리미</label>
@@ -127,19 +139,30 @@ export function AdminCQInfo({ cqInfo }) {
                     <label>{reporterText}</label>
                 </div>
                 <hr className='divieder' />
-                <label style={{ marginRight: '24px', marginTop: '24px' }}>스튜디오 기여 -- 변경 후</label>
-                {cqInfo.seminar.map((seminarItem, index) => (
-                    <textarea
-                        key={index}
-                        type='text'
-                        className='form-control textarea-expanded'
-                        style={{ width: '100%', marginTop: '12px' }}
-                        name={`seminar_${index}`}
-                        rows="2"
-                        value={seminarItem}
-                        disabled={true}
-                    />
-                ))}
+                <label style={{ marginRight: '24px', marginTop: '24px' }}>스튜디오 기여</label>
+                    {cqInfo.studioContribution.length > 0 ? (
+                        cqInfo.studioContribution.map((studioItem, index) => (
+                        <textarea
+                            key={index}
+                            type='text'
+                            className='form-control textarea-expanded'
+                            style={{ width: '100%', marginTop: '12px' }}
+                            name={`studioContribution_${index}`}
+                            rows="2"
+                            value={studioItem}
+                            disabled={true}
+                        />
+                        ))
+                    ) : (
+                        <textarea
+                            type='text'
+                            className='form-control textarea-expanded'
+                            style={{ width: '100%', marginTop: '12px', fontStyle: "italic"}}
+                            rows="2"
+                            value={"해당 활동에 대한 이력이 존재하지 않습니다"}
+                            disabled={true}
+                        />
+                    )}
                 <hr className='divider' />
                 <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
                     <label style={{ marginRight: '24px' }}>스터디그룹</label>
