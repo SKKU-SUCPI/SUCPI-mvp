@@ -71,3 +71,6 @@ INSERT INTO RQ_WEIGHT (category, dataName, name, weight) VALUES
 ('공모전 / ICPC', 'myeongTopSchoolCompetition', '인문사회 - 교내/지역 공모전 대상', 3),
 ('공모전 / ICPC', 'myeongWinSchoolCompetition', '인문사회 - 교내/지역 공모전 입상', 1),
 ('공모전 / ICPC', 'myeongPlaySchoolCompetition', '인문사회 - 교내/지역 공모전 참여', 0.5);
+
+INSERT INTO LRC_RATIO (CQ_RATIO, LQ_RATIO, RQ_RATIO) VALUES
+(33, 33, 34);
