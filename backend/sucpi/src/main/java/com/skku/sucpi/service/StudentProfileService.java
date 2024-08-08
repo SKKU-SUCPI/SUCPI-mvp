@@ -130,7 +130,7 @@ public class StudentProfileService {
             cqInfo.setStartup(getSingleContent(lrcContents, "startup"));
             cqInfo.setOverseaVolunteer(getSingleContent(lrcContents, "overseaVolunteer"));
             cqInfo.setSeminar(getContentsList(lrcContents, "seminar"));
-            cqInfo.setStudioContribution(getSingleContent(lrcContents, "studioContribution"));
+            cqInfo.setStudioContribution(getContentsList(lrcContents, "studioContribution"));
             // 나머지 항목들은 그대로 설정
             cqInfo.setAlimi_leader(cqStudentOpt.get().getAlimi_leader());
             cqInfo.setAlimi_vice_leader(cqStudentOpt.get().getAlimi_vice_leader());
@@ -221,7 +221,7 @@ public class StudentProfileService {
         cqStudent.setStartup(isBlank(studentProfileDTO.getCqInfo().getStartup()) ? 0 : 1);
         cqStudent.setOverseaVolunteer(isBlank(studentProfileDTO.getCqInfo().getOverseaVolunteer()) ? 0 : 1);
         cqStudent.setSeminar(studentProfileDTO.getCqInfo().getSeminar().size());
-        cqStudent.setStudioContribution(isBlank(studentProfileDTO.getCqInfo().getStudioContribution()) ? 0 : 1);
+        cqStudent.setStudioContribution(studentProfileDTO.getCqInfo().getStudioContribution().size());
         // 나머지 항목들은 그대로 설정
         cqStudent.setAlimi_leader(studentProfileDTO.getCqInfo().getAlimi_leader());
         cqStudent.setAlimi_vice_leader(studentProfileDTO.getCqInfo().getAlimi_vice_leader());
