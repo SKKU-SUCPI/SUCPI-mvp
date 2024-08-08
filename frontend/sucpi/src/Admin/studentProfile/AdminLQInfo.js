@@ -51,32 +51,52 @@ export function AdminLQInfo({ lqInfo }) {
                 <div className="label-and-button">
                     <label>교내ㆍ외 교육 활동</label>
                 </div>
-                {lqInfo.activityEdu.map((item, index) => (
+                {lqInfo.activityEdu.length > 0 ? (
+                    lqInfo.activityEdu.map((item, index) => (
+                        <textarea
+                            key={index}
+                            className='form-control textarea-expanded'
+                            rows="2"
+                            name={`activityEdu_${index}`}
+                            value={item}
+                            disabled={true}
+                        ></textarea>
+                    ))
+                ) : (
                     <textarea
-                        key={index}
                         className='form-control textarea-expanded'
                         rows="2"
-                        name={`activityEdu_${index}`}
-                        value={item}
+                        value="해당 활동에 대한 이력이 존재하지 않습니다"
                         disabled={true}
+                        style={{ fontStyle: "italic" }}
                     ></textarea>
-                ))}
-            </div>
+                )}
+                </div>
             <hr className='divider' />
             <div className="form-group form-group-column">
                 <div className="label-and-button">
                     <label>교육 조교 활동</label>
                 </div>
-                {lqInfo.activityTA.map((item, index) => (
+                {lqInfo.activityTA.length > 0 ? (
+                    lqInfo.activityTA.map((item, index) => (
+                        <textarea
+                            key={index}
+                            className='form-control textarea-expanded'
+                            rows="2"
+                            name={`activityEdu_${index}`}
+                            value={item}
+                            disabled={true}
+                        ></textarea>
+                    ))
+                ) : (
                     <textarea
-                        key={index}
                         className='form-control textarea-expanded'
                         rows="2"
-                        name={`activityEdu_${index}`}
-                        value={item}
+                        value="해당 활동에 대한 이력이 존재하지 않습니다"
                         disabled={true}
+                        style={{ fontStyle: "italic" }}
                     ></textarea>
-                ))}
+                )}
             </div>
             <hr className='divider' />
             <div className="form-group form-group-row" style={{ whiteSpace: "nowrap", gap: "50%" }}>
