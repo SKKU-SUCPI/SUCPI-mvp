@@ -44,6 +44,18 @@ export function AdminCQInfo({ cqInfo }) {
     });
     const reporterText = reporterFields.length > 0 ? reporterFields.join(', ') : '해당없음';
 
+    const studyGroupFields = Object.keys(cqInfo)
+    .filter(key => key.startsWith('studyGroup_') && cqInfo[key] === 1)
+    .map(key => {
+        const labelMap = {
+            studyGroup_leader: "회장",
+            studyGroup_vice_leader: "부회장",
+            studyGroup_participate: "참여"
+        };
+        return labelMap[key] || key;
+    });
+    const studyGroupText = studyGroupFields.length > 0 ? studyGroupFields.join(', ') : '해당없음';
+
     return (
         <div className='form-container' style={{ whiteSpace: "nowrap" }}>
             <div className='form-group form-group-column'>
@@ -104,37 +116,35 @@ export function AdminCQInfo({ cqInfo }) {
                 <hr className='divider' />
                 <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
                     <label style={{ marginRight: '24px' }}>알리미</label>
-                    <textarea
-                        type='text'
-                        className='form-control textarea-expanded'
-                        style={{ width: '40%', textAlign: 'center' }}
-                        name='alimi'
-                        value={alimiText}
-                        disabled={true}
-                    />
+                    <label>{alimiText}</label>
                 </div>
                 <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
                     <label style={{ marginRight: '24px' }}>학생회</label>
-                    <textarea
-                        type='text'
-                        className='form-control textarea-expanded'
-                        style={{ width: '40%', textAlign: 'center' }}
-                        name='council'
-                        value={councilText}
-                        disabled={true}
-                    />
+                    <label>{councilText}</label>
                 </div>
                 <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
                     <label style={{ marginRight: '24px' }}>기자단</label>
+                    <label>{reporterText}</label>
+                </div>
+                <hr className='divieder' />
+                <label style={{ marginRight: '24px', marginTop: '24px' }}>스튜디오 기여 -- 변경 후</label>
+                {cqInfo.seminar.map((seminarItem, index) => (
                     <textarea
+                        key={index}
                         type='text'
                         className='form-control textarea-expanded'
-                        style={{ width: '40%', textAlign: 'center' }}
-                        name='reporter'
-                        value={reporterText}
+                        style={{ width: '100%', marginTop: '12px' }}
+                        name={`seminar_${index}`}
+                        rows="2"
+                        value={seminarItem}
                         disabled={true}
                     />
-                </div>
+                ))}
+                <hr className='divider' />
+                <div className="form-group form-group-row" style={{ display: 'flex', alignItems: 'center', marginTop: '24px' }}>
+                    <label style={{ marginRight: '24px' }}>스터디그룹</label>
+                    <label>{studyGroupText}</label>
+                </div>                
             </div>
         </div>
     );

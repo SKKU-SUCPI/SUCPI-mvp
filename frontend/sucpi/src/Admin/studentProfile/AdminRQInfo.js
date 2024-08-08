@@ -1,6 +1,6 @@
 import '../../Student/profile/AccordionItem'
 
-export function AdminRQInfo()
+export function AdminRQInfo({ rqInfo })
 {
     return (
         <div className="form-container">
