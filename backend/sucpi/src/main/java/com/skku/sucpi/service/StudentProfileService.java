@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 import com.skku.sucpi.dto.StudentProfileDTO;
 import com.skku.sucpi.dto.StudentProfileDTO.CQInfo;
 import com.skku.sucpi.dto.StudentProfileDTO.LQInfo;
+import com.skku.sucpi.dto.StudentProfileDTO.MyeongCompetition;
+import com.skku.sucpi.dto.StudentProfileDTO.MyeongPaper;
+import com.skku.sucpi.dto.StudentProfileDTO.MyeongResearchContest;
 import com.skku.sucpi.dto.StudentProfileDTO.RQInfo;
 import com.skku.sucpi.dto.StudentProfileDTO.StudentInfo;
+import com.skku.sucpi.dto.StudentProfileDTO.YulCompetition;
+import com.skku.sucpi.dto.StudentProfileDTO.YulPaper;
+import com.skku.sucpi.dto.StudentProfileDTO.YulResearchContest;
 import com.skku.sucpi.entity.CQStudent;
 import com.skku.sucpi.entity.CQWeight;
 import com.skku.sucpi.entity.LQStudent;
@@ -93,35 +99,56 @@ public class StudentProfileService {
 
             RQInfo rqInfo = new RQInfo();
             rqInfo.setStudentId(student.getStudentId());
-            rqInfo.setYulJcr5Main(getContentsList(lrcContents, "yulJcr5Main"));
-            rqInfo.setYulJcr5Part(getContentsList(lrcContents, "yulJcr5Part"));
-            rqInfo.setYulJcr10Main(getContentsList(lrcContents, "yulJcr10Main"));
-            rqInfo.setYulJcr10Part(getContentsList(lrcContents, "yulJcr10Part"));
-            rqInfo.setYulKnownSpeech(getContentsList(lrcContents, "yulKnownSpeech"));
-            rqInfo.setYulKnownPoster(getContentsList(lrcContents, "yulKnownPoster"));
-            rqInfo.setYulNormalSpeech(getContentsList(lrcContents, "yulNormalSpeech"));
-            rqInfo.setYulNormalPoster(getContentsList(lrcContents, "yulNormalPoster"));
-            rqInfo.setYulNationalSpeech(getContentsList(lrcContents, "yulNationalSpeech"));
-            rqInfo.setYulNationalPoster(getContentsList(lrcContents, "yulNationalPoster"));
-            rqInfo.setYulTopBigCompetition(getContentsList(lrcContents, "yulTopBigCompetition"));
-            rqInfo.setYulWinBigCompetition(getContentsList(lrcContents, "yulWinBigCompetition"));
-            rqInfo.setYulPlayBigCompetition(getContentsList(lrcContents, "yulPlayBigCompetition"));
-            rqInfo.setYulTopSchoolCompetition(getContentsList(lrcContents, "yulTopSchoolCompetition"));
-            rqInfo.setYulWinSchoolCompetition(getContentsList(lrcContents, "yulWinSchoolCompetition"));
-            rqInfo.setYulPlaySchoolCompetition(getContentsList(lrcContents, "yulPlaySchoolCompetition"));
-            rqInfo.setMyeongOverKci(getContentsList(lrcContents, "myeongOverKci"));
-            rqInfo.setMyeongKciExcellent(getContentsList(lrcContents, "myeongKciExcellent"));
-            rqInfo.setMyeongKci(getContentsList(lrcContents, "myeongKci"));
-            rqInfo.setMyeongKciCandidate(getContentsList(lrcContents, "myeongKciCandidate"));
-            rqInfo.setMyeongKnownSpeech(getContentsList(lrcContents, "myeongKnownSpeech"));
-            rqInfo.setMyeongNormalSpeech(getContentsList(lrcContents, "myeongNormalSpeech"));
-            rqInfo.setMyeongNationalSpeech(getContentsList(lrcContents, "myeongNationalSpeech"));
-            rqInfo.setMyeongTopBigCompetition(getContentsList(lrcContents, "myeongTopBigCompetition"));
-            rqInfo.setMyeongWinBigCompetition(getContentsList(lrcContents, "myeongWinBigCompetition"));
-            rqInfo.setMyeongPlayBigCompetition(getContentsList(lrcContents, "myeongPlayBigCompetition"));
-            rqInfo.setMyeongTopSchoolCompetition(getContentsList(lrcContents, "myeongTopSchoolCompetition"));
-            rqInfo.setMyeongWinSchoolCompetition(getContentsList(lrcContents, "myeongWinSchoolCompetition"));
-            rqInfo.setMyeongPlaySchoolCompetition(getContentsList(lrcContents, "myeongPlaySchoolCompetition"));
+            // Set the campus based on the major
+            String major = student.getStudentMajor().toLowerCase();
+            if (major.equals("sw") || major.equals("ai")) {
+                rqInfo.setCampus("yul");
+            } else if (major.equals("gc")) {
+                rqInfo.setCampus("myeong");
+            }
+            rqInfo.setYul_paper(new YulPaper(
+                getContentsList(lrcContents, "yulJcr5Main"),
+                getContentsList(lrcContents, "yulJcr5Part"),
+                getContentsList(lrcContents, "yulJcr10Main"),
+                getContentsList(lrcContents, "yulJcr10Part"),
+                getContentsList(lrcContents, "yulJcr20Main"),
+                getContentsList(lrcContents, "yulJcr20Part")
+            ));
+            rqInfo.setMyeong_paper(new MyeongPaper(
+                getContentsList(lrcContents, "myeongOverKci"),
+                getContentsList(lrcContents, "myeongKciExcellent"),
+                getContentsList(lrcContents, "myeongKci"),
+                getContentsList(lrcContents, "myeongKciCandidate")
+            ));
+            rqInfo.setYul_researchContest(new YulResearchContest(
+                getContentsList(lrcContents, "yulKnownSpeech"),
+                getContentsList(lrcContents, "yulKnownPoster"),
+                getContentsList(lrcContents, "yulNormalSpeech"),
+                getContentsList(lrcContents, "yulNormalPoster"),
+                getContentsList(lrcContents, "yulNationalSpeech"),
+                getContentsList(lrcContents, "yulNationalPoster")
+            ));
+            rqInfo.setMyeong_researchContest(new MyeongResearchContest(
+                getContentsList(lrcContents, "myeongKnownSpeech"),
+                getContentsList(lrcContents, "myeongNormalSpeech"),
+                getContentsList(lrcContents, "myeongNationalSpeech")
+            ));
+            rqInfo.setYul_competition(new YulCompetition(
+                getContentsList(lrcContents, "yulTopBigCompetition"),
+                getContentsList(lrcContents, "yulWinBigCompetition"),
+                getContentsList(lrcContents, "yulPlayBigCompetition"),
+                getContentsList(lrcContents, "yulTopSchoolCompetition"),
+                getContentsList(lrcContents, "yulWinSchoolCompetition"),
+                getContentsList(lrcContents, "yulPlaySchoolCompetition")
+            ));
+            rqInfo.setMyeong_competition(new MyeongCompetition(
+                getContentsList(lrcContents, "myeongTopBigCompetition"),
+                getContentsList(lrcContents, "myeongWinBigCompetition"),
+                getContentsList(lrcContents, "myeongPlayBigCompetition"),
+                getContentsList(lrcContents, "myeongTopSchoolCompetition"),
+                getContentsList(lrcContents, "myeongWinSchoolCompetition"),
+                getContentsList(lrcContents, "myeongPlaySchoolCompetition")
+            ));
 
             CQInfo cqInfo = new CQInfo();
             cqInfo.setStudentId(student.getStudentId());
@@ -184,35 +211,35 @@ public class StudentProfileService {
 
         RQStudent rqStudent = new RQStudent();
         rqStudent.setStudentId(studentProfileDTO.getStudentInfo().getId());
-        rqStudent.setYulJcr5Main(studentProfileDTO.getRqInfo().getYulJcr5Main().size());
-        rqStudent.setYulJcr5Part(studentProfileDTO.getRqInfo().getYulJcr5Part().size());
-        rqStudent.setYulJcr10Main(studentProfileDTO.getRqInfo().getYulJcr10Main().size());
-        rqStudent.setYulJcr10Part(studentProfileDTO.getRqInfo().getYulJcr10Part().size());
-        rqStudent.setYulKnownSpeech(studentProfileDTO.getRqInfo().getYulKnownSpeech().size());
-        rqStudent.setYulKnownPoster(studentProfileDTO.getRqInfo().getYulKnownPoster().size());
-        rqStudent.setYulNormalSpeech(studentProfileDTO.getRqInfo().getYulNormalSpeech().size());
-        rqStudent.setYulNormalPoster(studentProfileDTO.getRqInfo().getYulNormalPoster().size());
-        rqStudent.setYulNationalSpeech(studentProfileDTO.getRqInfo().getYulNationalSpeech().size());
-        rqStudent.setYulNationalPoster(studentProfileDTO.getRqInfo().getYulNationalPoster().size());
-        rqStudent.setYulTopBigCompetition(studentProfileDTO.getRqInfo().getYulTopBigCompetition().size());
-        rqStudent.setYulWinBigCompetition(studentProfileDTO.getRqInfo().getYulWinBigCompetition().size());
-        rqStudent.setYulPlayBigCompetition(studentProfileDTO.getRqInfo().getYulPlayBigCompetition().size());
-        rqStudent.setYulTopSchoolCompetition(studentProfileDTO.getRqInfo().getYulTopSchoolCompetition().size());
-        rqStudent.setYulWinSchoolCompetition(studentProfileDTO.getRqInfo().getYulWinSchoolCompetition().size());
-        rqStudent.setYulPlaySchoolCompetition(studentProfileDTO.getRqInfo().getYulPlaySchoolCompetition().size());
-        rqStudent.setMyeongOverKci(studentProfileDTO.getRqInfo().getMyeongOverKci().size());
-        rqStudent.setMyeongKciExcellent(studentProfileDTO.getRqInfo().getMyeongKciExcellent().size());
-        rqStudent.setMyeongKci(studentProfileDTO.getRqInfo().getMyeongKci().size());
-        rqStudent.setMyeongKciCandidate(studentProfileDTO.getRqInfo().getMyeongKciCandidate().size());
-        rqStudent.setMyeongKnownSpeech(studentProfileDTO.getRqInfo().getMyeongKnownSpeech().size());
-        rqStudent.setMyeongNormalSpeech(studentProfileDTO.getRqInfo().getMyeongNormalSpeech().size());
-        rqStudent.setMyeongNationalSpeech(studentProfileDTO.getRqInfo().getMyeongNationalSpeech().size());
-        rqStudent.setMyeongTopBigCompetition(studentProfileDTO.getRqInfo().getMyeongTopBigCompetition().size());
-        rqStudent.setMyeongWinBigCompetition(studentProfileDTO.getRqInfo().getMyeongWinBigCompetition().size());
-        rqStudent.setMyeongPlayBigCompetition(studentProfileDTO.getRqInfo().getMyeongPlayBigCompetition().size());
-        rqStudent.setMyeongTopSchoolCompetition(studentProfileDTO.getRqInfo().getMyeongTopSchoolCompetition().size());
-        rqStudent.setMyeongWinSchoolCompetition(studentProfileDTO.getRqInfo().getMyeongWinSchoolCompetition().size());
-        rqStudent.setMyeongPlaySchoolCompetition(studentProfileDTO.getRqInfo().getMyeongPlaySchoolCompetition().size());
+        rqStudent.setYulJcr5Main(studentProfileDTO.getRqInfo().getYul_paper().getYulJcr5Main().size());
+        rqStudent.setYulJcr5Part(studentProfileDTO.getRqInfo().getYul_paper().getYulJcr5Part().size());
+        rqStudent.setYulJcr10Main(studentProfileDTO.getRqInfo().getYul_paper().getYulJcr10Main().size());
+        rqStudent.setYulJcr10Part(studentProfileDTO.getRqInfo().getYul_paper().getYulJcr10Part().size());
+        rqStudent.setYulKnownSpeech(studentProfileDTO.getRqInfo().getYul_researchContest().getYulKnownSpeech().size());
+        rqStudent.setYulKnownPoster(studentProfileDTO.getRqInfo().getYul_researchContest().getYulKnownPoster().size());
+        rqStudent.setYulNormalSpeech(studentProfileDTO.getRqInfo().getYul_researchContest().getYulNormalSpeech().size());
+        rqStudent.setYulNormalPoster(studentProfileDTO.getRqInfo().getYul_researchContest().getYulNormalPoster().size());
+        rqStudent.setYulNationalSpeech(studentProfileDTO.getRqInfo().getYul_researchContest().getYulNationalSpeech().size());
+        rqStudent.setYulNationalPoster(studentProfileDTO.getRqInfo().getYul_researchContest().getYulNationalPoster().size());
+        rqStudent.setYulTopBigCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulTopBigCompetition().size());
+        rqStudent.setYulWinBigCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulWinBigCompetition().size());
+        rqStudent.setYulPlayBigCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulPlayBigCompetition().size());
+        rqStudent.setYulTopSchoolCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulTopSchoolCompetition().size());
+        rqStudent.setYulWinSchoolCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulWinSchoolCompetition().size());
+        rqStudent.setYulPlaySchoolCompetition(studentProfileDTO.getRqInfo().getYul_competition().getYulPlaySchoolCompetition().size());
+        rqStudent.setMyeongOverKci(studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongOverKci().size());
+        rqStudent.setMyeongKciExcellent(studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKciExcellent().size());
+        rqStudent.setMyeongKci(studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKci().size());
+        rqStudent.setMyeongKciCandidate(studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKciCandidate().size());
+        rqStudent.setMyeongKnownSpeech(studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongKnownSpeech().size());
+        rqStudent.setMyeongNormalSpeech(studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongNormalSpeech().size());
+        rqStudent.setMyeongNationalSpeech(studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongNationalSpeech().size());
+        rqStudent.setMyeongTopBigCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongTopBigCompetition().size());
+        rqStudent.setMyeongWinBigCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongWinBigCompetition().size());
+        rqStudent.setMyeongPlayBigCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongPlayBigCompetition().size());
+        rqStudent.setMyeongTopSchoolCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongTopSchoolCompetition().size());
+        rqStudent.setMyeongWinSchoolCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongWinSchoolCompetition().size());
+        rqStudent.setMyeongPlaySchoolCompetition(studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongPlaySchoolCompetition().size());
 
         CQStudent cqStudent = new CQStudent();
         cqStudent.setStudentId(studentProfileDTO.getStudentInfo().getId());
@@ -247,41 +274,44 @@ public class StudentProfileService {
         // 새로운 LRCContent 저장
         saveContents(student.getStudentId(), "activityEdu", studentProfileDTO.getLqInfo().getActivityEdu());
         saveContents(student.getStudentId(), "activityTA", studentProfileDTO.getLqInfo().getActivityTA());
-        saveContents(student.getStudentId(), "yulJcr5Main", studentProfileDTO.getRqInfo().getYulJcr5Main());
-        saveContents(student.getStudentId(), "yulJcr5Part", studentProfileDTO.getRqInfo().getYulJcr5Part());
-        saveContents(student.getStudentId(), "yulJcr10Main", studentProfileDTO.getRqInfo().getYulJcr10Main());
-        saveContents(student.getStudentId(), "yulJcr10Part", studentProfileDTO.getRqInfo().getYulJcr10Part());
-        saveContents(student.getStudentId(), "yulKnownSpeech", studentProfileDTO.getRqInfo().getYulKnownSpeech());
-        saveContents(student.getStudentId(), "yulKnownPoster", studentProfileDTO.getRqInfo().getYulKnownPoster());
-        saveContents(student.getStudentId(), "yulNormalSpeech", studentProfileDTO.getRqInfo().getYulNormalSpeech());
-        saveContents(student.getStudentId(), "yulNormalPoster", studentProfileDTO.getRqInfo().getYulNormalPoster());
-        saveContents(student.getStudentId(), "yulNationalSpeech", studentProfileDTO.getRqInfo().getYulNationalSpeech());
-        saveContents(student.getStudentId(), "yulNationalPoster", studentProfileDTO.getRqInfo().getYulNationalPoster());
-        saveContents(student.getStudentId(), "yulTopBigCompetition", studentProfileDTO.getRqInfo().getYulTopBigCompetition());
-        saveContents(student.getStudentId(), "yulWinBigCompetition", studentProfileDTO.getRqInfo().getYulWinBigCompetition());
-        saveContents(student.getStudentId(), "yulPlayBigCompetition", studentProfileDTO.getRqInfo().getYulPlayBigCompetition());
-        saveContents(student.getStudentId(), "yulTopSchoolCompetition", studentProfileDTO.getRqInfo().getYulTopSchoolCompetition());
-        saveContents(student.getStudentId(), "yulWinSchoolCompetition", studentProfileDTO.getRqInfo().getYulWinSchoolCompetition());
-        saveContents(student.getStudentId(), "yulPlaySchoolCompetition", studentProfileDTO.getRqInfo().getYulPlaySchoolCompetition());
-        saveContents(student.getStudentId(), "myeongOverKci", studentProfileDTO.getRqInfo().getMyeongOverKci());
-        saveContents(student.getStudentId(), "myeongKciExcellent", studentProfileDTO.getRqInfo().getMyeongKciExcellent());
-        saveContents(student.getStudentId(), "myeongKci", studentProfileDTO.getRqInfo().getMyeongKci());
-        saveContents(student.getStudentId(), "myeongKciCandidate", studentProfileDTO.getRqInfo().getMyeongKciCandidate());
-        saveContents(student.getStudentId(), "myeongKnownSpeech", studentProfileDTO.getRqInfo().getMyeongKnownSpeech());
-        saveContents(student.getStudentId(), "myeongNormalSpeech", studentProfileDTO.getRqInfo().getMyeongNormalSpeech());
-        saveContents(student.getStudentId(), "myeongNationalSpeech", studentProfileDTO.getRqInfo().getMyeongNationalSpeech());
-        saveContents(student.getStudentId(), "myeongTopBigCompetition", studentProfileDTO.getRqInfo().getMyeongTopBigCompetition());
-        saveContents(student.getStudentId(), "myeongWinBigCompetition", studentProfileDTO.getRqInfo().getMyeongWinBigCompetition());
-        saveContents(student.getStudentId(), "myeongPlayBigCompetition", studentProfileDTO.getRqInfo().getMyeongPlayBigCompetition());
-        saveContents(student.getStudentId(), "myeongTopSchoolCompetition", studentProfileDTO.getRqInfo().getMyeongTopSchoolCompetition());
-        saveContents(student.getStudentId(), "myeongWinSchoolCompetition", studentProfileDTO.getRqInfo().getMyeongWinSchoolCompetition());
-        saveContents(student.getStudentId(), "myeongPlaySchoolCompetition", studentProfileDTO.getRqInfo().getMyeongPlaySchoolCompetition());
+        saveContents(student.getStudentId(), "yulJcr5Main", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr5Main());
+        saveContents(student.getStudentId(), "yulJcr5Part", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr5Part());
+        saveContents(student.getStudentId(), "yulJcr10Main", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr10Main());
+        saveContents(student.getStudentId(), "yulJcr10Part", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr10Part());
+        saveContents(student.getStudentId(), "yulJcr20Main", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr20Main());
+        saveContents(student.getStudentId(), "yulJcr20Part", studentProfileDTO.getRqInfo().getYul_paper().getYulJcr20Part());
+        saveContents(student.getStudentId(), "yulKnownSpeech", studentProfileDTO.getRqInfo().getYul_researchContest().getYulKnownSpeech());
+        saveContents(student.getStudentId(), "yulKnownPoster", studentProfileDTO.getRqInfo().getYul_researchContest().getYulKnownPoster());
+        saveContents(student.getStudentId(), "yulNormalSpeech", studentProfileDTO.getRqInfo().getYul_researchContest().getYulNormalSpeech());
+        saveContents(student.getStudentId(), "yulNormalPoster", studentProfileDTO.getRqInfo().getYul_researchContest().getYulNormalPoster());
+        saveContents(student.getStudentId(), "yulNationalSpeech", studentProfileDTO.getRqInfo().getYul_researchContest().getYulNationalSpeech());
+        saveContents(student.getStudentId(), "yulNationalPoster", studentProfileDTO.getRqInfo().getYul_researchContest().getYulNationalPoster());
+        saveContents(student.getStudentId(), "yulTopBigCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulTopBigCompetition());
+        saveContents(student.getStudentId(), "yulWinBigCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulWinBigCompetition());
+        saveContents(student.getStudentId(), "yulPlayBigCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulPlayBigCompetition());
+        saveContents(student.getStudentId(), "yulTopSchoolCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulTopSchoolCompetition());
+        saveContents(student.getStudentId(), "yulWinSchoolCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulWinSchoolCompetition());
+        saveContents(student.getStudentId(), "yulPlaySchoolCompetition", studentProfileDTO.getRqInfo().getYul_competition().getYulPlaySchoolCompetition());
+        saveContents(student.getStudentId(), "myeongOverKci", studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongOverKci());
+        saveContents(student.getStudentId(), "myeongKciExcellent", studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKciExcellent());
+        saveContents(student.getStudentId(), "myeongKci", studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKci());
+        saveContents(student.getStudentId(), "myeongKciCandidate", studentProfileDTO.getRqInfo().getMyeong_paper().getMyeongKciCandidate());
+        saveContents(student.getStudentId(), "myeongKnownSpeech", studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongKnownSpeech());
+        saveContents(student.getStudentId(), "myeongNormalSpeech", studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongNormalSpeech());
+        saveContents(student.getStudentId(), "myeongNationalSpeech", studentProfileDTO.getRqInfo().getMyeong_researchContest().getMyeongNationalSpeech());
+        saveContents(student.getStudentId(), "myeongTopBigCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongTopBigCompetition());
+        saveContents(student.getStudentId(), "myeongWinBigCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongWinBigCompetition());
+        saveContents(student.getStudentId(), "myeongPlayBigCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongPlayBigCompetition());
+        saveContents(student.getStudentId(), "myeongTopSchoolCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongTopSchoolCompetition());
+        saveContents(student.getStudentId(), "myeongWinSchoolCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongWinSchoolCompetition());
+        saveContents(student.getStudentId(), "myeongPlaySchoolCompetition", studentProfileDTO.getRqInfo().getMyeong_competition().getMyeongPlaySchoolCompetition());
         saveContents(student.getStudentId(), "coop", studentProfileDTO.getCqInfo().getCoop());
         saveContents(student.getStudentId(), "internship", studentProfileDTO.getCqInfo().getInternship());
         saveContents(student.getStudentId(), "startup", studentProfileDTO.getCqInfo().getStartup());
         saveContents(student.getStudentId(), "overseaVolunteer", studentProfileDTO.getCqInfo().getOverseaVolunteer());
         saveContents(student.getStudentId(), "seminar", studentProfileDTO.getCqInfo().getSeminar());
         saveContents(student.getStudentId(), "studioContribution", studentProfileDTO.getCqInfo().getStudioContribution());
+
 
         studentRepository.save(student);
 
