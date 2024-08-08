@@ -101,7 +101,7 @@ public class StudentProfileDTO {
         private int reporter_leader;
         private int reporter_vice_leader;
         private int reporter_participate;
-        private String studioContribution;
+        private List<String> studioContribution;
         private int studyGroup_leader;
         private int studyGroup_vice_leader;
         private int studyGroup_participate;
