@@ -67,7 +67,7 @@ export function AdminCQInfo({ cqInfo }) {
                     style={{ width: '100%' }}
                     name='coop'
                     rows="2"
-                    value={cqInfo.coop}
+                    value={coopText}
                     disabled={true}
                 />
                 <label style={{ marginRight: '24px', marginTop: '24px' }}>인턴십</label>

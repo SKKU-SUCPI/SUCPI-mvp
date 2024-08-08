@@ -3,11 +3,6 @@ import '../../Student/profile/AccordionItem'
 
 export function AdminLQInfo({ lqInfo }) {
 
-    const eduContents = [
-        "고등학교에서 인공지능 기초 교육을 진행했습니다.",
-        "고등학교에서 파이썬 기초 교육을 진행했습니다."
-    ];
-
     useEffect(() => {
         console.log("LQ Info:", lqInfo);
     }, [lqInfo]);
@@ -17,26 +12,26 @@ export function AdminLQInfo({ lqInfo }) {
     }
 
     function getGradeRange(lqInfo) {
-        if (lqInfo.grade40TO45 == 1) return "4.0이상 4.5이하";
-        if (lqInfo.grade35TO40 == 1) return "3.5이상 3.99이하";
-        if (lqInfo.grade30TO35 == 1) return "3.0이상 3.49이하";
-        if (lqInfo.grade00TO30 == 1) return "2.99이하";
+        if (lqInfo.grade40TO45 === 1) return "4.0이상 4.5이하";
+        if (lqInfo.grade35TO40 === 1) return "3.5이상 3.99이하";
+        if (lqInfo.grade30TO35 === 1) return "3.0이상 3.49이하";
+        if (lqInfo.grade00TO30 === 1) return "2.99이하";
         return "N/A"
     }
 
     function getOSScore(lqInfo) {
-        if (lqInfo.openSourceActivityStar5 == 1) return "5점";
-        if (lqInfo.openSourceActivityStar4 == 1) return "4점";
-        if (lqInfo.openSourceActivityStar3 == 1) return "3점";
-        if (lqInfo.openSourceActivityStar0 == 1) return "0점";
+        if (lqInfo.openSourceActivityStar5 === 1) return "5점";
+        if (lqInfo.openSourceActivityStar4 === 1) return "4점";
+        if (lqInfo.openSourceActivityStar3 === 1) return "3점";
+        if (lqInfo.openSourceActivityStar0 === 1) return "0점";
         return "N/A"
     }
 
     function getCommitterStar(lqInfo) {
-        if (lqInfo.committerStar5 == 1) return "5점";
-        if (lqInfo.committerStar4 == 1) return "4점";
-        if (lqInfo.committerStar3 == 1) return "3점";
-        if (lqInfo.committerStar0 == 1) return "0점";
+        if (lqInfo.committerStar5 === 1) return "5점";
+        if (lqInfo.committerStar4 === 1) return "4점";
+        if (lqInfo.committerStar3 === 1) return "3점";
+        if (lqInfo.committerStar0 === 1) return "0점";
         return "N/A"        
     }
 
