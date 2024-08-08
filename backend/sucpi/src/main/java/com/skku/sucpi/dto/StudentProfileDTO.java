@@ -51,29 +51,74 @@ public class StudentProfileDTO {
     @AllArgsConstructor
     public static class RQInfo {
         private String studentId;
+        private String campus;
+        private YulPaper yul_paper;
+        private MyeongPaper myeong_paper;
+        private YulResearchContest yul_researchContest;
+        private MyeongResearchContest myeong_researchContest;
+        private YulCompetition yul_competition;
+        private MyeongCompetition myeong_competition;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class YulPaper{
         private List<String> yulJcr5Main;
         private List<String> yulJcr5Part;
         private List<String> yulJcr10Main;
         private List<String> yulJcr10Part;
+        private List<String> yulJcr20Main;
+        private List<String> yulJcr20Part;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyeongPaper{
+        private List<String> myeongOverKci;
+        private List<String> myeongKciExcellent;
+        private List<String> myeongKci;
+        private List<String> myeongKciCandidate;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class YulResearchContest{
         private List<String> yulKnownSpeech;
         private List<String> yulKnownPoster;
         private List<String> yulNormalSpeech;
         private List<String> yulNormalPoster;
         private List<String> yulNationalSpeech;
         private List<String> yulNationalPoster;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyeongResearchContest{
+        private List<String> myeongKnownSpeech;
+        private List<String> myeongNormalSpeech;
+        private List<String> myeongNationalSpeech;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class YulCompetition{
         private List<String> yulTopBigCompetition;
         private List<String> yulWinBigCompetition;
         private List<String> yulPlayBigCompetition;
         private List<String> yulTopSchoolCompetition;
         private List<String> yulWinSchoolCompetition;
         private List<String> yulPlaySchoolCompetition;
-        private List<String> myeongOverKci;
-        private List<String> myeongKciExcellent;
-        private List<String> myeongKci;
-        private List<String> myeongKciCandidate;
-        private List<String> myeongKnownSpeech;
-        private List<String> myeongNormalSpeech;
-        private List<String> myeongNationalSpeech;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyeongCompetition{
         private List<String> myeongTopBigCompetition;
         private List<String> myeongWinBigCompetition;
         private List<String> myeongPlayBigCompetition;
