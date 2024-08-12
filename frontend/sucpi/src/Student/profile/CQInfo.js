@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './AccordionItem'
+import './AccordionItem.css'
 
 export function CQInfo({ studentCQData, onCQDataChange, editable }) {
     const inputStyle = editable ? { backgroundColor: 'white' } : {};
