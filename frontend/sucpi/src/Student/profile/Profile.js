@@ -32,7 +32,7 @@ export function Profile() {
 
     useEffect(() => {
         // 변경필요
-        fetch('http://localhost:8080/api/students/2023533384')
+        fetch('http://localhost:8080/api/students/2019988141')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -169,11 +169,11 @@ const data = {
             "RQMyeongKciCandidate": 0
         },
         "lqInfo": {
-            "studentId": "20220020",
-            "activityEdu": 2,
-            "activityTA": 1,
-            "grade40TO45": 1,
-            "grade35TO40": 0,
+            "studentId": "2023533384",
+            "activityEdu": [],
+            "activityTA": [],
+            "grade40TO45": 0,
+            "grade35TO40": 1,
             "grade30TO35": 0,
             "grade00TO30": 0,
             "openSourceActivityStar0": 0,
@@ -181,29 +181,9 @@ const data = {
             "openSourceActivityStar4": 1,
             "openSourceActivityStar5": 0,
             "committerStar0": 0,
-            "committerStar3": 1,
-            "committerStar4": 0,
-            "committerStar5": 0,
-            "contents": [
-                {
-                    "id": 346,
-                    "studentId": "20200020",
-                    "dataname": "activityEdu",
-                    "contents": "고등학교에서 인공지능 기초 교육을 진행했습니다."
-                },
-                {
-                    "id": 347,
-                    "studentId": "20200020",
-                    "dataname": "activityEdu",
-                    "contents": "고등학교에서 파이썬 기초 교육을 진행했습니다."
-                },
-                {
-                    "id": 348,
-                    "studentId": "20200020",
-                    "dataname": "activityTA",
-                    "contents": "인공지능 개론 조교를 수행했습니다."
-                }
-            ]
-        }
+            "committerStar3": 0,
+            "committerStar4": 1,
+            "committerStar5": 0
+        },
     }
 };
