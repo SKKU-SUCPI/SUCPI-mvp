@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccordionItem } from "./AccordionItem";
 import { PersonalInfo } from "./PersonalInfo";
 import { LQInfo } from "./LQInfo";
@@ -24,15 +24,38 @@ export function RightMenu({ editable, onSaveClick, onEditClick }) {
 
 export function Profile() {
     const [editable, setEditable] = useState(false);
-    const [studentInfoData, setStudentInfoData] = useState(data.result.studentInfo);
-    const [studentLQData, setStudentLQData] = useState(data.result.lqInfo);
-    const [studentCQData, setStudentCQData] = useState(data.result.cqInfo);
+    const [studentInfoData, setStudentInfoData] = useState(null);
+    const [studentLQData, setStudentLQData] = useState(null);
+    const [studentCQData, setStudentCQData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // 변경필요
+        fetch('http://localhost:8080/api/students/2023533384')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setStudentInfoData(data.result.studentInfo);
+                setStudentLQData(data.result.lqInfo);
+                setStudentCQData(data.result.cqInfo);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error);
+                setLoading(false);
+            });
+    }, []);
 
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
         setEditable(false);
         alert("저장이 완료되었습니다.");
-        // 여기서 데이터를 서버에 저장하는 로직을 추가할 수 있습니다.
+        // Here you can add the logic to save the data to the server
     };
 
     const handleInfoChange = (name, value) => {
@@ -54,6 +77,14 @@ export function Profile() {
             ...prevData,
             [name]: value
         }));
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
     }
 
     return (
