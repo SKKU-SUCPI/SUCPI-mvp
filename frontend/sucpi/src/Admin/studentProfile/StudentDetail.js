@@ -91,7 +91,7 @@ export function StudentDetail() {
                 <AccordionItem title="교과활동">
                     <AdminLQInfo lqInfo={studentData.lqInfo} />
                 </AccordionItem>
-                <AccordionItem title="연구활동 --> 추후">
+                <AccordionItem title="연구활동">
                     <AdminRQInfo rqInfo={studentData.rqInfo} />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
