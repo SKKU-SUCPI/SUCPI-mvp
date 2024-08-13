@@ -1,83 +1,94 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './AccordionItem';
 
-export function RQInfo()
-{
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedConference, setSelectedConference] = useState('');
-    const [selectedCompetition, setSelectedCompetition] = useState('');
+export function RQInfo({ studentRQData, onRQDataChange, editable }) {
+    const inputStyle = editable ? { backgroundColor: 'white' } : {};
 
-    const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
+    // 각 논문 항목별로 상태를 관리하기 위해 배열 사용
+    const [categories, setCategories] = useState([]);
+    const [grades, setGrades] = useState([]);
+    const [papers, setPapers] = useState([]);
+
+    const yulMapping = {
+        yulJcr5Main: "JCR 상위 5%이내 학술지(주저)",
+        yulJcr5Part: "JCR 상위 5%이내 학술지(공저)",
+        yulJcr10Main: "JCR 상위 10%이내 학술지(주저)",
+        yulJcr10Part: "JCR 상위 10%이내 학술지(공저)",
+        yulJcr20Main: "JCR 상위 20%이내 학술지(주저)",
+        yulJcr20Part: "JCR 상위 20%이내 학술지(공저)",
     };
 
-    const handleConferenceChange = (event) => {
-        setSelectedConference(event.target.value);
+    const myeongMapping = {
+        myeongOverKci: "KCI 우수등재 학술지",
+        myeongKciExcellent: "KCI 등재",
+        myeongKci: "KCI 후보, 기타국제",
+        myeongKciCandidate: "KCI 후보, 기타국제",
     };
 
-    const handleCompetitionChange = (event) => {
-        setSelectedCompetition(event.target.value);
+    useEffect(() => {
+        const yulPapers = studentRQData.yul_paper;
+        const myeongPapers = studentRQData.myeong_paper;
+        let paperList = [];
+        let paperGradeList = [];
+
+        // yul_paper 내의 각 키에 대해 논문 제목과 해당 논문의 등급을 함께 저장
+        for (const [key, value] of Object.entries(yulPapers)) {
+            value.forEach(paper => {
+                paperList.push(paper);
+                paperGradeList.push(yulMapping[key]); // 논문에 맞는 등급을 설정
+            });
+        }
+
+        // myeong_paper 내의 각 키에 대해 논문 제목과 해당 논문의 등급을 함께 저장
+        for (const [key, value] of Object.entries(myeongPapers)) {
+            value.forEach(paper => {
+                paperList.push(paper);
+                paperGradeList.push(myeongMapping[key]); // 논문에 맞는 등급을 설정
+            });
+        }
+
+        setPapers(paperList);
+        setGrades(paperGradeList);
+
+        // 처음 카테고리는 모두 과학기술계열로 초기화
+        const initialCategories = paperList.map((_, index) => {
+            // 논문 등급이 yulMapping에 있는 경우 과학기술계열로 설정, 아닌 경우 인문사회계열로 설정
+            return Object.values(yulMapping).includes(paperGradeList[index]) ? 'science' : 'humanities';
+        });
+
+        setCategories(initialCategories);
+    }, [studentRQData]);
+
+    const handleCategoryChange = (index, value) => {
+        const newCategories = [...categories];
+        newCategories[index] = value;
+        setCategories(newCategories);
     };
 
-
-    const humanitiesOptions = [
-        { value: 'sci_ssci', label: 'SCI, SSCI, A&HCI 급 학술지' },
-        { value: 'kci_excellent', label: 'KCI 우수등재 학술지' },
-        { value: 'kci', label: 'KCI 등재' },
-        { value: 'kci_candidate', label: 'KCI 후보, 기타국제' },
-    ];
-
-    const scienceOptions = [
-        { value: 'jcr_top_5', label: 'JCR 상위 5% 이내 학술지(주저)' },
-        { value: 'jcr_top_5_sub', label: 'JCR 상위 5% 이내 학술지(공저)' },
-        { value: 'jcr_top_10', label: 'JCR 상위 10% 이내 학술지(주저)' },
-        { value: 'jcr_top_10_sub', label: 'JCR 상위 10% 이내 학술지(공저)' },
-        { value: 'jcr_top_20', label: 'JCR 상위 20% 이내 학술지(주저)' },
-        { value: 'jcr_top_20_sub', label: 'JCR 상위 20% 이내 학술지(공저)' },
-    ];
-
-    const conferenceOptions = [
-        { value: 'major_international', label: '저명 국제학술대회 발표 (BK기준)' },
-        { value: 'general_international', label: '일반 국제학술대회 발표' },
-        { value: 'domestic', label: '국내학술대회 발표' },
-    ];
-
-    const gradeOptions = {
-        major_international: [
-            { value: 'speech', label: '구두발표' },
-            { value: 'poster', label: '포스터발표' },
-        ],
-        general_international: [
-            { value: 'speech', label: '구두발표' },
-            { value: 'poster', label: '포스터발표' },
-        ],
-        domestic: [
-            { value: 'speech', label: '구두발표' },
-            { value: 'poster', label: '포스터발표' },
-        ],
+    const handleGradeChange = (index, value) => {
+        const newGrades = [...grades];
+        newGrades[index] = value;
+        setGrades(newGrades);
     };
 
-    const competitionOptions = [
-        { value: 'international', label: '국제/대규모 공모전(ICPC, 공개SW개발자대회)' },
-        { value: 'domestic', label: '교내/지역 공모전' },
-    ];
-
-    const competitionGrades = {
-        international: [
-            { value: 'grand', label: '대상' },
-            { value: 'award', label: '입상' },
-            { value: 'participation', label: '참여' },
-        ],
-        domestic: [
-            { value: 'grand', label: '대상' },
-            { value: 'award', label: '입상' },
-            { value: 'participation', label: '참여' },
-        ],
+    const getMappedOptions = (category) => {
+        if (category === 'science') {
+            return Object.entries(yulMapping).map(([key, label]) => ({
+                value: key,
+                label,
+            }));
+        } else if (category === 'humanities') {
+            return Object.entries(myeongMapping).map(([key, label]) => ({
+                value: key,
+                label,
+            }));
+        }
+        return [];
     };
 
     const renderOptions = (options) => {
         return options.map((option) => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+            <option key={option.value} value={option.label}>{option.label}</option>
         ));
     };
 
@@ -88,56 +99,39 @@ export function RQInfo()
                     <label>학술지 논문 게재</label>
                     <button className='add-item'>항목 추가</button>
                 </div>
-                <div className='form-group form-group-row' >
-                    <select className='form-control' onChange={handleCategoryChange} style={{width: "120px"}}>
-                        <option value="">계열 선택</option>
-                        <option value="humanities">인문사회계열</option>
-                        <option value="science">과학기술계열</option>
-                    </select>
-                    <select className='form-control fixed-width'>
-                        <option value="">논문 등급</option>
-                        {selectedCategory === 'humanities' && renderOptions(humanitiesOptions)}
-                        {selectedCategory === 'science' && renderOptions(scienceOptions)}
-                    </select>
-                    <textarea className='form-control' rows="1" placeholder="논문 제목을 입력해 주세요" style={{resize: "none", overflow: "hidden", width: "100%"}}></textarea>
-                </div>
+                {papers.map((paper, index) => (
+                    <div className='form-group form-group-row' key={index}>
+                        <select
+                            className='form-control'
+                            onChange={(e) => handleCategoryChange(index, e.target.value)}
+                            style={{ width: "120px" }}
+                            value={categories[index]}
+                        >
+                            <option value="">계열 선택</option>
+                            <option value="humanities">인문사회계열</option>
+                            <option value="science">과학기술계열</option>
+                        </select>
+                        <select
+                            className='form-control fixed-width'
+                            onChange={(e) => handleGradeChange(index, e.target.value)}
+                            value={grades[index]} // 논문 등급을 설정
+                        >
+                            <option value="">논문 등급</option>
+                            {renderOptions(getMappedOptions(categories[index]))}
+                        </select>
+                        <textarea
+                            className='form-control'
+                            rows="1"
+                            placeholder="논문 제목을 입력해 주세요"
+                            style={{ resize: "none", overflow: "hidden", width: "100%" }}
+                            value={paper}
+                            readOnly={!editable}
+                        ></textarea>
+                    </div>
+                ))}
             </div>
             <hr className="divider" />
-            <div className='form-group form-group-column'>
-                <div className="label-and-button">
-                    <label>학술 대회 발표</label>
-                    <button className='add-item'>항목 추가</button>
-                </div>
-                <div className='form-group form-group-row' style={{ width: "90%" }}>
-                    <select className='form-control fixed-width' onChange={handleConferenceChange}>
-                        <option value="">계열 선택</option>
-                        {renderOptions(conferenceOptions)}
-                    </select>
-                    <select className='form-control fixed-width' style={{width: "120px"}}>
-                        <option value="">발표 등급</option>
-                        {selectedConference && renderOptions(gradeOptions[selectedConference])}
-                    </select>
-                    <textarea className='form-control' rows="1" placeholder="학술 대회명을 입력해 주세요" style={{resize: "none", overflow: "hidden", width: "420px"}}></textarea>
-                </div>
-            </div>
-            <hr className="divider" />
-            <div className='form-group form-group-column'>
-                <div className="label-and-button">
-                    <label>공모전/ICPC</label>
-                    <button className='add-item'>항목 추가</button>
-                </div>
-                <div className='form-group form-group-row' style={{ width: "90%" }}>
-                    <select className='form-control fixed-width' onChange={handleCompetitionChange}>
-                        <option value="">계열 선택</option>
-                        {renderOptions(competitionOptions)}
-                    </select>
-                    <select className='form-control fixed-width' style={{width: "120px"}}>
-                        <option value="">공모전 등급</option>
-                        {selectedCompetition && renderOptions(competitionGrades[selectedCompetition])}
-                    </select>
-                    <textarea className='form-control' rows="1" placeholder="공모전 이름을 입력해 주세요" style={{resize: "none", overflow: "hidden", width: "420px"}}></textarea>
-                </div>
-            </div>
+            {/* 학술대회 발표 및 공모전/ICPC 섹션도 동일하게 처리할 수 있음 */}
         </div>
     );
 }
