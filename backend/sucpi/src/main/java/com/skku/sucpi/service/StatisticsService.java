@@ -50,6 +50,17 @@ public class StatisticsService {
     @Autowired
     private CQWeightRepository cqWeightRepository;
 
+    //특정 클래스의 모든 int 필드를 0으로 초기화하는 맵을 생성
+    private Map<String, Integer> initializeFieldMap(Class<?> clazz) {
+        Map<String, Integer> fieldMap = new HashMap<>();
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.getType().equals(int.class)) {
+                fieldMap.put(field.getName(), 0);
+            }
+        }
+        return fieldMap;
+    }
+
     // 세 수의 최소공배수를 계산하는 함수
     public static BigInteger lcm(long num1, long num2, long num3) {
         BigInteger a = BigInteger.valueOf(num1);
@@ -229,7 +240,7 @@ public class StatisticsService {
 
     //항목 별 총 건수
     //LQ
-    public Map<String, Integer> sumAllLQActivities(List<String> grade, List<String> major) {
+    public Map<String, Integer> sumAllLQActivities(List<String> Q,List<String> grade, List<String> major) {
         List<Student> filteredStudents = getFilteredResults(grade, major);
         System.out.println("Filtered LQ Students Count: " + filteredStudents.size());  // 로그 추가
 
@@ -253,13 +264,14 @@ public class StatisticsService {
                         throw new RuntimeException("Field access error", e);
                     }
                 }).sum();
-                totalLQs.put(field.getName(), sum);
+                if(Q.contains("lq") || Q.contains("all")) totalLQs.put(field.getName(), sum);
+                else totalLQs.put(field.getName(), 0);
             }
         }
         return totalLQs;
     }
     //RQ
-    public Map<String, Integer> sumAllRQActivities(List<String> grade, List<String> major) {
+    public Map<String, Integer> sumAllRQActivities(List<String> Q,List<String> grade, List<String> major) {
         List<Student> filteredStudents = getFilteredResults(grade, major);
         System.out.println("Filtered RQ Students Count: " + filteredStudents.size());  // 로그 추가
 
@@ -284,13 +296,14 @@ public class StatisticsService {
                         throw new RuntimeException("Field access error", e);
                     }
                 }).sum();
-                totalRQs.put(field.getName(), sum);
+                if(Q.contains("rq") || Q.contains("all")) totalRQs.put(field.getName(), sum);
+                else totalRQs.put(field.getName(), 0);
             }
         }
         return totalRQs;
     }
     //CQ
-    public Map<String, Integer> sumAllCQActivities(List<String> grade, List<String> major) {
+    public Map<String, Integer> sumAllCQActivities(List<String> Q,List<String> grade, List<String> major) {
         List<Student> filteredStudents = getFilteredResults(grade, major);
         System.out.println("Filtered CQ Students Count: " + filteredStudents.size());  // 로그 추가
 
@@ -315,7 +328,8 @@ public class StatisticsService {
                         throw new RuntimeException("Field access error", e);
                     }
                 }).sum();
-                totalCQs.put(field.getName(), sum);
+                if(Q.contains("cq") || Q.contains("all")) totalCQs.put(field.getName(), sum);
+                else totalCQs.put(field.getName(), 0);
             }
         }
         return totalCQs;
@@ -462,32 +476,9 @@ public class StatisticsService {
         Map<String,Double> grade_statistics = gradePercentileCalculator(Q, Grade, Major);
         Map<String,Double> major_statistics = majorPercentileCalculator(Q, Grade, Major);
 
-        Map<String, Integer> totalLQs = new HashMap<>();
-        Map<String, Integer> totalRQs = new HashMap<>();
-        Map<String, Integer> totalCQs = new HashMap<>();
-
-        for (String query : Q) {
-            switch (query.toLowerCase()) {
-                case "lq":
-                    totalLQs = sumAllLQActivities(Grade, Major);
-                    break;
-                case "rq":
-                    totalRQs = sumAllRQActivities(Grade, Major);
-                    break;
-                case "cq":
-                    totalCQs = sumAllCQActivities(Grade, Major);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (Q.isEmpty() || Q.contains("all")) {
-            totalLQs = sumAllLQActivities(Grade, Major);
-            totalRQs = sumAllLQActivities(Grade, Major);
-            totalCQs = sumAllLQActivities(Grade, Major);
-        }
-
+        Map<String, Integer> totalLQs = sumAllLQActivities(Q,Grade, Major);
+        Map<String, Integer> totalRQs = sumAllRQActivities(Q,Grade, Major);
+        Map<String, Integer> totalCQs = sumAllCQActivities(Q,Grade, Major);
 
         return new StatisticsDTO(
             // totalQ,
