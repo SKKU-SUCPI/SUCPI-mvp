@@ -36,7 +36,7 @@ export function PersonalInfo({ studentInfo, onInfoChange, editable }) {
                     className='form-control' 
                     name="studentId"
                     style={{ width: "240px" }}
-                    value={studentInfo.Id} 
+                    value={studentInfo.id} 
                     onChange={handleChange}
                     disabled={true}
                 />

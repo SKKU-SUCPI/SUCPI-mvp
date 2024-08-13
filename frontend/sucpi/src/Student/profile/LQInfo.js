@@ -3,80 +3,41 @@ import React, { useEffect } from "react";
 export function LQInfo({ studentLQData, onLQDataChange, editable }) {
     const inputStyle = editable ? { backgroundColor: 'white' } : {};
 
-    // 학점 추출 및 설정
-    useEffect(() => {
-        const { grade40TO45, grade35TO40, grade30TO35, grade00TO30, LQGrade } = studentLQData;
-        let selectedGrade = "";
-
-        if (grade40TO45 === 1) {
-            selectedGrade = "4To4.5";
-        } else if (grade35TO40 === 1) {
-            selectedGrade = "3.5To3.99";
-        } else if (grade30TO35 === 1) {
-            selectedGrade = "3.0To3.49";
-        } else if (grade00TO30 === 1) {
-            selectedGrade = "~2.99";
-        }
-
-        // LQGrade가 현재 선택된 값과 다른 경우에만 업데이트
-        if (selectedGrade && selectedGrade !== LQGrade) {
-            onLQDataChange("LQGrade", selectedGrade);
-        }
-    }, [studentLQData.grade40TO45, studentLQData.grade35TO40, studentLQData.grade30TO35, studentLQData.grade00TO30, studentLQData.LQGrade, onLQDataChange]);
-
-    // 오픈소스활성도 추출 및 설정
-    useEffect(() => {
-        const { openSourceActivityStar0, openSourceActivityStar3, openSourceActivityStar4, openSourceActivityStar5, OpenSourceActivity } = studentLQData;
-        let selectedOSStar = "";
-        
-        if (openSourceActivityStar5 == 1) {
-            selectedOSStar = "5";
-        } else if (openSourceActivityStar4 == 1) {
-            selectedOSStar = "4";
-        } else if (openSourceActivityStar3 == 1) {
-            selectedOSStar = "3";
-        } else if (openSourceActivityStar0 == 1) {
-            selectedOSStar = "0";
-        }
-        // OpenSourceActivity가 현재 선택된 값과 다른 경우에만 업데이트
-        if (selectedOSStar && selectedOSStar !== OpenSourceActivity) {
-            onLQDataChange("OpenSourceActivity", selectedOSStar);
-        }
-    }, [studentLQData, onLQDataChange]);
-
-    // 커미터 추출 및 설정
-    useEffect(() => {
-        const { committerStar0, committerStar3, committerStar4, committerStar5, CommitterActivity } = studentLQData;
-        let selectedCommitter = "";
-
-        if (committerStar5 == 1) {
-            selectedCommitter = "5";
-        } else if (committerStar4 == 1) {
-            selectedCommitter = "4";
-        } else if (committerStar3 == 1) {
-            selectedCommitter = "3";
-        } else if (committerStar0 == 1) {
-            selectedCommitter = "0";
-        }
-
-        if (selectedCommitter && selectedCommitter !== CommitterActivity) {
-            onLQDataChange("CommitterActivity", selectedCommitter);
-        }
-    }, [studentLQData, onLQDataChange]);
-
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
         onLQDataChange(name, value);
     };
 
-    const handleTextChange = (e) => {
-        const { name, value } = e.target;
-        onLQDataChange(name, value);
+    const handleGradeChange = (event) => {
+        const { value } = event.target;
+        const newGrade = {
+            grade40TO45: value === "4To4.5" ? 1 : 0,
+            grade35TO40: value === "3.5To3.99" ? 1 : 0,
+            grade30TO35: value === "3.0To3.49" ? 1 : 0,
+            grade00TO30: value === "~2.99" ? 1 : 0,
+        };
+        onLQDataChange("LQGrade", value);
+        onLQDataChange("grade40TO45", newGrade.grade40TO45);
+        onLQDataChange("grade35TO40", newGrade.grade35TO40);
+        onLQDataChange("grade30TO35", newGrade.grade30TO35);
+        onLQDataChange("grade00TO30", newGrade.grade00TO30);
     };
 
-    // 컨텐츠 필터링
-    const eduContents = studentLQData.contents.filter(item => item.dataname === "activityEdu");
-    const TAContents = studentLQData.contents.filter(item => item.dataname === "activityTA");
+    const handleActivityChange = (fieldName, index, event) => {
+        const newActivities = [...studentLQData[fieldName]];
+        newActivities[index] = event.target.value;
+        onLQDataChange(fieldName, newActivities);
+    };
+
+    const handleAddActivity = (fieldName) => {
+        const newActivities = [...studentLQData[fieldName], ""];
+        onLQDataChange(fieldName, newActivities);
+    };
+
+    const handleRemoveActivity = (fieldName, index) => {
+        const newActivities = studentLQData[fieldName].filter((_, i) => i !== index);
+        onLQDataChange(fieldName, newActivities);
+    };
 
     return (
         <div className='form-container'>
@@ -85,8 +46,8 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <select
                     className='form-control'
                     name="LQGrade"
-                    value={studentLQData.LQGrade}
-                    onChange={handleSelectChange}
+                    value={studentLQData.LQGrade || ""}
+                    onChange={handleGradeChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
@@ -97,49 +58,76 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                     <option value="~2.99">~2.99</option>
                 </select>
             </div>
+            <hr className='divider' />
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>교내ㆍ외 교육 활동</label>
-                    <button className='add-item' disabled={!editable}>항목 추가</button>
+                    <button className='add-item' onClick={() => handleAddActivity("activityEdu")} disabled={!editable}>
+                        항목 추가
+                    </button>
                 </div>
-                {eduContents.map((item, index) => (
-                    <textarea
-                        key={index}
-                        className='form-control textarea-expanded'
-                        rows="2"
-                        name={`activityEdu_${index}`}
-                        value={item.contents}
-                        onChange={handleTextChange}
-                        disabled={!editable}
-                        style={inputStyle}
-                    ></textarea>
+                {studentLQData.activityEdu.map((activity, index) => (
+                    <div key={index} className='form-group form-group-row' style={{ width: "90%" }}>
+                        <textarea
+                            className='form-control'
+                            rows="1"
+                            name={`activityEdu_${index}`}
+                            value={activity}
+                            placeholder="활동 내용을 입력해 주세요."
+                            style={{ ...inputStyle, resize: "none", overflow: "hidden", width: "100%" }}
+                            onChange={(e) => handleActivityChange("activityEdu", index, e)}
+                            disabled={!editable}
+                        ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveActivity("activityEdu", index)}
+                            >
+                                삭제
+                            </button>
+                        )}
+                    </div>
                 ))}
             </div>
+            <hr className='divider' />
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>교육 조교 활동</label>
-                    <button className='add-item' disabled={!editable}>항목 추가</button>
+                    <button className='add-item' onClick={() => handleAddActivity("activityTA")} disabled={!editable}>
+                        항목 추가
+                    </button>
                 </div>
-                {TAContents.map((item, index) => (
-                    <textarea
-                        key={index}
-                        className='form-control textarea-expanded'
-                        rows="2"
-                        name={`activityTA_${index}`}
-                        value={item.contents}
-                        onChange={handleTextChange}
-                        disabled={!editable}
-                        style={inputStyle}
-                    ></textarea>
+                {studentLQData.activityTA.map((activity, index) => (
+                    <div key={index} className='form-group form-group-row' style={{ width: "90%" }}>
+                        <textarea
+                            className='form-control'
+                            rows="1"
+                            name={`activityTA_${index}`}
+                            value={activity}
+                            placeholder="활동 내용을 입력해 주세요."
+                            style={{ ...inputStyle, resize: "none", overflow: "hidden", width: "100%" }}
+                            onChange={(e) => handleActivityChange("activityTA", index, e)}
+                            disabled={!editable}
+                        ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveActivity("activityTA", index)}
+                            >
+                                삭제
+                            </button>
+                        )}
+                    </div>
                 ))}
             </div>
-            <div className='form-group form-group-row' style={{ whiteSpace: "nowrap", gap: "50%" }}>
-                <label>오픈소스커뮤니티 생성 및 활성도</label>
+            <hr className='divider' />
+            <div className='form-group form-group-row' style={{ gap: "200px" }}>
+                <label style={{ whiteSpace: "nowrap" }}>오픈소스 커뮤니티 활성도</label>
                 <select
                     className='form-control'
                     name="OpenSourceActivity"
-                    value={studentLQData.OpenSourceActivity}
-                    onChange={handleSelectChange}
+                    value={studentLQData.OpenSourceActivity || ""}
+                    onChange={handleInputChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
@@ -149,13 +137,14 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                     <option value="5">5점</option>
                 </select>
             </div>
-            <div className='form-group form-group-row' style={{ whiteSpace: "nowrap", gap: "50%" }}>
-                <label>커미터로서의 활동</label>
+            <hr className='divider' />
+            <div className='form-group form-group-row' style={{ gap: "200px" }}>
+                <label style={{ whiteSpace: "nowrap" }}>커미터로서의 활동</label>
                 <select
                     className='form-control'
                     name="CommitterActivity"
-                    value={studentLQData.CommitterActivity}
-                    onChange={handleSelectChange}
+                    value={studentLQData.CommitterActivity || ""}
+                    onChange={handleInputChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
