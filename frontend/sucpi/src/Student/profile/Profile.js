@@ -26,13 +26,14 @@ export function Profile() {
     const [editable, setEditable] = useState(false);
     const [studentInfoData, setStudentInfoData] = useState(null);
     const [studentLQData, setStudentLQData] = useState(null);
+    const [studentRQData, setStudentRQData] = useState(null);
     const [studentCQData, setStudentCQData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         // 변경필요
-        fetch('http://localhost:8080/api/students/2019988141')
+        fetch('http://localhost:8080/api/students/2019374894')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -42,6 +43,7 @@ export function Profile() {
             .then(data => {
                 setStudentInfoData(data.result.studentInfo);
                 setStudentLQData(data.result.lqInfo);
+                setStudentRQData(data.result.rqInfo);
                 setStudentCQData(data.result.cqInfo);
                 setLoading(false);
             })
@@ -67,6 +69,13 @@ export function Profile() {
 
     const handleLQDataChange = (name, value) => {
         setStudentLQData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleRQDataChange = (name, value) => {
+        setStudentRQData(prevData => ({
             ...prevData,
             [name]: value
         }));
@@ -98,7 +107,7 @@ export function Profile() {
                     <LQInfo studentLQData={studentLQData} onLQDataChange={handleLQDataChange} editable={editable} />
                 </AccordionItem>
                 <AccordionItem title="연구활동(추후변경하기)">
-                    <RQInfo />
+                    <RQInfo studentRQData={studentRQData} onRQDataChange={handleRQDataChange} editable={editable} />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
                     <CQInfo studentCQData={studentCQData} onCQDataChange={handleCQDataChange} editable={editable} />
