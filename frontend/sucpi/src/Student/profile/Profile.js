@@ -106,7 +106,7 @@ export function Profile() {
                 <AccordionItem title="교과활동">
                     <LQInfo studentLQData={studentLQData} onLQDataChange={handleLQDataChange} editable={editable} />
                 </AccordionItem>
-                <AccordionItem title="연구활동(추후변경하기)">
+                <AccordionItem title="연구활동">
                     <RQInfo studentRQData={studentRQData} onRQDataChange={handleRQDataChange} editable={editable} />
                 </AccordionItem>
                 <AccordionItem title="비교과활동">
