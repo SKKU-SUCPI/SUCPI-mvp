@@ -52,4 +52,15 @@ public class WeightController {
         StudentTestResultDTO result = weightTestService.testNewWeights(studentId, newWeights);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/test/{id}")
+    public ResponseEntity<StudentTestResultDTO> getOldScoresAndRanks(@PathVariable("id") String studentId) {
+        StudentTestResultDTO result = weightTestService.getOldScoresAndRanks(studentId);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
 }
