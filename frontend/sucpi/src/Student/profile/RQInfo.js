@@ -64,12 +64,16 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
     };
 
     useEffect(() => {
-        const yulPapers = studentRQData.yul_paper;
-        const myeongPapers = studentRQData.myeong_paper;
-        const yulConferences = studentRQData.yul_researchContest;
-        const myeongConferences = studentRQData.myeong_researchContest;
-        const yulCompetitions = studentRQData.yul_competition;
-        const myeongCompetitions = studentRQData.myeong_competition;
+        loadData();
+    }, [studentRQData]);
+
+    const loadData = () => {
+        const yulPapers = studentRQData.yul_paper || {};
+        const myeongPapers = studentRQData.myeong_paper || {};
+        const yulConferences = studentRQData.yul_researchContest || {};
+        const myeongConferences = studentRQData.myeong_researchContest || {};
+        const yulCompetitions = studentRQData.yul_competition || {};
+        const myeongCompetitions = studentRQData.myeong_competition || {};
 
         let paperList = [];
         let paperGradeList = [];
@@ -81,58 +85,64 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
         let initialConferenceCategories = [];
         let initialCompetitionCategories = [];
 
-        // yul_paper 내의 각 키에 대해 논문 제목과 해당 논문의 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(yulPapers)) {
-            value.forEach(paper => {
-                paperList.push(paper);
-                paperGradeList.push(yulMapping.paper[key]);
-                initialCategories.push('science');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(paper => {
+                    paperList.push(paper);
+                    paperGradeList.push(yulMapping.paper[key]);
+                    initialCategories.push('science');
+                });
+            }
         }
 
-        // myeong_paper 내의 각 키에 대해 논문 제목과 해당 논문의 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(myeongPapers)) {
-            value.forEach(paper => {
-                paperList.push(paper);
-                paperGradeList.push(myeongMapping.paper[key]);
-                initialCategories.push('humanities');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(paper => {
+                    paperList.push(paper);
+                    paperGradeList.push(myeongMapping.paper[key]);
+                    initialCategories.push('humanities');
+                });
+            }
         }
 
-        // yul_researchContest 내의 각 키에 대해 학술대회 발표와 해당 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(yulConferences)) {
-            value.forEach(conference => {
-                conferenceList.push(conference);
-                conferenceGradeList.push(yulMapping.researchContest[key]);
-                initialConferenceCategories.push('science');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(conference => {
+                    conferenceList.push(conference);
+                    conferenceGradeList.push(yulMapping.researchContest[key]);
+                    initialConferenceCategories.push('science');
+                });
+            }
         }
 
-        // myeong_researchContest 내의 각 키에 대해 학술대회 발표와 해당 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(myeongConferences)) {
-            value.forEach(conference => {
-                conferenceList.push(conference);
-                conferenceGradeList.push(myeongMapping.researchContest[key]);
-                initialConferenceCategories.push('humanities');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(conference => {
+                    conferenceList.push(conference);
+                    conferenceGradeList.push(myeongMapping.researchContest[key]);
+                    initialConferenceCategories.push('humanities');
+                });
+            }
         }
 
-        // yul_competition 내의 각 키에 대해 공모전/ICPC 제목과 해당 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(yulCompetitions)) {
-            value.forEach(competition => {
-                competitionList.push(competition);
-                competitionGradeList.push(yulMapping.competition[key]);
-                initialCompetitionCategories.push('science');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(competition => {
+                    competitionList.push(competition);
+                    competitionGradeList.push(yulMapping.competition[key]);
+                    initialCompetitionCategories.push('science');
+                });
+            }
         }
 
-        // myeong_competition 내의 각 키에 대해 공모전/ICPC 제목과 해당 등급, 카테고리를 함께 저장
         for (const [key, value] of Object.entries(myeongCompetitions)) {
-            value.forEach(competition => {
-                competitionList.push(competition);
-                competitionGradeList.push(myeongMapping.competition[key]);
-                initialCompetitionCategories.push('humanities');
-            });
+            if (Array.isArray(value)) {
+                value.forEach(competition => {
+                    competitionList.push(competition);
+                    competitionGradeList.push(myeongMapping.competition[key]);
+                    initialCompetitionCategories.push('humanities');
+                });
+            }
         }
 
         setPapers(paperList);
@@ -144,14 +154,13 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
         setCategories(initialCategories);
         setConferenceCategories(initialConferenceCategories);
         setCompetitionCategories(initialCompetitionCategories);
-    }, [studentRQData]);
+    };
 
     const handleCategoryChange = (index, value) => {
         const newCategories = [...categories];
         newCategories[index] = value;
         setCategories(newCategories);
 
-        // 카테고리가 변경될 때 grades 배열의 값을 초기화
         const newGrades = [...grades];
         newGrades[index] = '';
         setGrades(newGrades);
@@ -168,7 +177,6 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
         newConferenceCategories[index] = value;
         setConferenceCategories(newConferenceCategories);
 
-        // 카테고리가 변경될 때 conferenceGrades 배열의 값을 초기화
         const newConferenceGrades = [...conferenceGrades];
         newConferenceGrades[index] = '';
         setConferenceGrades(newConferenceGrades);
@@ -185,7 +193,6 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
         newCompetitionCategories[index] = value;
         setCompetitionCategories(newCompetitionCategories);
 
-        // 카테고리가 변경될 때 competitionGrades 배열의 값을 초기화
         const newCompetitionGrades = [...competitionGrades];
         newCompetitionGrades[index] = '';
         setCompetitionGrades(newCompetitionGrades);
@@ -195,6 +202,66 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
         const newCompetitionGrades = [...competitionGrades];
         newCompetitionGrades[index] = value;
         setCompetitionGrades(newCompetitionGrades);
+    };
+
+    const handleInputChange = (type, index, value) => {
+        if (type === 'paper') {
+            const newPapers = [...papers];
+            newPapers[index] = value;
+            setPapers(newPapers);
+            // onRQDataChange('yul_paper', newPapers);
+        } else if (type === 'conference') {
+            const newConferences = [...conferences];
+            newConferences[index] = value;
+            setConferences(newConferences);
+            // onRQDataChange('yul_researchContest', newConferences);
+        } else if (type === 'competition') {
+            const newCompetitions = [...competitions];
+            newCompetitions[index] = value;
+            setCompetitions(newCompetitions);
+            // onRQDataChange('yul_competition', newCompetitions);
+        }
+    };
+
+    const handleAddActivity = (type) => {
+        if (type === 'paper') {
+            setPapers([...papers, '']);
+            setGrades([...grades, '']);
+            setCategories([...categories, 'science']);
+        } else if (type === 'conference') {
+            setConferences([...conferences, '']);
+            setConferenceGrades([...conferenceGrades, '']);
+            setConferenceCategories([...conferenceCategories, 'science']);
+        } else if (type === 'competition') {
+            setCompetitions([...competitions, '']);
+            setCompetitionGrades([...competitionGrades, '']);
+            setCompetitionCategories([...competitionCategories, 'science']);
+        }
+    };
+
+    const handleRemoveActivity = (type, index) => {
+        if (type === 'paper') {
+            const newPapers = papers.filter((_, i) => i !== index);
+            const newGrades = grades.filter((_, i) => i !== index);
+            const newCategories = categories.filter((_, i) => i !== index);
+            setPapers(newPapers);
+            setGrades(newGrades);
+            setCategories(newCategories);
+        } else if (type === 'conference') {
+            const newConferences = conferences.filter((_, i) => i !== index);
+            const newConferenceGrades = conferenceGrades.filter((_, i) => i !== index);
+            const newConferenceCategories = conferenceCategories.filter((_, i) => i !== index);
+            setConferences(newConferences);
+            setConferenceGrades(newConferenceGrades);
+            setConferenceCategories(newConferenceCategories);
+        } else if (type === 'competition') {
+            const newCompetitions = competitions.filter((_, i) => i !== index);
+            const newCompetitionGrades = competitionGrades.filter((_, i) => i !== index);
+            const newCompetitionCategories = competitionCategories.filter((_, i) => i !== index);
+            setCompetitions(newCompetitions);
+            setCompetitionGrades(newCompetitionGrades);
+            setCompetitionCategories(newCompetitionCategories);
+        }
     };
 
     const getMappedOptions = (category, type) => {
@@ -224,15 +291,22 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>학술지 논문 게재</label>
-                    <button className='add-item'>항목 추가</button>
+                    <button 
+                        className='add-item' 
+                        onClick={() => handleAddActivity('paper')} 
+                        disabled={!editable}
+                    >
+                        항목 추가
+                    </button>
                 </div>
                 {papers.map((paper, index) => (
                     <div className='form-group form-group-row' key={index}>
                         <select
                             className='form-control'
                             onChange={(e) => handleCategoryChange(index, e.target.value)}
-                            style={{ width: "120px" }}
+                            style={{ ...inputStyle, width: "120px" }}
                             value={categories[index]}
+                            disabled={!editable}
                         >
                             <option value="">계열 선택</option>
                             <option value="humanities">인문사회계열</option>
@@ -241,7 +315,9 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                         <select
                             className='form-control fixed-width'
                             onChange={(e) => handleGradeChange(index, e.target.value)}
+                            style={{ ...inputStyle }}
                             value={grades[index]} // 논문 등급을 설정
+                            disabled={!editable}
                         >
                             <option value="">논문 등급</option>
                             {renderOptions(getMappedOptions(categories[index], 'paper'))}
@@ -250,10 +326,19 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                             className='form-control'
                             rows="1"
                             placeholder="논문 제목을 입력해 주세요"
-                            style={{ resize: "none", overflow: "hidden", width: "100%" }}
+                            style={{ ...inputStyle, resize: "none", overflow: "hidden", width: "100%" }}
                             value={paper}
-                            readOnly={!editable}
+                            onChange={(e) => handleInputChange('paper', index, e.target.value)}
+                            disabled={!editable}
                         ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveActivity('paper', index)}
+                            >
+                                삭제
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -263,15 +348,22 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>학술대회 발표</label>
-                    <button className='add-item'>항목 추가</button>
+                    <button 
+                        className='add-item' 
+                        onClick={() => handleAddActivity('conference')} 
+                        disabled={!editable}
+                    >
+                        항목 추가
+                    </button>
                 </div>
                 {conferences.map((conference, index) => (
                     <div className='form-group form-group-row' key={index}>
                         <select
                             className='form-control'
                             onChange={(e) => handleConferenceCategoryChange(index, e.target.value)}
-                            style={{ width: "120px" }}
+                            style={{ ...inputStyle, width: "120px" }}
                             value={conferenceCategories[index]}
+                            disabled={!editable}
                         >
                             <option value="">계열 선택</option>
                             <option value="humanities">인문사회계열</option>
@@ -281,6 +373,8 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                             className='form-control fixed-width'
                             onChange={(e) => handleConferenceGradeChange(index, e.target.value)}
                             value={conferenceGrades[index]} // 학술대회 발표 등급을 설정
+                            style={{ ...inputStyle }}
+                            disabled={!editable}
                         >
                             <option value="">발표 등급</option>
                             {renderOptions(getMappedOptions(conferenceCategories[index], 'researchContest'))}
@@ -289,10 +383,20 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                             className='form-control'
                             rows="1"
                             placeholder="학술대회명을 입력해 주세요"
-                            style={{ resize: "none", overflow: "hidden", width: "100%" }}
+                            style={{ ...inputStyle, resize: "none", overflow: "hidden", width: "100%" }}
                             value={conference}
                             readOnly={!editable}
+                            onChange={(e) => handleInputChange('conference', index, e.target.value)}
+                            disabled={!editable}
                         ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveActivity('conference', index)}
+                            >
+                                삭제
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -302,15 +406,22 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
             <div className='form-group form-group-column'>
                 <div className="label-and-button">
                     <label>공모전 / ICPC</label>
-                    <button className='add-item'>항목 추가</button>
+                    <button 
+                        className='add-item' 
+                        onClick={() => handleAddActivity('competition')} 
+                        disabled={!editable}
+                    >
+                        항목 추가
+                    </button>
                 </div>
                 {competitions.map((competition, index) => (
                     <div className='form-group form-group-row' key={index}>
                         <select
                             className='form-control'
                             onChange={(e) => handleCompetitionCategoryChange(index, e.target.value)}
-                            style={{ width: "120px" }}
+                            style={{ ...inputStyle, width: "120px" }}
                             value={competitionCategories[index]}
+                            disabled={!editable}
                         >
                             <option value="">계열 선택</option>
                             <option value="humanities">인문사회계열</option>
@@ -319,7 +430,9 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                         <select
                             className='form-control fixed-width'
                             onChange={(e) => handleCompetitionGradeChange(index, e.target.value)}
+                            style={{ ...inputStyle }}
                             value={competitionGrades[index]} // 공모전 등급을 설정
+                            disabled={!editable}
                         >
                             <option value="">공모전 등급</option>
                             {renderOptions(getMappedOptions(competitionCategories[index], 'competition'))}
@@ -328,10 +441,20 @@ export function RQInfo({ studentRQData, onRQDataChange, editable }) {
                             className='form-control'
                             rows="1"
                             placeholder="공모전/ICPC 이름을 입력해 주세요"
-                            style={{ resize: "none", overflow: "hidden", width: "100%" }}
+                            style={{ ...inputStyle, resize: "none", overflow: "hidden", width: "100%" }}
                             value={competition}
                             readOnly={!editable}
+                            onChange={(e) => handleInputChange('competition', index, e.target.value)}
+                            disabled={!editable}
                         ></textarea>
+                        {editable && (
+                            <button 
+                                className='remove-item' 
+                                onClick={() => handleRemoveActivity('competition', index)}
+                            >
+                                삭제
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
