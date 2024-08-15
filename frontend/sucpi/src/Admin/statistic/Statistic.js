@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FilterTable } from "../../components/FilterTable/FilterTable";
 import { BarChart } from "../../components/Graph/BarGraph/BarChart";
 import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart";
 import { GradeChart } from "../../components/Graph/PieGraph/GradeChart";

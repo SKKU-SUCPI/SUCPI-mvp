@@ -1,4 +1,3 @@
-// ThreeQChart.jsx
 import React, { useEffect, useState } from 'react';
 import { DonutChart } from './DonutChart';
 
