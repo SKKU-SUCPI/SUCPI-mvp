@@ -9,7 +9,7 @@ export function StatisticFilter({ data, setFilteredData }) {
     const location = useLocation();
 
     const allSucpiOptions = ['전체', 'LQ', 'RQ', 'CQ'];
-    const allGradeOptions = ['전체', '1', '2', '3', '4', '5+'];
+    const allGradeOptions = ['전체', '1', '2', '3', '4', '5'];
     const allDepartmentOptions = ['전체', '소프트웨어학과', '글로벌융합학부', '지능형소프트웨어학과'];
 
     const departmentMapping = {
@@ -54,9 +54,15 @@ export function StatisticFilter({ data, setFilteredData }) {
             queryParams.delete('Q');
         }
 
+        if (grade.length > 0 && !grade.includes('전체')) {
+            queryParams.set('Grade', grade.join(','));
+        } else {
+            queryParams.delete('Grade');
+        }
+
         navigate({ search: queryParams.toString() }, { replace: true });
 
-    }, [sucpi, navigate, location.search]);
+    }, [sucpi, grade, navigate, location.search]);
 
     return (
         <div className="table-container">
