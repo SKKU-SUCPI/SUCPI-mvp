@@ -27,6 +27,11 @@ public class Student {
     private float studentRqScore;
     private float studentLqScore;
     private float studentCqScore;
+
+    private float adjustRqScore;
+    private float adjustLqScore;
+    private float adjustCqScore;
+
     private int studentRqNum;
     private int studentLqNum;
     private int studentCqNum;
