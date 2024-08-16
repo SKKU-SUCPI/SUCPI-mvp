@@ -91,12 +91,12 @@ export function BarChart({ data }) {
     console.log("Final Data for Chart:", mappedData);
 
     return (
-        <div style={{ height: '500px' }}>
+        <div style={{ height: '600px' }}>
             <ResponsiveBar
                 data={mappedData}
                 keys={['value']}
                 indexBy="index"
-                margin={{ top: 50, right: 40, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 130, bottom: 160, left: 60 }}
                 padding={0.3}
                 valueScale={{ type: 'linear' }}
                 indexScale={{ type: 'band', round: true }}
@@ -105,10 +105,10 @@ export function BarChart({ data }) {
                 axisBottom={{
                     tickSize: 5,
                     tickPadding: 5,
-                    tickRotation: 0,
-                    legend: '항목',
-                    legendPosition: 'middle',
-                    legendOffset: 32
+                    tickRotation: -45,
+                    // legend: '항목',
+                    // legendPosition: 'middle',
+                    // legendOffset: 32
                 }}
                 axisLeft={{
                     tickSize: 5,
