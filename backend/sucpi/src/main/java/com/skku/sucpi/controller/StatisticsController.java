@@ -25,9 +25,9 @@ public class StatisticsController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<StatisticsDTO>> getTotalLRCnum(
-        @RequestParam(required = false, defaultValue = "lq,rq,cq") List<String> Q,
-        @RequestParam(required = false, defaultValue = "1,2,3,4") List<String> Grade,
-        @RequestParam(required = false, defaultValue = "GC,AI,SW") List<String> Major) {
+        @RequestParam(name = "Q", required = false, defaultValue = "lq,rq,cq") List<String> Q,
+        @RequestParam(name = "Grade", required = false, defaultValue = "1,2,3,4") List<String> Grade,
+        @RequestParam(name= "Major", required = false, defaultValue = "GC,AI,SW") List<String> Major) {
 
         StatisticsDTO totalStatistics = statisticsService.getStatistics(Q, Grade, Major);
 
