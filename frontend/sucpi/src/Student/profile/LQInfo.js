@@ -11,10 +11,10 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
     const handleGradeChange = (event) => {
         const { value } = event.target;
         const newGrade = {
-            grade40TO45: value === "4To4.5" ? 1 : 0,
-            grade35TO40: value === "3.5To3.99" ? 1 : 0,
-            grade30TO35: value === "3.0To3.49" ? 1 : 0,
-            grade00TO30: value === "~2.99" ? 1 : 0,
+            grade40TO45: value === "grade40TO45" ? 1 : 0,
+            grade35TO40: value === "grade35TO40" ? 1 : 0,
+            grade30TO35: value === "grade30TO35" ? 1 : 0,
+            grade00TO30: value === "grade00TO30" ? 1 : 0,
         };
         onLQDataChange("LQGrade", value);
         onLQDataChange("grade40TO45", newGrade.grade40TO45);
@@ -23,17 +23,29 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
         onLQDataChange("grade00TO30", newGrade.grade00TO30);
     };
 
+    // 학점 데이터를 기반으로 기본값 설정
+    const getDefaultGradeValue = () => {
+        if (studentLQData.grade40TO45 === 1) return "grade40TO45";
+        if (studentLQData.grade35TO40 === 1) return "grade35TO40";
+        if (studentLQData.grade30TO35 === 1) return "grade30TO35";
+        if (studentLQData.grade00TO30 === 1) return "grade00TO30";
+        return "";
+    };
+
+    // 활동 추가 함수
+    const handleAddActivity = (fieldName) => {
+        const newActivities = [...studentLQData[fieldName], ""];
+        onLQDataChange(fieldName, newActivities);
+    };
+
+    // 활동 내용 변경 함수
     const handleActivityChange = (fieldName, index, event) => {
         const newActivities = [...studentLQData[fieldName]];
         newActivities[index] = event.target.value;
         onLQDataChange(fieldName, newActivities);
     };
 
-    const handleAddActivity = (fieldName) => {
-        const newActivities = [...studentLQData[fieldName], ""];
-        onLQDataChange(fieldName, newActivities);
-    };
-
+    // 활동 삭제 함수
     const handleRemoveActivity = (fieldName, index) => {
         const newActivities = studentLQData[fieldName].filter((_, i) => i !== index);
         onLQDataChange(fieldName, newActivities);
@@ -46,7 +58,7 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <select
                     className='form-control'
                     name="LQGrade"
-                    value={studentLQData.LQGrade || ""}
+                    value={getDefaultGradeValue()}
                     onChange={handleGradeChange}
                     disabled={!editable}
                     style={inputStyle}
