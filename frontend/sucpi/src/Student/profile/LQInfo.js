@@ -52,10 +52,10 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                     style={inputStyle}
                 >
                     <option value="">성적 입력</option>
-                    <option value="4To4.5">4.0~4.5</option>
-                    <option value="3.5To3.99">3.5~3.99</option>
-                    <option value="3.0To3.49">3.0~3.49</option>
-                    <option value="~2.99">~2.99</option>
+                    <option value="grade40TO45">4.0~4.5</option>
+                    <option value="grade35TO40">3.5~3.99</option>
+                    <option value="grade30TO35">3.0~3.49</option>
+                    <option value="grade00TO30">~2.99</option>
                 </select>
             </div>
             <hr className='divider' />
