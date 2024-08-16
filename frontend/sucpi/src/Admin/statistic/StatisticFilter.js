@@ -60,9 +60,16 @@ export function StatisticFilter({ data, setFilteredData }) {
             queryParams.delete('Grade');
         }
 
+        if (department.length > 0 && !department.includes('전체')) {
+            const mappedDepartments = department.map(dep => departmentMapping[dep] || dep);
+            queryParams.set('Major', mappedDepartments.join(','));
+        } else {
+            queryParams.delete('Major');
+        }
+
         navigate({ search: queryParams.toString() }, { replace: true });
 
-    }, [sucpi, grade, navigate, location.search]);
+    }, [sucpi, grade, department, navigate, location.search]);
 
     return (
         <div className="table-container">
