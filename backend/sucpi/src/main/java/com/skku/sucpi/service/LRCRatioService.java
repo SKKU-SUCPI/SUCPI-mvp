@@ -1,6 +1,8 @@
 package com.skku.sucpi.service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class LRCRatioService {
 
     @Autowired
     private LRCRatioRepository lrcRatioRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     public List<LRCRatio> findAll() {
         return lrcRatioRepository.findAll();
@@ -66,21 +71,57 @@ public class LRCRatioService {
         );
     }
 
-    //점수 평균, 표준편차 계산
-    public Float calculateAvg() {
-        List<Student> Students = studentRepository.findAll().stream()
-
-    
+    public List<Double> calculateAvg() {
+        List<Double> avgQ;
+        Double totalLqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentLqScore)
+            .average().orElse(0.0);
+        Double totalRqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentRqScore)
+            .average().orElse(0.0);
+        Double totalCqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentCqScore)
+            .average().orElse(0.0);
+        avgQ = List.of(totalLqScore,totalRqScore,totalCqScore);
+        return avgQ;
     }
 
-    //LRCq 비율 계산
+    public List<Double> calculateStdDeviation() {
+        List<Double> avgQ = calculateAvg();
+        double LQ_avg = avgQ.get(1);
+        double RQ_avg = avgQ.get(2);
+        double CQ_avg = avgQ.get(3);
+
+        double LQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentLqScore() - LQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double RQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentRqScore() - RQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double CQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentCqScore() - CQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double LQ_stdDev = Math.sqrt(LQ_variance);
+        double RQ_stdDev = Math.sqrt(RQ_variance);
+        double CQ_stdDev = Math.sqrt(CQ_variance);
+
+        return List.of(LQ_stdDev, RQ_stdDev, CQ_stdDev);
+    }
+
+    // 기존 3Q 비율(%)
     // public List<Float> calculatePrevQ(LRCRatio lrcRatio) {
-    //     Long fixedId = 1L; // 고정된 ID 값
+    //     Long fixedId = 1L;
     //     LRCRatio ratio = lrcRatioRepository.findById(fixedId)
     //         .orElseThrow(() -> new RuntimeException("Ratio not found with id: " + fixedId));
         
     // }
-
+    // // 변경된 3Q 비율(%)
     // public List<Float> calculateTempQ(LRCRatio tempRatio) {
         
     
