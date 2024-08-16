@@ -69,7 +69,7 @@ export function Statistic() {
             <div className="charts-container">
                 <ThreeQChart data={data}/>
                 <DepartmentChart data={data}/>
-                <GradeChart />
+                <GradeChart data={data}/>
             </div>
             <div style={{ padding: "6px" }}>
                 <BarChart data={barChartData} />
