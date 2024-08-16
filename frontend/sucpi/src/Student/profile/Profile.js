@@ -33,7 +33,7 @@ export function Profile() {
 
     useEffect(() => {
         // 변경필요
-        fetch('http://localhost:8080/api/students/2019374894')
+        fetch('http://localhost:8080/api/students/2021656868')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
