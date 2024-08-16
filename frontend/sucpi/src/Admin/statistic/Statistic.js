@@ -67,7 +67,7 @@ export function Statistic() {
             <StatisticFilter data={data} setFilteredData={setFilteredData} />
             <h3 style={{ padding: "48px 36px 12px" }}>그래프</h3>
             <div className="charts-container">
-                <ThreeQChart />
+                <ThreeQChart data={data}/>
                 <DepartmentChart />
                 <GradeChart />
             </div>
