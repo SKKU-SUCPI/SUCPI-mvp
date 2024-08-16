@@ -68,7 +68,7 @@ export function Statistic() {
             <h3 style={{ padding: "48px 36px 12px" }}>그래프</h3>
             <div className="charts-container">
                 <ThreeQChart data={data}/>
-                <DepartmentChart />
+                <DepartmentChart data={data}/>
                 <GradeChart />
             </div>
             <div style={{ padding: "6px" }}>
