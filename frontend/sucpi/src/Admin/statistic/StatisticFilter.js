@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export function StatisticFilter( { data, setFilteredData })
-{
+export function StatisticFilter({ data, setFilteredData }) {
     const [sucpi, setSucpi] = useState(['전체']);
     const [grade, setGrade] = useState(['전체']);
     const [department, setDepartment] = useState(['전체']);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const allSucpiOptions = ['전체', 'LQ', 'CQ', 'RQ'];
+    const allSucpiOptions = ['전체', 'LQ', 'RQ', 'CQ'];
     const allGradeOptions = ['전체', '1', '2', '3', '4', '5+'];
     const allDepartmentOptions = ['전체', '소프트웨어학과', '글로벌융합학부', '지능형소프트웨어학과'];
 
@@ -17,20 +19,18 @@ export function StatisticFilter( { data, setFilteredData })
     };
 
     const handleButtonClick = (category, setCategory, value) => {
-        setCategory(prevState => {
-            let newState;
+        const newState = (prevState) => {
             if (value === '전체') {
-                newState = prevState.includes(value) ? [] : ['전체'];
+                return prevState.includes(value) ? [] : ['전체'];
             } else {
                 if (prevState.includes(value)) {
-                    newState = prevState.filter(item => item !== value);
+                    return prevState.filter(item => item !== value);
                 } else {
-                    newState = [...prevState, value].filter(item => item !== '전체');
+                    return [...prevState, value].filter(item => item !== '전체');
                 }
             }
-
-            return newState;
-        });
+        };
+        setCategory(newState);
     };
 
     const renderButtons = (category, setCategory, options) => (
@@ -45,6 +45,18 @@ export function StatisticFilter( { data, setFilteredData })
         ))
     );
 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+
+        if (sucpi.length > 0 && !sucpi.includes('전체')) {
+            queryParams.set('Q', sucpi.map(q => q.toLowerCase()).join(','));
+        } else {
+            queryParams.delete('Q');
+        }
+
+        navigate({ search: queryParams.toString() }, { replace: true });
+
+    }, [sucpi, navigate, location.search]);
 
     return (
         <div className="table-container">

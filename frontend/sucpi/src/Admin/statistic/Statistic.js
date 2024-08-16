@@ -4,14 +4,16 @@ import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart
 import { GradeChart } from "../../components/Graph/PieGraph/GradeChart";
 import { ThreeQChart } from "../../components/Graph/PieGraph/ThreeQChart";
 import { StatisticFilter } from "./StatisticFilter.js";
+import { useLocation } from "react-router-dom";
 
 export function Statistic() {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [barChartData, setBarChartData] = useState([]);
+    const location = useLocation();
 
-    useEffect(() => {
-        fetch("http://localhost:8080/api/admin/statistics")
+    const fetchData = (query = '') => {
+        fetch(`http://localhost:8080/api/admin/statistics${query}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('네트워크 접속 불량입니다.')
@@ -26,7 +28,12 @@ export function Statistic() {
             .catch(error => {
                 console.error('에러 -> ', error);
             });
-    }, []);
+    };
+
+    useEffect(() => {
+        // 쿼리 스트링이 변경될 때마다 데이터를 가져옴
+        fetchData(location.search);
+    }, [location.search]);
 
     const processBarChartData = (result) => {
         const lqStatistics = Object.keys(result.lqStatistics).map(key => ({
