@@ -74,15 +74,21 @@ const mapDataToKorean = (data) => {
         studyGroup_participate: "CQ - 스터디 그룹 참여",
     };
 
-    return data.map(item => ({
+    const mappedData = data.map(item => ({
         ...item,
         index: mapping[item.index] || item.index // 영어 값을 한글로 매핑
     }));
+
+    // console.log("Mapped Data:", mappedData); // 매핑된 데이터 출력
+
+    return mappedData;
 };
 
 export function BarChart({ data }) {
-
     const mappedData = mapDataToKorean(data);
+
+    // 매핑된 데이터를 확인
+    console.log("Final Data for Chart:", mappedData);
 
     return (
         <div style={{ height: '500px' }}>
