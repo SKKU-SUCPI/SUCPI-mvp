@@ -6,6 +6,7 @@ export function Rank({ data }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const pagesPerGroup = 10; // 한 번에 표시할 페이지 버튼 수
     const navigate = useNavigate();
 
     const filteredData = data.filter(item => 
@@ -23,6 +24,10 @@ export function Rank({ data }) {
     const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const currentGroup = Math.ceil(currentPage / pagesPerGroup);
+
+    const startPage = (currentGroup - 1) * pagesPerGroup + 1;
+    const endPage = Math.min(currentGroup * pagesPerGroup, totalPages);
 
     const handlePageChange = (page) => {
         if (page > 0 && page <= totalPages) {
@@ -33,7 +38,6 @@ export function Rank({ data }) {
     const handleRowClick = (studentId) => {
         navigate(`/admin/students/${studentId}`);
     };
-    
 
     return (
         <div className="rank-container">
@@ -79,17 +83,29 @@ export function Rank({ data }) {
                 </tbody>
             </table>
             <div className="pagination">
-                <button onClick={() => handlePageChange(1)}>&laquo;</button>
-                {Array.from({ length: totalPages }, (_, index) => (
+                <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>&laquo;</button>
+                <button 
+                    onClick={() => handlePageChange(startPage - 1)} 
+                    disabled={startPage === 1}
+                >
+                    &lt;
+                </button>
+                {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
                     <button 
-                        key={index + 1} 
-                        className={currentPage === index + 1 ? 'active' : ''} 
-                        onClick={() => handlePageChange(index + 1)}
+                        key={index + startPage} 
+                        className={currentPage === index + startPage ? 'active' : ''} 
+                        onClick={() => handlePageChange(index + startPage)}
                     >
-                        {index + 1}
+                        {index + startPage}
                     </button>
                 ))}
-                <button onClick={() => handlePageChange(totalPages)}>&raquo;</button>
+                <button 
+                    onClick={() => handlePageChange(endPage + 1)} 
+                    disabled={endPage === totalPages}
+                >
+                    &gt;
+                </button>
+                <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
             </div>
         </div>
     );
