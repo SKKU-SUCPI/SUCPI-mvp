@@ -4,40 +4,74 @@ import { ResponsiveBar } from '@nivo/bar';
 import './CompareGraph.css'
 import { CompareDetailSetting } from "./CompareDetailSetting";
 
-export function CompareGraph()
-{
+export function CompareGraph({ studentId }) {
+    const [scoreData, setScoreData] = useState(null);
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/admin/weights')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200) {
-                setDetailData(data.result);
-            } else {
-                console.error('Error retrieving weights:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching weights:', error);
-        });
-    }, []);
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    setDetailData(data.result);
+                } else {
+                    console.error('Error retrieving weights:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching weights:', error);
+            });
+
+        // 그래프에 대한 값 불러오기
+        fetch(`http://localhost:8080/api/admin/weights/test/${studentId}`)
+            .then(response => response.json())
+            .then(data => {
+                setScoreData(data);
+            })
+            .catch(error => {
+                console.error('Error ', error);
+            });
+    }, [studentId]);
 
     return (
         <>
             <CompareDetailSetting data={detailData} />
             <hr className="divider" />
             <div className="compare-graph-container">
-                <LQGraph />
-                <RQGraph />
-                <CQGraph />
-                <TotalGraph />
+                {scoreData && (
+                    <>
+                        <LQGraph 
+                            oldScore={scoreData.oldScore.oldLqScore} 
+                            newScore={scoreData.newScore.newLqScore} 
+                            oldRank={scoreData.oldRank.oldRankLq} 
+                            newRank={scoreData.newRank.newRankLq} 
+                        />
+                        <RQGraph 
+                            oldScore={scoreData.oldScore.oldRqScore} 
+                            newScore={scoreData.newScore.newRqScore} 
+                            oldRank={scoreData.oldRank.oldRankRq} 
+                            newRank={scoreData.newRank.newRankRq} 
+                        />
+                        <CQGraph 
+                            oldScore={scoreData.oldScore.oldCqScore} 
+                            newScore={scoreData.newScore.newCqScore} 
+                            oldRank={scoreData.oldRank.oldRankCq} 
+                            newRank={scoreData.newRank.newRankCq} 
+                        />
+                        <TotalGraph 
+                            oldScore={scoreData.oldScore.oldTotalScore} 
+                            newScore={scoreData.newScore.newTotalScore} 
+                            oldRank={scoreData.oldRank.oldRankTotal} 
+                            newRank={scoreData.newRank.newRankTotal} 
+                        />
+                    </>
+                )}
             </div>
         </>
     );
 }
 
-export function ScoreGraph({ title, data, gradientAColor, gradientBColor, legend, percentage, isPositive }) {
+export function ScoreGraph({ title, data, gradientAColor, gradientBColor, legend, oldRank, newRank }) {
     const commonProperties = {
         data: data,
         keys: ['점수'],
@@ -94,15 +128,15 @@ export function ScoreGraph({ title, data, gradientAColor, gradientBColor, legend
         <div className="graph">
             <h4>{title}</h4>
             <ResponsiveBar {...commonProperties} />
-            <PercentageBox percentage={percentage} isPositive={isPositive} />
+            <RankBox oldRank={oldRank} newRank={newRank} />
         </div>
     );
 }
 
-export function LQGraph() {
+export function LQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        { compare: '현재', 점수: 95 },
-        { compare: '변경', 점수: 85 },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
     return (
@@ -112,16 +146,16 @@ export function LQGraph() {
             gradientAColor="#346026"  // 진한 초록
             gradientBColor="#FF6C0F"  // 오렌지
             legend="조정 LQ"
-            percentage={5}
-            isPositive={true}
+            oldRank={oldRank}
+            newRank={newRank}
         />
     );
 }
 
-export function RQGraph() {
+export function RQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        { compare: '현재', 점수: 95 },
-        { compare: '변경', 점수: 85 },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
     return (
@@ -131,16 +165,16 @@ export function RQGraph() {
             gradientAColor="#0E341B"  // 진한 초록
             gradientBColor="#FF6C0F"  // 오렌지
             legend="조정 RQ"
-            percentage={3}
-            isPositive={true}
+            oldRank={oldRank}
+            newRank={newRank}
         />
     );
 }
 
-export function CQGraph() {
+export function CQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        { compare: '현재', 점수: 95 },
-        { compare: '변경', 점수: 85 },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
     return (
@@ -150,16 +184,16 @@ export function CQGraph() {
             gradientAColor="#0E341B"  // 진한 초록
             gradientBColor="#FF6C0F"  // 오렌지
             legend="조정 CQ"
-            percentage={-3}
-            isPositive={false}
+            oldRank={oldRank}
+            newRank={newRank}
         />
     );
 }
 
-export function TotalGraph() {
+export function TotalGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        { compare: '현재', 점수: 95 },
-        { compare: '변경', 점수: 85 },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
     return (
@@ -169,19 +203,21 @@ export function TotalGraph() {
             gradientAColor="#0E341B"  // 진한 초록
             gradientBColor="#FF6C0F"  // 오렌지
             legend="조정 총점"
-            percentage={5}
-            isPositive={true}
+            oldRank={oldRank}
+            newRank={newRank}
         />
     );
 }
 
-export function PercentageBox({ percentage, isPositive }) {
+export function RankBox({ oldRank, newRank }) {
+    const rankDifference = oldRank - newRank;
+    const isPositive = rankDifference > 0; // 등수가 올라갔으면 positive, 내려갔으면 negative
+
     return (
-        <div className="percentage-box">
-            <span className={`percentage ${isPositive ? 'positive' : 'negative'}`}>
-                {percentage}%
+        <div className="rank-box">
+            <span className="rank" style={{ fontWeight: "bold" }}>
+                {oldRank}등
             </span>
-            <span className={`triangle ${isPositive ? 'up' : 'down'}`}></span>
         </div>
     );
 }

@@ -48,40 +48,6 @@ export function StudentDetail() {
     const { student, lqStudent, rqStudent, cqStudent, lrcContents } = studentData;
 
     return (
-        // <div>
-        //     <h1>{student.studentName} ({student.studentId})</h1>
-        //     <p>학년: {student.studentGrade}</p>
-        //     <p>학과: {student.studentMajor}</p>
-        //     <p>전화번호: {student.studentPhoneNum}</p>
-        //     <p>Total Score: {student.studentRqScore + student.studentLqScore + student.studentCqScore}</p>
-        //     <p>LQ Score: {student.studentLqScore}</p>
-        //     <p>CQ Score: {student.studentCqScore}</p>
-        //     <p>RQ Score: {student.studentRqScore}</p>
-
-        //     <h2>LQ Activities</h2>
-        //     <p>Activity 1: {lqStudent.lqEduActivity1}</p>
-        //     <p>Activity 2: {lqStudent.lqEduActivity2}</p>
-        //     {/* 추가 LQ 활동들 표시 */}
-
-        //     <h2>RQ Activities</h2>
-        //     <p>Yul JCR 5 Main: {rqStudent.rqYulJcr5Main}</p>
-        //     <p>Yul JCR 5 Part: {rqStudent.rqYulJcr5Part}</p>
-        //     {/* 추가 RQ 활동들 표시 */}
-
-        //     <h2>CQ Activities</h2>
-        //     <p>Co-op: {cqStudent.cqCoop}</p>
-        //     <p>Internship: {cqStudent.cqInternship}</p>
-        //     {/* 추가 CQ 활동들 표시 */}
-
-        //     <h2>Learning, Research, and Career Contents</h2>
-        //     <ul>
-        //         {lrcContents.map((content) => (
-        //             <li key={content.id}>
-        //                 <strong>{content.dataname}: </strong>{content.contents}
-        //             </li>
-        //         ))}
-        //     </ul>
-        // </div>
         <div className='profile-container'>
             <div className='profile' style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
                 <h1>학생 상세 정보</h1>
@@ -99,7 +65,7 @@ export function StudentDetail() {
                 </AccordionItem>
                 <hr className='divider' />
                 <h1 style={{paddingTop: "60px", marginBottom: '44px'}}>비교 하기</h1>
-                <CompareGraph />
+                <CompareGraph studentId={id} />
             </div>
         </div>
     );
