@@ -58,57 +58,57 @@ export function CompareDetailSetting({ data }) {
         });
     };
 
-    const handleSaveClick = async () => {
-        const payload = {
-            lqweights: data.lqweights.map(item => ({
-                ...item,
-                weight: weights.LQ[item.id] || item.weight
-            })),
-            rqweights: data.rqweights.map(item => ({
-                ...item,
-                weight: weights.RQ[item.id] || item.weight
-            })),
-            cqweights: data.cqweights.map(item => ({
-                ...item,
-                weight: weights.CQ[item.id] || item.weight
-            })),
-        };
+    // const handleSaveClick = async () => {
+    //     const payload = {
+    //         lqweights: data.lqweights.map(item => ({
+    //             ...item,
+    //             weight: weights.LQ[item.id] || item.weight
+    //         })),
+    //         rqweights: data.rqweights.map(item => ({
+    //             ...item,
+    //             weight: weights.RQ[item.id] || item.weight
+    //         })),
+    //         cqweights: data.cqweights.map(item => ({
+    //             ...item,
+    //             weight: weights.CQ[item.id] || item.weight
+    //         })),
+    //     };
 
-        try {
-            const response = await fetch('http://localhost:8080/api/admin/weights', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
+    //     try {
+    //         const response = await fetch('http://localhost:8080/api/admin/weights', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(payload),
+    //         });
 
-            if (!response.ok) {
-                throw new Error('가중치 설정을 저장하는 데 실패했습니다. 다시 시도해주십시오.');
-            }
+    //         if (!response.ok) {
+    //             throw new Error('가중치 설정을 저장하는 데 실패했습니다. 다시 시도해주십시오.');
+    //         }
 
-            alert('가중치 설정이 성공적으로 저장되었습니다.');
+    //         alert('가중치 설정이 성공적으로 저장되었습니다.');
 
-            // 서버에 저장된 값을 savedWeights 상태로 업데이트
-            setSavedWeights({
-                LQ: payload.lqweights.reduce((acc, item) => {
-                    acc[item.id] = item.weight;
-                    return acc;
-                }, {}),
-                RQ: payload.rqweights.reduce((acc, item) => {
-                    acc[item.id] = item.weight;
-                    return acc;
-                }, {}),
-                CQ: payload.cqweights.reduce((acc, item) => {
-                    acc[item.id] = item.weight;
-                    return acc;
-                }, {})
-            });
+    //         // 서버에 저장된 값을 savedWeights 상태로 업데이트
+    //         setSavedWeights({
+    //             LQ: payload.lqweights.reduce((acc, item) => {
+    //                 acc[item.id] = item.weight;
+    //                 return acc;
+    //             }, {}),
+    //             RQ: payload.rqweights.reduce((acc, item) => {
+    //                 acc[item.id] = item.weight;
+    //                 return acc;
+    //             }, {}),
+    //             CQ: payload.cqweights.reduce((acc, item) => {
+    //                 acc[item.id] = item.weight;
+    //                 return acc;
+    //             }, {})
+    //         });
 
-        } catch (error) {
-            alert(error.message);
-        }
-    };
+    //     } catch (error) {
+    //         alert(error.message);
+    //     }
+    // };
 
     const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
