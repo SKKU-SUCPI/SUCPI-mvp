@@ -44,25 +44,25 @@ export function CompareGraph({ studentId }) {
                             oldScore={scoreData.oldScore.oldLqScore} 
                             newScore={scoreData.newScore.newLqScore} 
                             oldRank={scoreData.oldRank.oldRankLq} 
-                            newRank={scoreData.newRank.newRankLq} 
+                            newRank={scoreData.newRank.newRankLq}
                         />
                         <RQGraph 
                             oldScore={scoreData.oldScore.oldRqScore} 
                             newScore={scoreData.newScore.newRqScore} 
                             oldRank={scoreData.oldRank.oldRankRq} 
-                            newRank={scoreData.newRank.newRankRq} 
+                            newRank={scoreData.newRank.newRankRq}
                         />
                         <CQGraph 
                             oldScore={scoreData.oldScore.oldCqScore} 
                             newScore={scoreData.newScore.newCqScore} 
                             oldRank={scoreData.oldRank.oldRankCq} 
-                            newRank={scoreData.newRank.newRankCq} 
+                            newRank={scoreData.newRank.newRankCq}
                         />
                         <TotalGraph 
                             oldScore={scoreData.oldScore.oldTotalScore} 
                             newScore={scoreData.newScore.newTotalScore} 
                             oldRank={scoreData.oldRank.oldRankTotal} 
-                            newRank={scoreData.newRank.newRankTotal} 
+                            newRank={scoreData.newRank.newRankTotal}
                         />
                     </>
                 )}
