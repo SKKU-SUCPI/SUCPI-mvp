@@ -236,10 +236,21 @@ export function TotalGraph({ oldScore, newScore, oldRank, newRank }) {
 
 export function RankBox({ oldRank, newRank }) {
 
+    let rankColor;
+    if (newRank != 0) {
+        if (newRank < oldRank) {
+            rankColor = "red"; // newRank가 더 작으면 빨간색
+        } else if (newRank > oldRank) {
+            rankColor = "blue"; // newRank가 더 크면 파란색
+        } else {
+            rankColor = "black"; // 같으면 검정색
+        }
+    }
+
     return (
         <div className="rank-box">
             <span className="rank" style={{ fontWeight: "bold" }}>
-                {oldRank}등 vs {newRank}등
+                {oldRank}등 vs <span style={{ color: rankColor }}>{newRank}등</span>
             </span>
         </div>
     );
