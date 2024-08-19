@@ -32,6 +32,52 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
         return "";
     };
 
+    // 오픈소스 커뮤니티 활성도 기본값 설정
+    const getDefaultOpenSourceValue = () => {
+        if (studentLQData.openSourceActivityStar5 === 1) return "5";
+        if (studentLQData.openSourceActivityStar4 === 1) return "4";
+        if (studentLQData.openSourceActivityStar3 === 1) return "3";
+        if (studentLQData.openSourceActivityStar0 === 1) return "0";
+        return "";
+    };
+
+    const handleOpenSourceChange = (event) => {
+        const { value } = event.target;
+        const newOpenSource = {
+            openSourceActivityStar5: value === "5" ? 1 : 0,
+            openSourceActivityStar4: value === "4" ? 1 : 0,
+            openSourceActivityStar3: value === "3" ? 1 : 0,
+            openSourceActivityStar0: value === "0" ? 1 : 0,
+        };
+        onLQDataChange("openSourceActivityStar5", newOpenSource.openSourceActivityStar5);
+        onLQDataChange("openSourceActivityStar4", newOpenSource.openSourceActivityStar4);
+        onLQDataChange("openSourceActivityStar3", newOpenSource.openSourceActivityStar3);
+        onLQDataChange("openSourceActivityStar0", newOpenSource.openSourceActivityStar0);
+    };
+
+    // 커미터로서의 활동 기본값 설정
+    const getDefaultCommitterValue = () => {
+        if (studentLQData.committerStar5 === 1) return "5";
+        if (studentLQData.committerStar4 === 1) return "4";
+        if (studentLQData.committerStar3 === 1) return "3";
+        if (studentLQData.committerStar0 === 1) return "0";
+        return "";
+    };
+
+    const handleCommitterChange = (event) => {
+        const { value } = event.target;
+        const newCommitter = {
+            committerStar5: value === "5" ? 1 : 0,
+            committerStar4: value === "4" ? 1 : 0,
+            committerStar3: value === "3" ? 1 : 0,
+            committerStar0: value === "0" ? 1 : 0,
+        };
+        onLQDataChange("committerStar5", newCommitter.committerStar5);
+        onLQDataChange("committerStar4", newCommitter.committerStar4);
+        onLQDataChange("committerStar3", newCommitter.committerStar3);
+        onLQDataChange("committerStar0", newCommitter.committerStar0);
+    };
+
     // 활동 추가 함수
     const handleAddActivity = (fieldName) => {
         const newActivities = [...studentLQData[fieldName], ""];
@@ -138,8 +184,8 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <select
                     className='form-control'
                     name="OpenSourceActivity"
-                    value={studentLQData.OpenSourceActivity || ""}
-                    onChange={handleInputChange}
+                    value={getDefaultOpenSourceValue()}
+                    onChange={handleOpenSourceChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
@@ -155,8 +201,8 @@ export function LQInfo({ studentLQData, onLQDataChange, editable }) {
                 <select
                     className='form-control'
                     name="CommitterActivity"
-                    value={studentLQData.CommitterActivity || ""}
-                    onChange={handleInputChange}
+                    value={getDefaultCommitterValue()}
+                    onChange={handleCommitterChange}
                     disabled={!editable}
                     style={inputStyle}
                 >
