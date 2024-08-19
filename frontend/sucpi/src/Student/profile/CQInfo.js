@@ -56,7 +56,7 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                     disabled={!editable}
                 />
             </div>
-            <FileUpload 
+            {/* <FileUpload 
                 label="인턴십" 
                 fileName={studentCQData.internship} 
                 editable={editable} 
@@ -71,7 +71,33 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                 onCQDataChange={onCQDataChange} 
                 fieldName="startup" 
                 inputStyle={inputStyle}
-            />
+            /> */}
+            <div className='form-group form-group-row'>
+                <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>인턴십</label>
+                <input 
+                    type='text' 
+                    className='form-control' 
+                    name="internship"
+                    value={studentCQData.internship || ''} 
+                    placeholder='인턴십 기업명과 역할을 작성해 주세요.' 
+                    style={{ ...inputStyle, width: "80%" }} 
+                    onChange={handleInputChange} 
+                    disabled={!editable}
+                />
+            </div>
+            <div className='form-group form-group-row'>
+                <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>창업</label>
+                <input 
+                    type='text' 
+                    className='form-control' 
+                    name="startup"
+                    value={studentCQData.startup || ''} 
+                    placeholder='기업명과 역할을 작성해 주세요.' 
+                    style={{ ...inputStyle, width: "80%" }} 
+                    onChange={handleInputChange} 
+                    disabled={!editable}
+                />
+            </div>
             <div className='form-group form-group-row'>
                 <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>해외 봉사 활동</label>
                 <input 
