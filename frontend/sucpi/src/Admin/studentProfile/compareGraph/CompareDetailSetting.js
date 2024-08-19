@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidRightArrow, BiSolidDownArrow } from "react-icons/bi";
 
-export function CompareDetailSetting({ data }) {
+export function CompareDetailSetting({ data, onCompareClick }) {
     const [selected, setSelected] = useState('');
     const [weights, setWeights] = useState({
         LQ: {},
@@ -14,7 +14,6 @@ export function CompareDetailSetting({ data }) {
         CQ: {},
     });
 
-    // 초기 weight 값을 설정하는 useEffect
     useEffect(() => {
         if (data) {
             const initialWeights = {
@@ -32,8 +31,7 @@ export function CompareDetailSetting({ data }) {
                 }, {})
             };
             setWeights(initialWeights);
-            setSavedWeights(initialWeights); // 초기 값을 savedWeights에도 설정
-            console.log("Initial weights set:", initialWeights);
+            setSavedWeights(initialWeights);
         }
     }, [data]);
 
@@ -52,63 +50,30 @@ export function CompareDetailSetting({ data }) {
                     [id]: numericWeight,
                 }
             };
-
-            console.log('Updated weights:', updatedWeights);
             return updatedWeights;
         });
     };
 
-    // const handleSaveClick = async () => {
-    //     const payload = {
-    //         lqweights: data.lqweights.map(item => ({
-    //             ...item,
-    //             weight: weights.LQ[item.id] || item.weight
-    //         })),
-    //         rqweights: data.rqweights.map(item => ({
-    //             ...item,
-    //             weight: weights.RQ[item.id] || item.weight
-    //         })),
-    //         cqweights: data.cqweights.map(item => ({
-    //             ...item,
-    //             weight: weights.CQ[item.id] || item.weight
-    //         })),
-    //     };
+    const handleCompareClick = () => {
+        const updatedData = {
+            cqweights: data.cqweights.map(item => ({
+                ...item,
+                weight: weights.CQ[item.id] !== undefined ? weights.CQ[item.id] : item.weight
+            })),
+            lqweights: data.lqweights.map(item => ({
+                ...item,
+                weight: weights.LQ[item.id] !== undefined ? weights.LQ[item.id] : item.weight
+            })),
+            rqweights: data.rqweights.map(item => ({
+                ...item,
+                weight: weights.RQ[item.id] !== undefined ? weights.RQ[item.id] : item.weight
+            }))
+        };
 
-    //     try {
-    //         const response = await fetch('http://localhost:8080/api/admin/weights', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(payload),
-    //         });
+        console.log("Sending data:", updatedData);
 
-    //         if (!response.ok) {
-    //             throw new Error('가중치 설정을 저장하는 데 실패했습니다. 다시 시도해주십시오.');
-    //         }
-
-    //         alert('가중치 설정이 성공적으로 저장되었습니다.');
-
-    //         // 서버에 저장된 값을 savedWeights 상태로 업데이트
-    //         setSavedWeights({
-    //             LQ: payload.lqweights.reduce((acc, item) => {
-    //                 acc[item.id] = item.weight;
-    //                 return acc;
-    //             }, {}),
-    //             RQ: payload.rqweights.reduce((acc, item) => {
-    //                 acc[item.id] = item.weight;
-    //                 return acc;
-    //             }, {}),
-    //             CQ: payload.cqweights.reduce((acc, item) => {
-    //                 acc[item.id] = item.weight;
-    //                 return acc;
-    //             }, {})
-    //         });
-
-    //     } catch (error) {
-    //         alert(error.message);
-    //     }
-    // };
+        onCompareClick(updatedData);
+    };
 
     const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
@@ -149,7 +114,7 @@ export function CompareDetailSetting({ data }) {
                 </div>
 
                 <div className="detail-button-group">
-                    <button className="button-secondary">비교</button>
+                    <button className="button-secondary" onClick={handleCompareClick}>비교</button>
                 </div>
             </div>
 
@@ -169,7 +134,6 @@ export function CompareDetailSetting({ data }) {
                                 <tr key={row.id}>
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
-                                    {/* 저장된 후에만 업데이트된 값을 보여줌 */}
                                     <td className="detail-table-td">{savedWeights[selected][row.id]}</td>
                                     <td className="detail-table-td">
                                         <input 
@@ -186,5 +150,5 @@ export function CompareDetailSetting({ data }) {
                 </div>
             )}
         </div>
-    );    
+    );
 }

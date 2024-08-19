@@ -33,9 +33,34 @@ export function CompareGraph({ studentId }) {
             });
     }, [studentId]);
 
+
+    // 비교하기 버튼 클릭 시 호출되는 함수
+    const handleCompareClick = (updatedData) => {
+        if (updatedData) {
+
+            console.log("Sending data:", updatedData);
+
+            // POST 요청 보내기
+            fetch(`http://localhost:8080/api/admin/weights/test/${studentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setScoreData(data);  // 응답 데이터를 scoreData 상태로 설정
+                })
+                .catch(error => {
+                    console.error('Error fetching comparison data:', error);
+                });
+        }
+    };
+
     return (
         <>
-            <CompareDetailSetting data={detailData} />
+            <CompareDetailSetting data={detailData} onCompareClick={handleCompareClick} />
             <hr className="divider" />
             <div className="compare-graph-container">
                 {scoreData && (
@@ -210,13 +235,11 @@ export function TotalGraph({ oldScore, newScore, oldRank, newRank }) {
 }
 
 export function RankBox({ oldRank, newRank }) {
-    const rankDifference = oldRank - newRank;
-    const isPositive = rankDifference > 0; // 등수가 올라갔으면 positive, 내려갔으면 negative
 
     return (
         <div className="rank-box">
             <span className="rank" style={{ fontWeight: "bold" }}>
-                {oldRank}등
+                {oldRank}등 vs {newRank}등
             </span>
         </div>
     );
