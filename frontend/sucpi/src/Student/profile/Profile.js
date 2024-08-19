@@ -56,8 +56,36 @@ export function Profile() {
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
         setEditable(false);
-        alert("저장이 완료되었습니다.");
-        // Here you can add the logic to save the data to the server
+
+        const updatedData = {
+            studentInfo: studentInfoData,
+            lqInfo: studentLQData,
+            rqInfo: studentRQData,
+            cqInfo: studentCQData
+        };
+
+        fetch("http://localhost:8080/api/students", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('네트워크가 원활하지 않습니다');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert("저장이 완료되었습니다.");
+        })
+        .catch(error => {
+            alert("저장에 실패하였습니다.");
+            console.error('Error: ', error);
+        });
+
+        console.log("DATA -> ", updatedData);
     };
 
     const handleInfoChange = (name, value) => {
