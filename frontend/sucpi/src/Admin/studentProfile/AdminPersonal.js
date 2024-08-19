@@ -3,10 +3,6 @@ import '../../Student/profile/Profile.css'
 
 export function AdminPersonal({ studentInfo }) {
 
-    // useEffect(() => {
-    //     console.log("Student Info:", studentInfo);
-    // }, [studentInfo]);
-
     const majorMapping = {
         "SW": "소프트웨어학과",
         "GC": "글로벌융합학부",
