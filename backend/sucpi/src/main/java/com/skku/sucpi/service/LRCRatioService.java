@@ -15,6 +15,9 @@ public class LRCRatioService {
     @Autowired
     private LRCRatioRepository lrcRatioRepository;
 
+    @Autowired
+    private StudentProfileService studentProfileService;
+
     public List<LRCRatio> findAll() {
         return lrcRatioRepository.findAll();
     }
@@ -41,6 +44,10 @@ public class LRCRatioService {
         ratio.setLqRatio(newRatio.getLqRatio());
         ratio.setRqRatio(newRatio.getRqRatio());
         ratio.setCqRatio(newRatio.getCqRatio());
+
+        studentProfileService.calculateRawScores();
+        studentProfileService.updateAdjustedScores();
+
         return lrcRatioRepository.save(ratio);
     }
 
