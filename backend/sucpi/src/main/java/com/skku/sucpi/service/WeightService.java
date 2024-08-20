@@ -20,6 +20,9 @@ public class WeightService {
     @Autowired
     private CQWeightRepository cqWeightRepository;
 
+    @Autowired
+    private StudentProfileService studentProfileService;
+
     public WeightDTO getAllWeights() {
         WeightDTO allWeights = new WeightDTO();
         allWeights.setLQWeights(lqWeightRepository.findAll());
@@ -38,5 +41,9 @@ public class WeightService {
         if (weights.getCQWeights() != null) {
             cqWeightRepository.saveAll(weights.getCQWeights());
         }
+        
+        studentProfileService.calculateRawScores();
+        studentProfileService.updateAdjustedScores();
+        
     }
 }

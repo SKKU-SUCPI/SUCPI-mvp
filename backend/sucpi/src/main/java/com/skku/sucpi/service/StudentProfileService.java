@@ -25,6 +25,7 @@ import com.skku.sucpi.entity.CQWeight;
 import com.skku.sucpi.entity.LQStudent;
 import com.skku.sucpi.entity.LQWeight;
 import com.skku.sucpi.entity.LRCContent;
+import com.skku.sucpi.entity.LRCRatio;
 import com.skku.sucpi.entity.RQStudent;
 import com.skku.sucpi.entity.RQWeight;
 import com.skku.sucpi.entity.Student;
@@ -33,6 +34,7 @@ import com.skku.sucpi.repository.CQWeightRepository;
 import com.skku.sucpi.repository.LQStudentRepository;
 import com.skku.sucpi.repository.LQWeightRepository;
 import com.skku.sucpi.repository.LRCContentRepository;
+import com.skku.sucpi.repository.LRCRatioRepository;
 import com.skku.sucpi.repository.RQStudentRepository;
 import com.skku.sucpi.repository.RQWeightRepository;
 import com.skku.sucpi.repository.StudentRepository;
@@ -61,6 +63,8 @@ public class StudentProfileService {
 
     @Autowired
     private LRCContentRepository lrcContentRepository;
+    @Autowired
+    private LRCRatioRepository lrcRatioRepository;
 
     @Transactional
     public StudentProfileDTO getStudentProfileById(String studentId) {
@@ -317,6 +321,8 @@ public class StudentProfileService {
 
         // LQ, RQ, CQ의 건수 및 점수를 업데이트
         updateStudentScores(student.getStudentId());
+
+        updateAdjustedScores();
     }
 
     private List<String> getContentsList(List<LRCContent> contents, String dataname) {
@@ -439,5 +445,116 @@ public class StudentProfileService {
             }
         }
         return score;
+    }
+
+    public List<Double> calculateAvg() {
+        List<Double> avgQ;
+        Double totalLqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentLqScore)
+            .average().orElse(0.0);
+        Double totalRqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentRqScore)
+            .average().orElse(0.0);
+        Double totalCqScore = studentRepository.findAll().stream()
+            .mapToDouble(Student::getStudentCqScore)
+            .average().orElse(0.0);
+        avgQ = List.of(totalLqScore,totalRqScore,totalCqScore);
+        return avgQ;
+    }
+
+    public List<Double> calculateStdDeviation() {
+        List<Double> avgQ = calculateAvg();
+        double LQ_avg = avgQ.get(0);
+        double RQ_avg = avgQ.get(1);
+        double CQ_avg = avgQ.get(2);
+
+        double LQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentLqScore() - LQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double RQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentRqScore() - RQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double CQ_variance = studentRepository.findAll().stream()
+            .mapToDouble(student -> Math.pow(student.getStudentCqScore() - CQ_avg, 2))
+            .average()
+            .orElse(0.0);
+
+        double LQ_stdDev = Math.sqrt(LQ_variance);
+        double RQ_stdDev = Math.sqrt(RQ_variance);
+        double CQ_stdDev = Math.sqrt(CQ_variance);
+
+        return List.of(LQ_stdDev, RQ_stdDev, CQ_stdDev);
+    }
+
+    @Transactional
+    public void updateAdjustedScores() {
+        List<Student> students = studentRepository.findAll();
+        List<Double> avgQ = calculateAvg();
+        List<Double> stdDeviationQ = calculateStdDeviation();
+
+        Double lqAvg = avgQ.get(0);
+        Double rqAvg = avgQ.get(1);
+        Double cqAvg = avgQ.get(2);
+
+        System.out.println("LQ평균 : "+lqAvg+"\tRQ평균 : "+rqAvg+"\tCQ평균 : "+cqAvg);
+
+        Double lqStdDev = stdDeviationQ.get(0);
+        Double rqStdDev = stdDeviationQ.get(1);
+        Double cqStdDev = stdDeviationQ.get(2);
+
+        System.out.println("LQ표편 : "+lqStdDev+"\tRQ표편 : "+rqStdDev+"\tCQ표편 : "+cqStdDev);
+
+        LRCRatio ratio = lrcRatioRepository.findAll().get(0);
+
+        for (Student student : students) {
+            double adjustLqScore = (((student.getStudentLqScore() - lqAvg) / lqStdDev) * 10 + 50) * ratio.getLqRatio() /100;
+            double adjustRqScore = (((student.getStudentRqScore() - rqAvg) / rqStdDev) * 10 + 50) * ratio.getRqRatio()/100;
+            double adjustCqScore = (((student.getStudentCqScore() - cqAvg) / cqStdDev) * 10 + 50) * ratio.getCqRatio()/100;
+
+            student.setAdjustLqScore((float) adjustLqScore);
+            student.setAdjustRqScore((float) adjustRqScore);
+            student.setAdjustCqScore((float) adjustCqScore);
+
+            studentRepository.save(student);
+        }
+    }
+
+    public void calculateRawScores() {
+        List<Student> students = studentRepository.findAll();
+
+        for (Student student : students) {
+            String studentId = student.getStudentId();
+
+            LQStudent lqStudent = lqStudentRepository.findById(studentId).orElse(null);
+            RQStudent rqStudent = rqStudentRepository.findById(studentId).orElse(null);
+            CQStudent cqStudent = cqStudentRepository.findById(studentId).orElse(null);
+
+            if (lqStudent != null && rqStudent != null && cqStudent != null) {
+                List<LQWeight> lqWeights = lqWeightRepository.findAll();
+                List<RQWeight> rqWeights = rqWeightRepository.findAll();
+                List<CQWeight> cqWeights = cqWeightRepository.findAll();
+
+                // LQ, RQ, CQ 점수 계산
+                float lqScore = calculateScore(lqStudent, lqWeights, "LQ");
+                float rqScore = calculateScore(rqStudent, rqWeights, "RQ");
+                float cqScore = calculateScore(cqStudent, cqWeights, "CQ");
+
+                // 점수 업데이트
+                student.setStudentLqScore(lqScore);
+                student.setStudentRqScore(rqScore);
+                student.setStudentCqScore(cqScore);
+
+                // LQ, RQ, CQ 건수 계산
+                student.setStudentLqNum(calculateNum(lqStudent));
+                student.setStudentRqNum(calculateNum(rqStudent));
+                student.setStudentCqNum(calculateNum(cqStudent));
+
+                studentRepository.save(student);
+            }
+        }
     }
 }
