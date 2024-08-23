@@ -17,7 +17,6 @@ public class StudentLeaderboardDTO {
     private float rqScore;
     private float cqScore;
     private float totalScore;
-    
 
     // Ensure this constructor exists
     public StudentLeaderboardDTO(String studentName, String studentId, int studentGrade, String studentMajor, float lqScore, float rqScore, float cqScore, float totalScore) {
@@ -30,5 +29,27 @@ public class StudentLeaderboardDTO {
         this.cqScore = cqScore;
         this.totalScore = totalScore;
         this.rank = 0; // Initial rank value
+    }
+
+    // Getter methods with rounding to 2 decimal places
+    public float getLqScore() {
+        return roundToTwoDecimalPlaces(lqScore);
+    }
+
+    public float getRqScore() {
+        return roundToTwoDecimalPlaces(rqScore);
+    }
+
+    public float getCqScore() {
+        return roundToTwoDecimalPlaces(cqScore);
+    }
+
+    public float getTotalScore() {
+        return roundToTwoDecimalPlaces(totalScore);
+    }
+
+    // Helper method to round float values to 2 decimal places
+    private static float roundToTwoDecimalPlaces(float value) {
+        return Math.round(value * 100.0f) / 100.0f;
     }
 }
