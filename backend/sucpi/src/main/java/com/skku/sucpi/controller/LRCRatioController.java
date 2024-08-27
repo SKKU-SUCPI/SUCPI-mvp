@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skku.sucpi.ApiResponse;
 import com.skku.sucpi.dto.LRCRatioDTO;
 import com.skku.sucpi.entity.LRCRatio;
+import com.skku.sucpi.repository.LRCRatioRepository;
 import com.skku.sucpi.service.LRCRatioService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,12 +26,14 @@ import lombok.RequiredArgsConstructor;
 public class LRCRatioController {
     @Autowired
     private final LRCRatioService lrcRatioService;
-
+    @Autowired
+    private LRCRatioRepository lrcRatioRepository;
     //GET
     //LRCq비율 확인
     @GetMapping("/settings")
     public ResponseEntity<ApiResponse<LRCRatioDTO>> getLRCRatio() {
-        LRCRatioDTO lrcRatio = lrcRatioService.getLRCRatio();
+        List<LRCRatio> ratio = lrcRatioRepository.findAll();
+        LRCRatioDTO lrcRatio = lrcRatioService.getLRCRatio(null);
         ApiResponse<LRCRatioDTO> response;
         response = new ApiResponse<>(
                 200,
@@ -42,13 +45,14 @@ public class LRCRatioController {
 
     //POST
     //LRCq 업데이트
-    @PostMapping("/settings/save")
-    public ResponseEntity<ApiResponse<String>> updateLrcRatio(@RequestBody LRCRatio lrcRatio) {
+    @PostMapping("/settings/update")
+    public ResponseEntity<ApiResponse<LRCRatioDTO>> updateLrcRatio(@RequestBody LRCRatio lrcRatio) {
         lrcRatioService.update(lrcRatio);
-        ApiResponse<String> response = new ApiResponse<>(
+        LRCRatioDTO lrcRatio_update = lrcRatioService.getLRCRatio(lrcRatio);
+        ApiResponse<LRCRatioDTO> response = new ApiResponse<>(
             200,
             "LRCq updated successfully",
-            "LRCq updated successfully"
+            lrcRatio_update
         );
         return ResponseEntity.ok(response);
     }
@@ -57,7 +61,7 @@ public class LRCRatioController {
     //LRCq 비교
     @PostMapping("/settings/compare")
     public ResponseEntity<ApiResponse<LRCRatioDTO>> compareLrcRatio(@RequestBody LRCRatio lrcRatio) {
-        LRCRatioDTO lrcRatio_compare = lrcRatioService.compare(lrcRatio);
+        LRCRatioDTO lrcRatio_compare = lrcRatioService.getLRCRatio(lrcRatio);
         ApiResponse<LRCRatioDTO> response = new ApiResponse<>(
             200,
             "LRCq updated successfully",
