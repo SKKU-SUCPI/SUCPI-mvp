@@ -13,12 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StudentTestResultDTO {
     private OldScore oldScore;
-
     private NewScore newScore;
-
     private OldRank oldRank;
-
-    private NewRank NewRank;
+    private NewRank newRank;
 
     @Data
     @NoArgsConstructor
@@ -28,8 +25,25 @@ public class StudentTestResultDTO {
         private float oldRqScore;
         private float oldCqScore;
         private float oldTotalScore;
+
+        // Getter methods with rounding to 2 decimal places
+        public float getOldLqScore() {
+            return roundToTwoDecimalPlaces(oldLqScore);
+        }
+
+        public float getOldRqScore() {
+            return roundToTwoDecimalPlaces(oldRqScore);
+        }
+
+        public float getOldCqScore() {
+            return roundToTwoDecimalPlaces(oldCqScore);
+        }
+
+        public float getOldTotalScore() {
+            return roundToTwoDecimalPlaces(oldTotalScore);
+        }
     }
-    
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -38,6 +52,23 @@ public class StudentTestResultDTO {
         private float newRqScore;
         private float newCqScore;
         private float newTotalScore;
+
+        // Getter methods with rounding to 2 decimal places
+        public float getNewLqScore() {
+            return roundToTwoDecimalPlaces(newLqScore);
+        }
+
+        public float getNewRqScore() {
+            return roundToTwoDecimalPlaces(newRqScore);
+        }
+
+        public float getNewCqScore() {
+            return roundToTwoDecimalPlaces(newCqScore);
+        }
+
+        public float getNewTotalScore() {
+            return roundToTwoDecimalPlaces(newTotalScore);
+        }
     }
 
     @Data
@@ -59,6 +90,9 @@ public class StudentTestResultDTO {
         private int newRankCq;
         private int newRankTotal;
     }
-    
-}
 
+    // Helper method to round float values to 2 decimal places
+    private static float roundToTwoDecimalPlaces(float value) {
+        return Math.round(value * 100.0f) / 100.0f;
+    }
+}

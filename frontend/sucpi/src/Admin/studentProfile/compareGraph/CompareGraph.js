@@ -4,51 +4,99 @@ import { ResponsiveBar } from '@nivo/bar';
 import './CompareGraph.css'
 import { CompareDetailSetting } from "./CompareDetailSetting";
 
-export function CompareGraph()
-{
+export function CompareGraph({ studentId }) {
+    const [scoreData, setScoreData] = useState(null);
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/admin/weights')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200) {
-                setDetailData(data.result);
-            } else {
-                console.error('Error retrieving weights:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching weights:', error);
-        });
-    }, []);
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    setDetailData(data.result);
+                } else {
+                    console.error('Error retrieving weights:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching weights:', error);
+            });
+
+        // 그래프에 대한 값 불러오기
+        fetch(`http://localhost:8080/api/admin/weights/test/${studentId}`)
+            .then(response => response.json())
+            .then(data => {
+                setScoreData(data);
+            })
+            .catch(error => {
+                console.error('Error ', error);
+            });
+    }, [studentId]);
+
+
+    // 비교하기 버튼 클릭 시 호출되는 함수
+    const handleCompareClick = (updatedData) => {
+        if (updatedData) {
+
+            console.log("Sending data:", updatedData);
+
+            // POST 요청 보내기
+            fetch(`http://localhost:8080/api/admin/weights/test/${studentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setScoreData(data);  // 응답 데이터를 scoreData 상태로 설정
+                })
+                .catch(error => {
+                    console.error('Error fetching comparison data:', error);
+                });
+        }
+    };
 
     return (
         <>
-            <CompareDetailSetting data={detailData} />
+            <CompareDetailSetting data={detailData} onCompareClick={handleCompareClick} />
             <hr className="divider" />
             <div className="compare-graph-container">
-                <LQGraph />
-                <RQGraph />
-                <CQGraph />
-                <TotalGraph />
+                {scoreData && (
+                    <>
+                        <LQGraph 
+                            oldScore={scoreData.oldScore.oldLqScore} 
+                            newScore={scoreData.newScore.newLqScore} 
+                            oldRank={scoreData.oldRank.oldRankLq} 
+                            newRank={scoreData.newRank.newRankLq}
+                        />
+                        <RQGraph 
+                            oldScore={scoreData.oldScore.oldRqScore} 
+                            newScore={scoreData.newScore.newRqScore} 
+                            oldRank={scoreData.oldRank.oldRankRq} 
+                            newRank={scoreData.newRank.newRankRq}
+                        />
+                        <CQGraph 
+                            oldScore={scoreData.oldScore.oldCqScore} 
+                            newScore={scoreData.newScore.newCqScore} 
+                            oldRank={scoreData.oldRank.oldRankCq} 
+                            newRank={scoreData.newRank.newRankCq}
+                        />
+                        <TotalGraph 
+                            oldScore={scoreData.oldScore.oldTotalScore} 
+                            newScore={scoreData.newScore.newTotalScore} 
+                            oldRank={scoreData.oldRank.oldRankTotal} 
+                            newRank={scoreData.newRank.newRankTotal}
+                        />
+                    </>
+                )}
             </div>
         </>
     );
 }
 
-export function LQGraph() {
-    const data = [
-        {
-            compare: '현재',
-            점수: 95,
-        },
-        {
-            compare: '변경',
-            점수: 85,
-        },
-    ];
-
+export function ScoreGraph({ title, data, gradientAColor, gradientBColor, legend, oldRank, newRank }) {
     const commonProperties = {
         data: data,
         keys: ['점수'],
@@ -57,23 +105,23 @@ export function LQGraph() {
         padding: 0.3,
         valueScale: { type: 'linear' },
         indexScale: { type: 'band', round: true },
-        borderRadius: 10,  // 막대의 모서리를 둥글게 만듦
-        colors: ({ id, data }) => data.compare === '현재' ? 'url(#gradientA)' : 'url(#gradientB)', // 막대에 그라데이션 적용
+        borderRadius: 10,
+        colors: ({ id, data }) => data.compare === '현재' ? 'url(#gradientA)' : 'url(#gradientB)',
         defs: [
             {
                 id: 'gradientA',
                 type: 'linearGradient',
                 colors: [
-                    { offset: 80, color: '#346026' }, // 시작 색상 (진한 초록)
-                    { offset: 100, color: 'rgba(14, 52, 27, 0.3)' }, // 끝 색상 (투명도 적용된 초록)
+                    { offset: 80, color: gradientAColor }, 
+                    { offset: 100, color: 'rgba(14, 52, 27, 0.3)' },
                 ],
             },
             {
                 id: 'gradientB',
                 type: 'linearGradient',
                 colors: [
-                    { offset: 80, color: '#FF6C0F' }, // 시작 색상 (오렌지)
-                    { offset: 100, color: 'rgba(255, 108, 15, 0.3)' }, // 끝 색상 (투명도 적용된 오렌지)
+                    { offset: 80, color: gradientBColor },
+                    { offset: 100, color: 'rgba(255, 108, 15, 0.3)' },
                 ],
             },
         ],
@@ -81,7 +129,7 @@ export function LQGraph() {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: '조정 LQ',
+            legend: legend,
             legendPosition: 'middle',
             legendOffset: 32,
         },
@@ -103,240 +151,107 @@ export function LQGraph() {
 
     return (
         <div className="graph">
-            <h4>LQ</h4>
+            <h4>{title}</h4>
             <ResponsiveBar {...commonProperties} />
-            <PercentageBox percentage={5} isPositive={true} />
+            <RankBox oldRank={oldRank} newRank={newRank} />
         </div>
     );
 }
 
-export function RQGraph() {
+export function LQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        {
-            compare: '현재',
-            점수: 95,
-        },
-        {
-            compare: '변경',
-            점수: 85,
-        },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
-    const commonProperties = {
-        data: data,
-        keys: ['점수'],
-        indexBy: 'compare',
-        margin: { top: 50, right: 30, bottom: 100, left: 30 },
-        padding: 0.3,
-        valueScale: { type: 'linear' },
-        indexScale: { type: 'band', round: true },
-        borderRadius: 10,  // 막대의 모서리를 둥글게 만듦
-        colors: ({ id, data }) => data.compare === '현재' ? 'url(#gradientA)' : 'url(#gradientB)', // 막대에 그라데이션 적용
-        defs: [
-            {
-                id: 'gradientA',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#0E341B' }, // 시작 색상 (진한 초록)
-                    { offset: 100, color: 'rgba(14, 52, 27, 0.3)' }, // 끝 색상 (투명도 적용된 초록)
-                ],
-            },
-            {
-                id: 'gradientB',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#FF6C0F' }, // 시작 색상 (오렌지)
-                    { offset: 100, color: 'rgba(255, 108, 15, 0.3)' }, // 끝 색상 (투명도 적용된 오렌지)
-                ],
-            },
-        ],
-        axisBottom: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: '조정 RQ',
-            legendPosition: 'middle',
-            legendOffset: 32,
-        },
-        axisLeft: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Score',
-            legendPosition: 'middle',
-            legendOffset: -40,
-        },
-        labelSkipWidth: 12,
-        labelSkipHeight: 12,
-        labelTextColor: 'white',
-        animate: true,
-        motionStiffness: 90,
-        motionDamping: 15,
-    };
-
     return (
-        <div className="graph">
-            <h4>RQ</h4>
-            <ResponsiveBar {...commonProperties} />
-            <PercentageBox percentage={5} isPositive={true} />
-        </div>
+        <ScoreGraph 
+            title="LQ"
+            data={data}
+            gradientAColor="#346026"  // 진한 초록
+            gradientBColor="#FF6C0F"  // 오렌지
+            legend="조정 LQ"
+            oldRank={oldRank}
+            newRank={newRank}
+        />
     );
 }
 
-export function CQGraph() {
+export function RQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        {
-            compare: '현재',
-            점수: 95,
-        },
-        {
-            compare: '변경',
-            점수: 85,
-        },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
-    const commonProperties = {
-        data: data,
-        keys: ['점수'],
-        indexBy: 'compare',
-        margin: { top: 50, right: 30, bottom: 100, left: 30 },
-        padding: 0.3,
-        valueScale: { type: 'linear' },
-        indexScale: { type: 'band', round: true },
-        borderRadius: 10,  // 막대의 모서리를 둥글게 만듦
-        colors: ({ id, data }) => data.compare === '현재' ? 'url(#gradientA)' : 'url(#gradientB)', // 막대에 그라데이션 적용
-        defs: [
-            {
-                id: 'gradientA',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#0E341B' }, // 시작 색상 (진한 초록)
-                    { offset: 100, color: 'rgba(14, 52, 27, 0.3)' }, // 끝 색상 (투명도 적용된 초록)
-                ],
-            },
-            {
-                id: 'gradientB',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#FF6C0F' }, // 시작 색상 (오렌지)
-                    { offset: 100, color: 'rgba(255, 108, 15, 0.3)' }, // 끝 색상 (투명도 적용된 오렌지)
-                ],
-            },
-        ],
-        axisBottom: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: '조정 CQ',
-            legendPosition: 'middle',
-            legendOffset: 32,
-        },
-        axisLeft: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Score',
-            legendPosition: 'middle',
-            legendOffset: -40,
-        },
-        labelSkipWidth: 12,
-        labelSkipHeight: 12,
-        labelTextColor: 'white',
-        animate: true,
-        motionStiffness: 90,
-        motionDamping: 15,
-    };
-
     return (
-        <div className="graph">
-            <h4>CQ</h4>
-            <ResponsiveBar {...commonProperties} />
-            <PercentageBox percentage={-3} isPositive={false} />
-        </div>
+        <ScoreGraph 
+            title="RQ"
+            data={data}
+            gradientAColor="#0E341B"  // 진한 초록
+            gradientBColor="#FF6C0F"  // 오렌지
+            legend="조정 RQ"
+            oldRank={oldRank}
+            newRank={newRank}
+        />
     );
 }
 
-export function TotalGraph() {
+export function CQGraph({ oldScore, newScore, oldRank, newRank }) {
     const data = [
-        {
-            compare: '현재',
-            점수: 95,
-        },
-        {
-            compare: '변경',
-            점수: 85,
-        },
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
     ];
 
-    const commonProperties = {
-        data: data,
-        keys: ['점수'],
-        indexBy: 'compare',
-        margin: { top: 50, right: 30, bottom: 100, left: 30 },
-        padding: 0.3,
-        valueScale: { type: 'linear' },
-        indexScale: { type: 'band', round: true },
-        borderRadius: 10,  // 막대의 모서리를 둥글게 만듦
-        colors: ({ id, data }) => data.compare === '현재' ? 'url(#gradientA)' : 'url(#gradientB)', // 막대에 그라데이션 적용
-        defs: [
-            {
-                id: 'gradientA',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#0E341B' }, // 시작 색상 (진한 초록)
-                    { offset: 100, color: 'rgba(14, 52, 27, 0.3)' }, // 끝 색상 (투명도 적용된 초록)
-                ],
-            },
-            {
-                id: 'gradientB',
-                type: 'linearGradient',
-                colors: [
-                    { offset: 80, color: '#FF6C0F' }, // 시작 색상 (오렌지)
-                    { offset: 100, color: 'rgba(255, 108, 15, 0.3)' }, // 끝 색상 (투명도 적용된 오렌지)
-                ],
-            },
-        ],
-        axisBottom: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: '조정 총점',
-            legendPosition: 'middle',
-            legendOffset: 32,
-        },
-        axisLeft: {
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Score',
-            legendPosition: 'middle',
-            legendOffset: -40,
-        },
-        labelSkipWidth: 12,
-        labelSkipHeight: 12,
-        labelTextColor: 'white',
-        animate: true,
-        motionStiffness: 90,
-        motionDamping: 15,
-    };
-
     return (
-        <div className="graph">
-            <h4>TOTAL</h4>
-            <ResponsiveBar {...commonProperties} />
-            <PercentageBox percentage={5} isPositive={true} />
-        </div>
+        <ScoreGraph 
+            title="CQ"
+            data={data}
+            gradientAColor="#0E341B"  // 진한 초록
+            gradientBColor="#FF6C0F"  // 오렌지
+            legend="조정 CQ"
+            oldRank={oldRank}
+            newRank={newRank}
+        />
     );
 }
 
+export function TotalGraph({ oldScore, newScore, oldRank, newRank }) {
+    const data = [
+        { compare: '현재', 점수: oldScore },
+        { compare: '변경', 점수: newScore },
+    ];
 
-export function PercentageBox({ percentage, isPositive }) {
     return (
-        <div className="percentage-box">
-            <span className={`percentage ${isPositive ? 'positive' : 'negative'}`}>
-                {percentage}%
+        <ScoreGraph 
+            title="TOTAL"
+            data={data}
+            gradientAColor="#0E341B"  // 진한 초록
+            gradientBColor="#FF6C0F"  // 오렌지
+            legend="조정 총점"
+            oldRank={oldRank}
+            newRank={newRank}
+        />
+    );
+}
+
+export function RankBox({ oldRank, newRank }) {
+
+    let rankColor;
+    if (newRank != 0) {
+        if (newRank < oldRank) {
+            rankColor = "red"; // newRank가 더 작으면 빨간색
+        } else if (newRank > oldRank) {
+            rankColor = "blue"; // newRank가 더 크면 파란색
+        } else {
+            rankColor = "black"; // 같으면 검정색
+        }
+    }
+
+    return (
+        <div className="rank-box">
+            <span className="rank" style={{ fontWeight: "bold" }}>
+                {oldRank}등 vs <span style={{ color: rankColor }}>{newRank}등</span>
             </span>
-            <span className={`triangle ${isPositive ? 'up' : 'down'}`}></span>
         </div>
     );
 }

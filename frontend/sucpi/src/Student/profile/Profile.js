@@ -33,7 +33,7 @@ export function Profile() {
 
     useEffect(() => {
         // 변경필요
-        fetch('http://localhost:8080/api/students/2019374894')
+        fetch('http://localhost:8080/api/students/2021656868')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -56,8 +56,36 @@ export function Profile() {
     const handleEditClick = () => setEditable(true);
     const handleSaveClick = () => {
         setEditable(false);
-        alert("저장이 완료되었습니다.");
-        // Here you can add the logic to save the data to the server
+
+        const updatedData = {
+            studentInfo: studentInfoData,
+            lqInfo: studentLQData,
+            rqInfo: studentRQData,
+            cqInfo: studentCQData
+        };
+
+        fetch("http://localhost:8080/api/students", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('네트워크가 원활하지 않습니다');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert("저장이 완료되었습니다.");
+        })
+        .catch(error => {
+            alert("저장에 실패하였습니다.");
+            console.error('Error: ', error);
+        });
+
+        console.log("DATA -> ", updatedData);
     };
 
     const handleInfoChange = (name, value) => {
@@ -117,82 +145,3 @@ export function Profile() {
         </div>
     );
 }
-
-
-// 더미 데이터
-const data = {
-    "status": 200,
-    "message": "Student details retrieved successfully",
-    "result": {
-        "cqInfo": {
-            "coop": "2022년 웅진 씽크빅에서 게임봇 및 챗봇을 개발하였습니다.",
-            "internship": "",
-            "startup": "",
-            "overseaVolunteer": "2024 하계 ICT 해외봉사를 다녀왔습니다.",
-            "seminar": ["AWS Korea의 강연을 들었습니다.", "Meta의 강연을 들었습니다."],
-            "alimi_leader": 0,
-            "alimi_vise_leader": 0,
-            "alimi_participate": 0,
-            "council_leader": 1,
-            "council_vise_leader": 0,
-            "council_particiapte": 0,
-            "reporter_leader": 1,
-            "reporter_vise_leader": 0,
-            "reporter_participate": 0,
-            "studioContribution": ["ARS Electronica 작품을 제작하였습니다."],
-            "studyGroup_leader": 0,
-            "studyGroup_vise_leader": 1,
-            "studyGroup_participate": 0
-        },
-        "studentInfo": {
-            "Id": "2020123123",
-            "major": "SW",
-            "name": "홍길동",
-            "phone": "010-1234-5678"
-        },
-        "RQInfo": {
-            "RQYulNationalPoster": 0,
-            "RQYulPlaySchoolCompetition": 0,
-            "RQYulWinBigCompetition": 0,
-            "RQYulJcr10Main": 0,
-            "RQMyeongNationalSpeech": 0,
-            "RQMyeongBigCompetition": 0,
-            "RQYulJcr5Main": 0,
-            "RQYulKnownSpeech": 0,
-            "RQYulPlayBigCompetition": 0,
-            "RQYulNormalSpeech": 0,
-            "RQYulJcr5Part": 0,
-            "RQMyeongNormalSpeech": 0,
-            "RQYulJcr20Part": 0,
-            "RQMyeongOverKci": 0,
-            "RQYulNationalSpeech": 0,
-            "RQYulJcr20Main": 0,
-            "RQMyeongKnownSpeech": 0,
-            "RQYulKnownPoster": 0,
-            "RQYulNormalPoster": 0,
-            "RQMyeongKciExcellent": 0,
-            "RQMyeongSchoolCompetition": 0,
-            "RQYulJcr10Part": 0,
-            "RQYulWinSchoolCompetition": 0,
-            "RQMyeongKci": 0,
-            "RQMyeongKciCandidate": 0
-        },
-        "lqInfo": {
-            "studentId": "2023533384",
-            "activityEdu": [],
-            "activityTA": [],
-            "grade40TO45": 0,
-            "grade35TO40": 1,
-            "grade30TO35": 0,
-            "grade00TO30": 0,
-            "openSourceActivityStar0": 0,
-            "openSourceActivityStar3": 0,
-            "openSourceActivityStar4": 1,
-            "openSourceActivityStar5": 0,
-            "committerStar0": 0,
-            "committerStar3": 0,
-            "committerStar4": 1,
-            "committerStar5": 0
-        },
-    }
-};

@@ -27,17 +27,17 @@ public class LeaderboardController {
         List<StudentLeaderboardDTO> leaderboard = studentService.findAll().stream()
                 .map(student -> {
                     StudentDTO studentDTO = studentService.getStudentById(student.getStudentId());
-                    float totalScore = studentDTO.getStudent().getStudentLqScore() 
-                            + studentDTO.getStudent().getStudentRqScore() 
-                            + studentDTO.getStudent().getStudentCqScore();
+                    float totalScore = studentDTO.getStudent().getAdjustLqScore() 
+                            + studentDTO.getStudent().getAdjustRqScore() 
+                            + studentDTO.getStudent().getAdjustCqScore();
                     return new StudentLeaderboardDTO(
                             studentDTO.getStudent().getStudentName(),
                             studentDTO.getStudent().getStudentId(),
                             studentDTO.getStudent().getStudentGrade(),
                             studentDTO.getStudent().getStudentMajor(),
-                            studentDTO.getStudent().getStudentLqScore(),
-                            studentDTO.getStudent().getStudentRqScore(),
-                            studentDTO.getStudent().getStudentCqScore(),
+                            studentDTO.getStudent().getAdjustLqScore(),
+                            studentDTO.getStudent().getAdjustRqScore(),
+                            studentDTO.getStudent().getAdjustCqScore(),
                             totalScore // No need to set rank here
                     );
                 })

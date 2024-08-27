@@ -41,6 +41,25 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
         onCQDataChange("studioContribution", newContributions);
     };
 
+    const handleStudyGroupChange = (event) => {
+        const { value } = event.target;
+        const newStudyGroup = {
+            studyGroup_leader: value === "studyGroup_leader" ? 1 : 0,
+            studyGroup_vice_leader: value === "studyGroup_vice_leader" ? 1 : 0,
+            studyGroup_participate: value === "studyGroup_participate" ? 1 : 0,
+        };
+        onCQDataChange("studyGroup_leader", newStudyGroup.studyGroup_leader);
+        onCQDataChange("studyGroup_vice_leader", newStudyGroup.studyGroup_vice_leader);
+        onCQDataChange("studyGroup_participate", newStudyGroup.studyGroup_participate);
+    };
+
+    const getDefaultStudyGroupValue = () => {
+        if (studentCQData.studyGroup_leader === 1) return "studyGroup_leader";
+        if (studentCQData.studyGroup_vice_leader === 1) return "studyGroup_vice_leader";
+        if (studentCQData.studyGroup_participate === 1) return "studyGroup_participate";
+        return "";
+    };
+
     return (
         <div className='form-container' style={{ whiteSpace: "nowrap" }}>
             <div className='form-group form-group-row'>
@@ -56,7 +75,7 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                     disabled={!editable}
                 />
             </div>
-            <FileUpload 
+            {/* <FileUpload 
                 label="인턴십" 
                 fileName={studentCQData.internship} 
                 editable={editable} 
@@ -71,7 +90,33 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                 onCQDataChange={onCQDataChange} 
                 fieldName="startup" 
                 inputStyle={inputStyle}
-            />
+            /> */}
+            <div className='form-group form-group-row'>
+                <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>인턴십</label>
+                <input 
+                    type='text' 
+                    className='form-control' 
+                    name="internship"
+                    value={studentCQData.internship || ''} 
+                    placeholder='인턴십 기업명과 역할을 작성해 주세요.' 
+                    style={{ ...inputStyle, width: "80%" }} 
+                    onChange={handleInputChange} 
+                    disabled={!editable}
+                />
+            </div>
+            <div className='form-group form-group-row'>
+                <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>창업</label>
+                <input 
+                    type='text' 
+                    className='form-control' 
+                    name="startup"
+                    value={studentCQData.startup || ''} 
+                    placeholder='기업명과 역할을 작성해 주세요.' 
+                    style={{ ...inputStyle, width: "80%" }} 
+                    onChange={handleInputChange} 
+                    disabled={!editable}
+                />
+            </div>
             <div className='form-group form-group-row'>
                 <label style={{ marginRight: '24px', whiteSpace: "nowrap"}}>해외 봉사 활동</label>
                 <input 
@@ -155,16 +200,16 @@ export function CQInfo({ studentCQData, onCQDataChange, editable }) {
                     <span className='sub-label'>SCG MAV 스꾸딩 스꾸디 S-CAR HIT GDSC SST NPC 소속 학생</span>
                     <select 
                         className='form-control' 
-                        name="studyGroup_leader" 
-                        value={studentCQData.studyGroup_leader || ''} 
-                        onChange={handleInputChange} 
+                        name="studyGroup" 
+                        value={getDefaultStudyGroupValue()} 
+                        onChange={handleStudyGroupChange} 
                         style={inputStyle}
                         disabled={!editable}
                     >
                         <option value="">직급 선택</option>
-                        <option value="1">회장</option>
-                        <option value="0.5">부회장</option>
-                        <option value="0.1">참여</option>
+                        <option value="studyGroup_leader">회장</option>
+                        <option value="studyGroup_vice_leader">부회장</option>
+                        <option value="studyGroup_participate">참여</option>
                     </select>
                 </div>
             </div>
