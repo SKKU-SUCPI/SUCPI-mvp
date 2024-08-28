@@ -33,7 +33,7 @@ public class LRCRatioController {
     @GetMapping("/settings")
     public ResponseEntity<ApiResponse<LRCRatioDTO>> getLRCRatio() {
         List<LRCRatio> ratio = lrcRatioRepository.findAll();
-        LRCRatioDTO lrcRatio = lrcRatioService.getLRCRatio(null);
+        LRCRatioDTO lrcRatio = lrcRatioService.getLRCRatio(ratio.get(0));
         ApiResponse<LRCRatioDTO> response;
         response = new ApiResponse<>(
                 200,
@@ -59,12 +59,12 @@ public class LRCRatioController {
 
     //POST
     //LRCq 비교
-    @PostMapping("/settings/compare")
+    @PostMapping("/settings/test")
     public ResponseEntity<ApiResponse<LRCRatioDTO>> compareLrcRatio(@RequestBody LRCRatio lrcRatio) {
         LRCRatioDTO lrcRatio_compare = lrcRatioService.getLRCRatio(lrcRatio);
         ApiResponse<LRCRatioDTO> response = new ApiResponse<>(
             200,
-            "LRCq updated successfully",
+            "LRCq tested successfully",
             lrcRatio_compare
         );
         return ResponseEntity.ok(response);
