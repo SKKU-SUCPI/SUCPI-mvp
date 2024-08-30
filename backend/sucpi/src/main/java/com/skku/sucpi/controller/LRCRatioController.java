@@ -83,14 +83,13 @@ public class LRCRatioController {
         // 새로운 가중치를 바탕으로 기존 평균과 새로운 평균 비교
         WeightTestResultDTO result = weightTestService.compareAdjustedScoresWithNewWeights(newWeights);
 
+        if (result == null) {
+            return ResponseEntity.status(404).body(new ApiResponse<>(404, "Weight comparison test failed", null));
+        }
+        
         // API 응답 생성
-        ApiResponse<WeightTestResultDTO> response = new ApiResponse<>(
-                200,
-                "Weight comparison test successful",
-                result
-        );
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new ApiResponse<>(200, "Weight comparison test successful", result));
     }
+
 
 }
