@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skku.sucpi.ApiResponse;
 import com.skku.sucpi.dto.LRCRatioDTO;
+import com.skku.sucpi.dto.WeightDTO;
+import com.skku.sucpi.dto.WeightTestResultDTO;
 import com.skku.sucpi.entity.LRCRatio;
 import com.skku.sucpi.repository.LRCRatioRepository;
 import com.skku.sucpi.service.LRCRatioService;
+import com.skku.sucpi.service.WeightTestService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +31,8 @@ public class LRCRatioController {
     private final LRCRatioService lrcRatioService;
     @Autowired
     private LRCRatioRepository lrcRatioRepository;
+    @Autowired
+    private WeightTestService weightTestService;
     //GET
     //LRCq비율 확인
     @GetMapping("/settings")
@@ -69,4 +74,22 @@ public class LRCRatioController {
         );
         return ResponseEntity.ok(response);
     }
+
+
+    //POST
+    //setting에서 weight 특정값 변경 비교 (api주소때문에 여기에 합니다 ㅎㅎ)
+    @PostMapping("/settings/weights/test")
+    public ResponseEntity<ApiResponse<WeightTestResultDTO>> compareWeights(@RequestBody WeightDTO newWeights) {
+        // 새로운 가중치를 바탕으로 기존 평균과 새로운 평균 비교
+        WeightTestResultDTO result = weightTestService.compareAdjustedScoresWithNewWeights(newWeights);
+
+        if (result == null) {
+            return ResponseEntity.status(404).body(new ApiResponse<>(404, "Weight comparison test failed", null));
+        }
+        
+        // API 응답 생성
+        return ResponseEntity.ok(new ApiResponse<>(200, "Weight comparison test successful", result));
+    }
+
+
 }

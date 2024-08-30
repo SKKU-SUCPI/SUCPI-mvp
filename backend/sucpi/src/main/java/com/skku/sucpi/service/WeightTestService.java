@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.skku.sucpi.dto.StudentTestResultDTO;
 import com.skku.sucpi.dto.WeightDTO;
+import com.skku.sucpi.dto.WeightTestResultDTO;
 import com.skku.sucpi.entity.CQStudent;
 import com.skku.sucpi.entity.LQStudent;
 import com.skku.sucpi.entity.LRCRatio;
@@ -307,6 +308,76 @@ public class WeightTestService {
         }
         return score;
     }
+
+    //private static final Logger logger = Logger.getLogger(WeightTestService.class.getName());
+
+    public WeightTestResultDTO compareAdjustedScoresWithNewWeights(WeightDTO newWeights) {
+        // Fetch all students
+        List<Student> allStudents = studentRepository.findAll();
+    
+        // Manually extract adjusted scores from the Student entities
+        Map<String, AdjustedScores> oldAdjustedScoresMap = new HashMap<>();
+        for (Student student : allStudents) {
+            String studentId = student.getStudentId();
+            float lqScore = student.getAdjustLqScore();  // DB에서 조정된 LQ 점수 가져오기
+            float rqScore = student.getAdjustRqScore();  // DB에서 조정된 RQ 점수 가져오기
+            float cqScore = student.getAdjustCqScore();  // DB에서 조정된 CQ 점수 가져오기
+            float totalScore = lqScore + rqScore + cqScore;  // 총점 계산
+    
+            // AdjustedScores 객체에 저장
+            oldAdjustedScoresMap.put(studentId, new AdjustedScores(studentId, lqScore, rqScore, cqScore, totalScore));
+        }
+    
+        // Calculate new raw scores and adjusted scores with the new weights
+        // Calculate new raw scores for all students using new weights
+        Map<String, RawScores> newRawScoresMap = calculateRawScoresForAllStudents(newWeights);
+    
+        // Calculate adjusted scores for new raw scores
+        Map<String, AdjustedScores> newAdjustedScoresMap = calculateAdjustedScores(newRawScoresMap);
+    
+        // Fetch LRC ratios (assuming this comes from a repository or another service)
+        LRCRatio lrcRatio = lrcRatioRepository.findAll().get(0);
+        float lqRatio = lrcRatio.getLqRatio() / 100.0f;  // Convert to a fraction if needed
+        float rqRatio = lrcRatio.getRqRatio() / 100.0f;  // Convert to a fraction if needed
+        float cqRatio = lrcRatio.getCqRatio() / 100.0f;  // Convert to a fraction if needed
+    
+        // Calculate the mean of old adjusted scores
+        float oldLqMean = calculateMean(
+                oldAdjustedScoresMap.values().stream().map(AdjustedScores::getLqScore).collect(Collectors.toList()));
+        float oldRqMean = calculateMean(
+                oldAdjustedScoresMap.values().stream().map(AdjustedScores::getRqScore).collect(Collectors.toList()));
+        float oldCqMean = calculateMean(
+                oldAdjustedScoresMap.values().stream().map(AdjustedScores::getCqScore).collect(Collectors.toList()));
+    
+        // Adjust the means using the LQ, RQ, CQ ratios
+        oldLqMean *= lqRatio;
+        oldRqMean *= rqRatio;
+        oldCqMean *= cqRatio;
+    
+        // Calculate the mean of new adjusted scores
+        float newLqMean = calculateMean(
+                newAdjustedScoresMap.values().stream().map(AdjustedScores::getLqScore).collect(Collectors.toList()));
+        float newRqMean = calculateMean(
+                newAdjustedScoresMap.values().stream().map(AdjustedScores::getRqScore).collect(Collectors.toList()));
+        float newCqMean = calculateMean(
+                newAdjustedScoresMap.values().stream().map(AdjustedScores::getCqScore).collect(Collectors.toList()));
+    
+        // Adjust the new means using the LQ, RQ, CQ ratios
+        newLqMean *= lqRatio;
+        newRqMean *= rqRatio;
+        newCqMean *= cqRatio;
+    
+        // Prepare DTO for response
+        WeightTestResultDTO.Prev_AvgQ prevAvgQ = new WeightTestResultDTO.Prev_AvgQ(oldRqMean, oldLqMean, oldCqMean);
+        WeightTestResultDTO.Temp_AvgQ tempAvgQ = new WeightTestResultDTO.Temp_AvgQ(newRqMean, newLqMean, newCqMean);
+    
+        return new WeightTestResultDTO(prevAvgQ, tempAvgQ);
+    }
+    
+    
+    
+
+    
 
     // Inner class to hold raw scores
     private static class RawScores {
