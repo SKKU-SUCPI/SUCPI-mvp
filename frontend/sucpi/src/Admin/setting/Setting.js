@@ -59,7 +59,7 @@ export function Setting() {
         <div>
             <h1 style={{padding:"16px 36px 12px"}}>설정</h1>
             <QSetting initialRatios={ratios} setRatios={setRatios} setComparisonRatios={setComparisonRatios} />
-            <DetailSetting data={detailData} />
+            <DetailSetting data={detailData} setComparisonRatios={setComparisonRatios} />
             <CompareGraph ratios={graphRatios} comparisonRatios={comparisonRatios} />
         </div>
     );
