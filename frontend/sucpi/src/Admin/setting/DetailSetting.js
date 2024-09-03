@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BiSolidRightArrow, BiSolidDownArrow } from "react-icons/bi";
 import './DetailSetting.css';
 
-export function DetailSetting({ data }) {
+export function DetailSetting({ data, setComparisonRatios }) { // setComparisonRatios를 props로 받아옵니다.
     const [selected, setSelected] = useState('');
     const [weights, setWeights] = useState({
         LQ: {},
@@ -15,7 +15,6 @@ export function DetailSetting({ data }) {
         CQ: {},
     });
 
-    // 초기 weight 값을 설정하는 useEffect
     useEffect(() => {
         if (data) {
             const initialWeights = {
@@ -33,8 +32,7 @@ export function DetailSetting({ data }) {
                 }, {})
             };
             setWeights(initialWeights);
-            setSavedWeights(initialWeights); // 초기 값을 savedWeights에도 설정
-            console.log("Initial weights set:", initialWeights);
+            setSavedWeights(initialWeights);
         }
     }, [data]);
 
@@ -54,7 +52,6 @@ export function DetailSetting({ data }) {
                 }
             };
 
-            console.log('Updated weights:', updatedWeights);
             return updatedWeights;
         });
     };
@@ -90,7 +87,6 @@ export function DetailSetting({ data }) {
 
             alert('가중치 설정이 성공적으로 저장되었습니다.');
 
-            // 서버에 저장된 값을 savedWeights 상태로 업데이트
             setSavedWeights({
                 LQ: payload.lqweights.reduce((acc, item) => {
                     acc[item.id] = item.weight;
@@ -110,6 +106,54 @@ export function DetailSetting({ data }) {
             alert(error.message);
         }
     };
+
+    const handleComparisonClick = async () => {
+        const payload = {
+            lqweights: data.lqweights.map(item => ({
+                ...item,
+                weight: weights.LQ[item.id] || item.weight
+            })),
+            rqweights: data.rqweights.map(item => ({
+                ...item,
+                weight: weights.RQ[item.id] || item.weight
+            })),
+            cqweights: data.cqweights.map(item => ({
+                ...item,
+                weight: weights.CQ[item.id] || item.weight
+            })),
+        };
+    
+        try {
+            const response = await fetch('http://localhost:8080/api/admin/settings/weights/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+    
+            if (!response.ok) {
+                throw new Error('비교를 수행하는 데 실패했습니다.');
+            }
+    
+            const data = await response.json();
+            if (data.status === 200) {
+                const tempAvgQ = data.result.tempAvgQ || {}; // tempAvgQ가 정의되지 않았을 때를 대비
+                setComparisonRatios({
+                    temp_LQ_avg: tempAvgQ.tempLQAvg || 0, // response 속성명에 맞춰 값 설정
+                    temp_CQ_avg: tempAvgQ.tempCQAvg || 0,
+                    temp_RQ_avg: tempAvgQ.tempRQAvg || 0,
+                });
+    
+                alert('비교가 성공적으로 수행되었습니다.');
+            } else {
+                throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    
 
     const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 
@@ -154,7 +198,7 @@ export function DetailSetting({ data }) {
                 </div>
 
                 <div className="detail-button-group">
-                    <button className="button-secondary">비교</button>
+                    <button className="button-secondary" onClick={handleComparisonClick}>비교</button>
                 </div>
             </div>
 
@@ -174,7 +218,6 @@ export function DetailSetting({ data }) {
                                 <tr key={row.id}>
                                     <td className="detail-table-td">{row.category}</td>
                                     <td className="detail-table-td">{row.name}</td>
-                                    {/* 저장된 후에만 업데이트된 값을 보여줌 */}
                                     <td className="detail-table-td">{savedWeights[selected][row.id]}</td>
                                     <td className="detail-table-td">
                                         <input 

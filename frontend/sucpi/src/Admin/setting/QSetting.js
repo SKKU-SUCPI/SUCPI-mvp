@@ -3,15 +3,15 @@ import './QSetting.css';
 
 export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
     const [overallRatios, setOverallRatios] = useState({
-        LQ: initialRatios.lqRatio,
-        RQ: initialRatios.rqRatio,
-        CQ: initialRatios.cqRatio
+        LQ: initialRatios.prev_LQratio,
+        RQ: initialRatios.prev_RQratio,
+        CQ: initialRatios.prev_CQratio
     });
 
-    const [comparisonRatios, setComparisonRatiosLocal] = useState({
-        compareLQ: initialRatios.lqRatio,
-        compareRQ: initialRatios.rqRatio,
-        compareCQ: initialRatios.cqRatio
+    const [comparisonRatiosLocal, setComparisonRatiosLocal] = useState({
+        temp_LQratio: initialRatios.temp_LQratio,
+        temp_RQratio: initialRatios.temp_RQratio,
+        temp_CQratio: initialRatios.temp_CQratio
     });
 
     const handleRatioChange = (event) => {
@@ -30,40 +30,94 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
         }));
     };
 
-    const handleCompareClick = () => {
-        setComparisonRatios(comparisonRatios);
-    };
-
-    const handleSaveClick = async () => {
-        const ratiosToSave = {
-            lqRatio: comparisonRatios.compareLQ,
-            rqRatio: comparisonRatios.compareRQ,
-            cqRatio: comparisonRatios.compareCQ
-        };
-
+    const handleCompareClick = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/admin/settings', {
+            const response = await fetch('http://localhost:8080/api/admin/settings/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(ratiosToSave)
+                body: JSON.stringify({
+                    lqRatio: comparisonRatiosLocal.temp_LQratio,
+                    rqRatio: comparisonRatiosLocal.temp_RQratio,
+                    cqRatio: comparisonRatiosLocal.temp_CQratio
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('비교를 수행하는 데 실패했습니다.');
+            }
+
+            const data = await response.json();
+            if (data.status === 200) {
+                const tempAvgQ = data.result.temp_avgQ;
+                const updatedComparisonRatios = {
+                    temp_LQ_avg: tempAvgQ.temp_LQ_avg,
+                    temp_RQ_avg: tempAvgQ.temp_RQ_avg,
+                    temp_CQ_avg: tempAvgQ.temp_CQ_avg
+                };
+
+                setComparisonRatios(updatedComparisonRatios); // 부모 상태도 업데이트
+                console.log("Updated comparisonRatios:", updatedComparisonRatios);
+            } else {
+                throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
+    const handleSaveClick = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/admin/settings/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lqRatio: comparisonRatiosLocal.temp_LQratio,
+                    rqRatio: comparisonRatiosLocal.temp_RQratio,
+                    cqRatio: comparisonRatiosLocal.temp_CQratio
+                })
             });
 
             if (!response.ok) {
                 throw new Error('비율 설정을 저장하는 데 실패했습니다.');
             }
 
-            // 비율 저장이 성공하면 전체 비율을 새로운 값으로 업데이트하고, 부모 상태도 업데이트
-            setOverallRatios({
-                LQ: ratiosToSave.lqRatio,
-                RQ: ratiosToSave.rqRatio,
-                CQ: ratiosToSave.cqRatio
-            });
+            const data = await response.json();
+            if (data.status === 200) {
+                const result = data.result;
 
-            setRatios(ratiosToSave); // 부모 컴포넌트의 상태도 업데이트
+                setOverallRatios({
+                    LQ: result.prev_LQratio,
+                    RQ: result.prev_RQratio,
+                    CQ: result.prev_CQratio
+                });
 
-            alert('비율 설정이 성공적으로 저장되었습니다.');
+                setRatios({
+                    prev_LQratio: result.prev_LQratio,
+                    prev_RQratio: result.prev_RQratio,
+                    prev_CQratio: result.prev_CQratio,
+                    prev_avgQ: result.prev_avgQ
+                });
+
+                setComparisonRatiosLocal({
+                    temp_LQratio: result.temp_LQratio,
+                    temp_RQratio: result.temp_RQratio,
+                    temp_CQratio: result.temp_CQratio
+                });
+
+                setComparisonRatios({
+                    temp_LQ_avg: result.temp_avgQ.temp_LQ_avg,
+                    temp_RQ_avg: result.temp_avgQ.temp_RQ_avg,
+                    temp_CQ_avg: result.temp_avgQ.temp_CQ_avg
+                });
+
+                alert('비율 설정이 성공적으로 저장되었습니다.');
+            } else {
+                throw new Error(data.message || '비율 설정을 저장하는 데 실패했습니다.');
+            }
         } catch (error) {
             alert(error.message);
         }
@@ -125,8 +179,8 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
                         <label>LQ</label>
                         <input 
                             type="text" 
-                            name="compareLQ" 
-                            value={comparisonRatios.compareLQ} 
+                            name="temp_LQratio" 
+                            value={comparisonRatiosLocal.temp_LQratio} 
                             onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
@@ -137,8 +191,8 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
                         <label>RQ</label>
                         <input 
                             type="text" 
-                            name="compareRQ" 
-                            value={comparisonRatios.compareRQ} 
+                            name="temp_RQratio" 
+                            value={comparisonRatiosLocal.temp_RQratio} 
                             onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
@@ -149,8 +203,8 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
                         <label>CQ</label>
                         <input 
                             type="text" 
-                            name="compareCQ" 
-                            value={comparisonRatios.compareCQ} 
+                            name="temp_CQratio" 
+                            value={comparisonRatiosLocal.temp_CQratio} 
                             onChange={handleComparisonChange} 
                             className="input-field"
                             inputMode="numeric"
