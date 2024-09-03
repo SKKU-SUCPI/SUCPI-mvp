@@ -3,15 +3,15 @@ import './QSetting.css';
 
 export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
     const [overallRatios, setOverallRatios] = useState({
-        LQ: initialRatios.lqRatio,
-        RQ: initialRatios.rqRatio,
-        CQ: initialRatios.cqRatio
+        LQ: initialRatios.prev_LQratio,
+        RQ: initialRatios.prev_RQratio,
+        CQ: initialRatios.prev_CQratio
     });
 
     const [comparisonRatios, setComparisonRatiosLocal] = useState({
-        compareLQ: initialRatios.lqRatio,
-        compareRQ: initialRatios.rqRatio,
-        compareCQ: initialRatios.cqRatio
+        compareLQ: initialRatios.temp_LQratio,
+        compareRQ: initialRatios.temp_RQratio,
+        compareCQ: initialRatios.temp_CQratio
     });
 
     const handleRatioChange = (event) => {
@@ -30,19 +30,49 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
         }));
     };
 
-    const handleCompareClick = () => {
-        setComparisonRatios(comparisonRatios);
+    const handleCompareClick = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/admin/settings/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lqRatio: comparisonRatios.compareLQ,
+                    rqRatio: comparisonRatios.compareRQ,
+                    cqRatio: comparisonRatios.compareCQ
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('비교를 수행하는 데 실패했습니다.');
+            }
+
+            const data = await response.json();
+            if (data.status === 200) {
+                const tempAvgQ = data.result.temp_avgQ;
+                setComparisonRatios({
+                    compareLQ: tempAvgQ.temp_LQ_avg,
+                    compareRQ: tempAvgQ.temp_RQ_avg,
+                    compareCQ: tempAvgQ.temp_CQ_avg
+                });
+            } else {
+                throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     const handleSaveClick = async () => {
         const ratiosToSave = {
-            lqRatio: comparisonRatios.compareLQ,
-            rqRatio: comparisonRatios.compareRQ,
-            cqRatio: comparisonRatios.compareCQ
+            prev_LQratio: comparisonRatios.compareLQ,
+            prev_RQratio: comparisonRatios.compareRQ,
+            prev_CQratio: comparisonRatios.compareCQ
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/admin/settings', {
+            const response = await fetch('http://localhost:8080/api/admin/settings/test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,14 +84,13 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
                 throw new Error('비율 설정을 저장하는 데 실패했습니다.');
             }
 
-            // 비율 저장이 성공하면 전체 비율을 새로운 값으로 업데이트하고, 부모 상태도 업데이트
             setOverallRatios({
-                LQ: ratiosToSave.lqRatio,
-                RQ: ratiosToSave.rqRatio,
-                CQ: ratiosToSave.cqRatio
+                LQ: ratiosToSave.prev_LQratio,
+                RQ: ratiosToSave.prev_RQratio,
+                CQ: ratiosToSave.prev_CQratio
             });
 
-            setRatios(ratiosToSave); // 부모 컴포넌트의 상태도 업데이트
+            setRatios(ratiosToSave);
 
             alert('비율 설정이 성공적으로 저장되었습니다.');
         } catch (error) {
