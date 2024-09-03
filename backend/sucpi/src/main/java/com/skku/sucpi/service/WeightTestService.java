@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.skku.sucpi.dto.StudentTestResultDTO;
 import com.skku.sucpi.dto.WeightDTO;
+import com.skku.sucpi.dto.WeightTestResultDTO;
 import com.skku.sucpi.entity.CQStudent;
 import com.skku.sucpi.entity.LQStudent;
 import com.skku.sucpi.entity.LRCRatio;
@@ -307,6 +308,60 @@ public class WeightTestService {
         }
         return score;
     }
+
+    //private static final Logger logger = Logger.getLogger(WeightTestService.class.getName());
+
+    public WeightTestResultDTO compareAdjustedScoresWithNewWeights(WeightDTO newWeights) {
+        // Fetch all students
+        List<Student> allStudents = studentRepository.findAll();
+    
+        // Fetch LRC ratios (assuming this comes from a repository or another service)
+        LRCRatio lrcRatio = lrcRatioRepository.findAll().get(0);
+        float lqRatio = lrcRatio.getLqRatio() / 100.0f;  // Convert to a fraction if needed
+        float rqRatio = lrcRatio.getRqRatio() / 100.0f;  // Convert to a fraction if needed
+        float cqRatio = lrcRatio.getCqRatio() / 100.0f;  // Convert to a fraction if needed
+    
+        // Calculate the mean of old raw scores
+        float oldLqMean = calculateMean(
+                allStudents.stream().map(Student::getStudentLqScore).collect(Collectors.toList()));
+        float oldRqMean = calculateMean(
+                allStudents.stream().map(Student::getStudentRqScore).collect(Collectors.toList()));
+        float oldCqMean = calculateMean(
+                allStudents.stream().map(Student::getStudentCqScore).collect(Collectors.toList()));
+    
+        // Adjust the old means using the LQ, RQ, CQ ratios
+        oldLqMean *= lqRatio;
+        oldRqMean *= rqRatio;
+        oldCqMean *= cqRatio;
+    
+        // Calculate new raw scores for all students using new weights
+        Map<String, RawScores> newRawScoresMap = calculateRawScoresForAllStudents(newWeights);
+    
+        // Calculate the mean of new raw scores
+        float newLqMean = calculateMean(
+                newRawScoresMap.values().stream().map(RawScores::getLqScore).collect(Collectors.toList()));
+        float newRqMean = calculateMean(
+                newRawScoresMap.values().stream().map(RawScores::getRqScore).collect(Collectors.toList()));
+        float newCqMean = calculateMean(
+                newRawScoresMap.values().stream().map(RawScores::getCqScore).collect(Collectors.toList()));
+    
+        // Adjust the new means using the LQ, RQ, CQ ratios
+        newLqMean *= lqRatio;
+        newRqMean *= rqRatio;
+        newCqMean *= cqRatio;
+    
+        // Prepare DTO for response
+        WeightTestResultDTO.Prev_AvgQ prevAvgQ = new WeightTestResultDTO.Prev_AvgQ(oldRqMean, oldLqMean, oldCqMean);
+        WeightTestResultDTO.Temp_AvgQ tempAvgQ = new WeightTestResultDTO.Temp_AvgQ(newRqMean, newLqMean, newCqMean);
+    
+        return new WeightTestResultDTO(prevAvgQ, tempAvgQ);
+    }
+    
+    
+    
+    
+
+    
 
     // Inner class to hold raw scores
     private static class RawScores {
