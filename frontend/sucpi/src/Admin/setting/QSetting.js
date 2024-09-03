@@ -51,11 +51,15 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
             const data = await response.json();
             if (data.status === 200) {
                 const tempAvgQ = data.result.temp_avgQ;
-                setComparisonRatios({
-                    compareLQ: tempAvgQ.temp_LQ_avg,
-                    compareRQ: tempAvgQ.temp_RQ_avg,
-                    compareCQ: tempAvgQ.temp_CQ_avg
-                });
+                const updatedComparisonRatios = {
+                    temp_LQ_avg: tempAvgQ.temp_LQ_avg,
+                    temp_RQ_avg: tempAvgQ.temp_RQ_avg,
+                    temp_CQ_avg: tempAvgQ.temp_CQ_avg
+                };
+                
+                setComparisonRatiosLocal(updatedComparisonRatios);
+                setComparisonRatios(updatedComparisonRatios); // 부모 상태도 업데이트
+                console.log("Updated comparisonRatios:", updatedComparisonRatios);
             } else {
                 throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
             }
@@ -66,9 +70,9 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
 
     const handleSaveClick = async () => {
         const ratiosToSave = {
-            prev_LQratio: comparisonRatios.compareLQ,
-            prev_RQratio: comparisonRatios.compareRQ,
-            prev_CQratio: comparisonRatios.compareCQ
+            prev_LQratio: comparisonRatios.temp_LQ_avg,
+            prev_RQratio: comparisonRatios.temp_RQ_avg,
+            prev_CQratio: comparisonRatios.temp_CQ_avg
         };
 
         try {
@@ -91,7 +95,6 @@ export function QSetting({ initialRatios, setRatios, setComparisonRatios }) {
             });
 
             setRatios(ratiosToSave);
-
             alert('비율 설정이 성공적으로 저장되었습니다.');
         } catch (error) {
             alert(error.message);

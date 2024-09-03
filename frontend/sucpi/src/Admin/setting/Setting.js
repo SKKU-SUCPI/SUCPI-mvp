@@ -9,7 +9,6 @@ export function Setting() {
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
-        // Fetching data from the settings API
         fetch('http://localhost:8080/api/admin/settings')
             .then(response => response.json())
             .then(data => {
@@ -19,16 +18,9 @@ export function Setting() {
                         prev_LQratio: result.prev_LQratio,
                         prev_RQratio: result.prev_RQratio,
                         prev_CQratio: result.prev_CQratio,
-                        temp_LQratio: result.temp_LQratio,
-                        temp_RQratio: result.temp_RQratio,
-                        temp_CQratio: result.temp_CQratio,
-                        prev_avgQ: result.prev_avgQ || {}  // Ensure prev_avgQ is always defined
+                        prev_avgQ: result.prev_avgQ || {}  
                     });
-                    setComparisonRatios({
-                        compareLQ: result.temp_LQratio,
-                        compareRQ: result.temp_RQratio,
-                        compareCQ: result.temp_CQratio
-                    });
+                    setComparisonRatios(result.temp_avgQ || {}); // temp_avgQ를 직접 comparisonRatios로 설정
                 } else {
                     console.error('Error retrieving data:', data.message);
                 }
@@ -55,7 +47,7 @@ export function Setting() {
     if (!ratios || !comparisonRatios) {
         return <div>Loading...</div>;
     }
-    // Ensure prev_avgQ is always safely destructured
+
     const { prev_avgQ = {} } = ratios;
     const graphRatios = {
         prev_LQ_avg: prev_avgQ.prev_LQ_avg,
