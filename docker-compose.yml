@@ -1,0 +1,21 @@
+version: "3.8"
+
+services: 
+        FRONTEND: 
+                image: siop/siop-frontend:test
+                container_name: siop-frontend
+                restart: always
+                environment:
+                        VIRTUAL_HOST: "siop-dev.skku.edu"
+                        LETSENCRYPT_HOST: "siop-dev.skku.edu"
+                        VIRTUAL_PORT: 3000
+                extra_hosts: 
+                        - host.docker.internal:host-gateway
+                networks:
+                        - "net"
+                ports:
+                        - "4501:3000"
+
+networks:
+  net:
+          external: true
