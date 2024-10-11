@@ -1,12 +1,11 @@
 HELP.md
 .gradle
 build/
+# But allow JAR files inside build/libs
+!build/libs/*.jar
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-
-# But allow JAR files inside build/libs
-!build/libs/*.jar
 
 ### STS ###
 .apt_generated

@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-build/
+# build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -63,8 +63,8 @@ sketch
 # testing
 /coverage
 
-# production
-/build
+# # production
+# /build
 
 # misc
 .env.local
