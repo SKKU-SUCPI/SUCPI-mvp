@@ -1,9 +1,9 @@
 HELP.md
 .gradle
 # build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# !gradle/wrapper/gradle-wrapper.jar
+# !**/src/main/**/build/
+# !**/src/test/**/build/
 
 # But allow JAR files inside build/libs
 !build/libs/*.jar
@@ -64,8 +64,8 @@ sketch
 # testing
 /coverage
 
-# # production
-# /build
+# production
+/build
 
 # misc
 .env.local
