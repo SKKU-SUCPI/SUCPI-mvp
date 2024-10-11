@@ -5,6 +5,11 @@ HELP.md
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# build 폴더 내 모든 파일을 무시
+build/*
+
+# build 폴더 내 .jar 파일만 포함
+!build/*.jar
 
 
 ### STS ###
