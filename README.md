@@ -8,13 +8,11 @@
 
 Team-SUCPI를 소개합니다.
 
-| 김태형(PM / Tech) | 강성철(Tech) | 김준연(Tech) |
-|:-------:|:-------:|:-------:|
-| ![image](https://github.com/user-attachments/assets/06884f38-4ad7-4afe-894f-ced30337b680)
-   | ![image](https://github.com/user-attachments/assets/8d3dfb24-5d5c-468d-b726-c7baf76ef7d6)
-   | ![image](https://github.com/user-attachments/assets/d5f1560c-7ee5-4257-81c4-3d207ebb07b3)
-   |
-| [GITHUB](https://github.com/Taerogrammer)   | [GITHUB](https://github.com/2020311920)   | [GITHUB](https://github.com/somehowranker)   |
+|       김태형 (PM / Tech)       |       강성철 (Tech)        |       김준연 (Tech)       |
+|:------------------------------:|:--------------------------:|:-------------------------:|
+| ![김태형](https://github.com/user-attachments/assets/06884f38-4ad7-4afe-894f-ced30337b680) | ![강성철](https://github.com/user-attachments/assets/8d3dfb24-5d5c-468d-b726-c7baf76ef7d6) | ![김준연](https://github.com/user-attachments/assets/d5f1560c-7ee5-4257-81c4-3d207ebb07b3) |
+| [GitHub](https://github.com/Taerogrammer) | [GitHub](https://github.com/2020311920) | [GitHub](https://github.com/somehowranker) |
+
 
 
 ## **👩‍👩‍👧‍👦 개발환경**
