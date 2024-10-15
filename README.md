@@ -1,4 +1,30 @@
-# SUCPI
+![image](https://github.com/user-attachments/assets/1ba7feac-dde2-48e1-bea1-63eb224b882d)# SUCPI
+
+## **👩‍👩‍👧‍👦 프로젝트 소개**
+
+## **👩‍👩‍👧‍👦 개발 기간**
+
+## **👩‍👩‍👧‍👦 개발자 소개**
+
+Team-SUCPI를 소개합니다.
+
+| 김태형(PM / Tech) | 강성철(Tech) | 김준연(Tech) |
+|:-------:|:-------:|:-------:|
+| ![image](https://github.com/user-attachments/assets/06884f38-4ad7-4afe-894f-ced30337b680)
+   | ![image](https://github.com/user-attachments/assets/8d3dfb24-5d5c-468d-b726-c7baf76ef7d6)
+   | ![image](https://github.com/user-attachments/assets/d5f1560c-7ee5-4257-81c4-3d207ebb07b3)
+   |
+| [GITHUB](https://github.com/Taerogrammer)   | [GITHUB](https://github.com/2020311920)   | [GITHUB](https://github.com/somehowranker)   |
+
+
+## **👩‍👩‍👧‍👦 개발환경**
+
+## **👩‍👩‍👧‍👦 기술스택**
+
+## **👩‍👩‍👧‍👦 주요기능**
+
+## **👩‍👩‍👧‍👦 프로젝트 아키텍**
+
 
 ## **📝 커밋 컨벤션**
   
@@ -141,4 +167,4 @@ ex) [Feature] MyView - MyView 레이아웃 디자인
 <br>
 
 
-## **👩‍👩‍👧‍👦 참가자 코멘트**
+
