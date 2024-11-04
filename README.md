@@ -1,6 +1,78 @@
-# SUCPI
 
-## **📝 커밋 컨벤션**
+
+## **👩‍👩‍👧‍👦 프로젝트 소개**
+
+성균 학생 종합 성과지수(Sungkyun Undergraduate Composite Performance
+Index: **SUCPI**)의 지표산출 근거를 제시함에 그 목적을 둔다.
+<br>
+① 성균 학생 종합 성과지수(Sungkyun Undergraduate Composite Performance
+Index: SUCPI)는 성균관대학교 소프트웨어융합대학에서 개발한 학생 역량지수로써
+학생의 교육, 연구 및 교류 활동(봉사, 산학협력 등)을 지표화하여 측정한 값이다.
+<br>
+② 학생들의 역량을 객관적으로 평가하여, 진학지도, 장학금 지원, 비교과 과정 선발
+우선권 등의 보상성 지원과 학술 동기를 촉진하는데 그 목적을 둔다.
+
+## **👩‍👩‍👧‍👦 개발자 소개**
+
+Team-SUCPI를 소개합니다.
+
+|       김태형 (PM / Tech)       |       강성철 (Tech)        |       김준연 (Tech)       |
+|:------------------------------:|:--------------------------:|:-------------------------:|
+| ![김태형](https://github.com/user-attachments/assets/06884f38-4ad7-4afe-894f-ced30337b680) | ![강성철](https://github.com/user-attachments/assets/8d3dfb24-5d5c-468d-b726-c7baf76ef7d6) | ![김준연](https://github.com/user-attachments/assets/d5f1560c-7ee5-4257-81c4-3d207ebb07b3) |
+| [GitHub](https://github.com/Taerogrammer) | [GitHub](https://github.com/2020311920) | [GitHub](https://github.com/somehowranker) |
+
+
+
+## **개발환경**
+
+<details>
+<summary>개발환경 </summary>
+<div markdown="1">
+  
+### 1. 프로그래밍 언어
+- **JavaScript (ES6+)**
+
+### 2. 프레임워크 및 라이브러리
+- **React**: 사용자 인터페이스 구축을 위한 JavaScript 라이브러리
+- **Spring Boot**: 데이터베이스 및 CRUD 구축을 위한 JavaScript 프레임워크
+
+### 3. 패키지 관리 도구
+- **Java**: Maven, Gradle
+  
+### 4. 버전 관리 시스템
+- **Git**: 버전 관리를 위한 필수 도구
+- **GitHub**: 코드 저장소 및 협업을 위한 플랫폼
+
+### 5. 빌드 및 배포 도구
+- **Docker**: 배포 시 컨테이너화 및 환경 일관성을 보장
+
+### 6. 테스트 프레임워크
+- **Java**: JUnit
+
+
+### 7. 통합 개발 환경 (IDE)
+- **VS Code**: Visual Studio Code를 주요 개발 도구로 사용
+  - 필수 확장 프로그램: 
+    - **Lombok**: Dependencies 자동화
+
+### 8. 데이터베이스
+- **H2-Console**: 유사 Mysql 데이터베이스 (Mysql로 대체 예정)
+
+### 9. API 도구
+- **Postman**: API 테스트 및 개발에 사용
+
+### 10. 가상화 및 컨테이너 도구
+- **Docker**: 개발 환경 및 배포 환경의 일관성을 위한 컨테이너 도구
+  - Dockerfile을 사용하여 프로젝트를 컨테이너화하고 배포 시 사용
+
+### 11. 운영체제
+- **macOS** 또는 **Windows**: 개발 환경은 운영체제에 구애받지 않으나, 팀은 주로 macOS를 사용
+- **Linux**: 배포 서버 환경 (Ubuntu 20.04 LTS)
+
+</div>
+</details>
+
+## **커밋 컨벤션**
   
 <details>
 <summary>팀 협업용 깃허브 컨벤션 문서 </summary>
@@ -139,3 +211,6 @@ ex) [Feature] MyView - MyView 레이아웃 디자인
 - 수정 필요 시 수정하기
 
 <br>
+
+
+
