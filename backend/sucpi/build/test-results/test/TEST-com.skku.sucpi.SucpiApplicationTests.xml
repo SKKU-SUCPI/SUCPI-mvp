@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.skku.sucpi.SucpiApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-10-11T05:22:23" hostname="gimjun-yeons-MacBook-Pro.local" time="0.274">
+<testsuite name="com.skku.sucpi.SucpiApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-11-14T06:19:25" hostname="gimjun-yeons-MacBook-Pro.local" time="0.301">
   <properties/>
-  <testcase name="contextLoads()" classname="com.skku.sucpi.SucpiApplicationTests" time="0.274"/>
-  <system-out><![CDATA[14:22:21.287 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.skku.sucpi.SucpiApplicationTests]: SucpiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-14:22:21.358 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.skku.sucpi.SucpiApplication for test class com.skku.sucpi.SucpiApplicationTests
+  <testcase name="contextLoads()" classname="com.skku.sucpi.SucpiApplicationTests" time="0.301"/>
+  <system-out><![CDATA[15:19:23.251 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.skku.sucpi.SucpiApplicationTests]: SucpiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:19:23.311 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.skku.sucpi.SucpiApplication for test class com.skku.sucpi.SucpiApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,23 +14,22 @@
 
  :: Spring Boot ::                (v3.3.2)
 
-2024-10-11T14:22:21.547+09:00  INFO 77492 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : Starting SucpiApplicationTests using Java 17.0.10 with PID 77492 (started by gimjun-yeon in /Users/gimjun-yeon/Desktop/SUCPI/backend/sucpi)
-2024-10-11T14:22:21.547+09:00  INFO 77492 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : No active profile set, falling back to 1 default profile: "default"
-2024-10-11T14:22:21.827+09:00  INFO 77492 --- [sucpi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-11T14:22:21.861+09:00  INFO 77492 --- [sucpi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 10 JPA repository interfaces.
-2024-10-11T14:22:22.080+09:00  INFO 77492 --- [sucpi] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-11T14:22:22.101+09:00  INFO 77492 --- [sucpi] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-10-11T14:22:22.118+09:00  INFO 77492 --- [sucpi] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-10-11T14:22:22.243+09:00  INFO 77492 --- [sucpi] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-10-11T14:22:22.253+09:00  INFO 77492 --- [sucpi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-10-11T14:22:22.355+09:00  INFO 77492 --- [sucpi] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/SUCPIDB/testdb user=SA
-2024-10-11T14:22:22.355+09:00  INFO 77492 --- [sucpi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-10-11T14:22:22.365+09:00  WARN 77492 --- [sucpi] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-10-11T14:22:22.827+09:00  INFO 77492 --- [sucpi] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-10-11T14:22:22.853+09:00  INFO 77492 --- [sucpi] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-11T14:22:23.123+09:00  WARN 77492 --- [sucpi] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-11T14:22:23.281+09:00  INFO 77492 --- [sucpi] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/SUCPIDB/testdb'
-2024-10-11T14:22:23.314+09:00  INFO 77492 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : Started SucpiApplicationTests in 1.878 seconds (process running for 2.424)
+2024-11-14T15:19:23.495+09:00  INFO 83033 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : Starting SucpiApplicationTests using Java 17.0.10 with PID 83033 (started by gimjun-yeon in /Users/gimjun-yeon/Desktop/SUCPI_오늘거/backend/sucpi)
+2024-11-14T15:19:23.495+09:00  INFO 83033 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : No active profile set, falling back to 1 default profile: "default"
+2024-11-14T15:19:23.784+09:00  INFO 83033 --- [sucpi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-14T15:19:23.819+09:00  INFO 83033 --- [sucpi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 10 JPA repository interfaces.
+2024-11-14T15:19:24.045+09:00  INFO 83033 --- [sucpi] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-14T15:19:24.073+09:00  INFO 83033 --- [sucpi] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-14T15:19:24.092+09:00  INFO 83033 --- [sucpi] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-14T15:19:24.245+09:00  INFO 83033 --- [sucpi] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-14T15:19:24.259+09:00  INFO 83033 --- [sucpi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-14T15:19:24.368+09:00  INFO 83033 --- [sucpi] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@315b5913
+2024-11-14T15:19:24.369+09:00  INFO 83033 --- [sucpi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-14T15:19:24.406+09:00  WARN 83033 --- [sucpi] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-11-14T15:19:24.878+09:00  INFO 83033 --- [sucpi] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-14T15:19:24.880+09:00  INFO 83033 --- [sucpi] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-14T15:19:25.140+09:00  WARN 83033 --- [sucpi] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-14T15:19:25.336+09:00  INFO 83033 --- [sucpi] [    Test worker] com.skku.sucpi.SucpiApplicationTests     : Started SucpiApplicationTests in 1.95 seconds (process running for 2.546)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

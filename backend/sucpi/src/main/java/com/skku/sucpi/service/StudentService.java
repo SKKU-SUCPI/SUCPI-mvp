@@ -83,6 +83,15 @@ public class StudentService {
 
     @Transactional
     public StudentDTO saveStudent(StudentDTO studentDTO) {
+        Student student = studentDTO.getStudent();
+
+        if (Float.isNaN(student.getAdjustCqScore())) student.setAdjustCqScore(0.0f);
+        if (Float.isNaN(student.getAdjustLqScore())) student.setAdjustLqScore(0.0f);
+        if (Float.isNaN(student.getAdjustRqScore())) student.setAdjustRqScore(0.0f);
+        if (Float.isNaN(student.getStudentCqScore())) student.setStudentCqScore(0.0f);
+        if (Float.isNaN(student.getStudentLqScore())) student.setStudentLqScore(0.0f);
+        if (Float.isNaN(student.getStudentRqScore())) student.setStudentRqScore(0.0f);
+
         Student savedStudent = studentRepository.save(studentDTO.getStudent());
         lqStudentRepository.save(studentDTO.getLqInfo());
         rqStudentRepository.save(studentDTO.getRqInfo());
@@ -122,6 +131,10 @@ public class StudentService {
             float lqScore = calculateScore(lqStudent, lqWeights, "LQ");
             float rqScore = calculateScore(rqStudent, rqWeights, "RQ");
             float cqScore = calculateScore(cqStudent, cqWeights, "CQ");
+
+            if (Float.isNaN(lqScore)) lqScore = 0.0f;
+            if (Float.isNaN(rqScore)) rqScore = 0.0f;
+            if (Float.isNaN(cqScore)) cqScore = 0.0f;
 
             // LQ, RQ, CQ 건수 계산
             int lqNum = calculateNum(lqStudent);
@@ -175,6 +188,11 @@ public class StudentService {
                             weightField.setAccessible(true);
                             float weightValue = weightField.getFloat(weight);
                             float fieldScore = value * weightValue;
+
+                            if (Float.isNaN(fieldScore)) {
+                                fieldScore = 0.0f;
+                            }
+
                             score += fieldScore;
                             //System.out.println(category + " Score Calculation: " + field.getName() + " (" + value + ") * " + weightValue + " = " + fieldScore);
                             //System.out.println("Column Name: " + field.getName() + ", Dataname: " + dataname);
@@ -186,6 +204,11 @@ public class StudentService {
                 }
             }
         }
+
+        if (Float.isNaN(score)) {
+            score = 0.0f;
+        }
+
         System.out.println(category + " Total Score: " + score);
         return score;
     }
