@@ -11,33 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skku.sucpi.ApiResponse;
-import com.skku.sucpi.dto.StudentDTO;
 import com.skku.sucpi.dto.StudentLeaderboardDTO;
-import com.skku.sucpi.service.StudentService;
+import com.skku.sucpi.entity.Student;
+import com.skku.sucpi.repository.StudentRepository;
 
 @RestController
 @RequestMapping("/api/admin")
 public class LeaderboardController {
 
     @Autowired
-    private StudentService studentService;
+    private StudentRepository studentRepository;
 
     @GetMapping("/leaderboard")
     public ResponseEntity<ApiResponse<List<StudentLeaderboardDTO>>> getLeaderboard() {
-        List<StudentLeaderboardDTO> leaderboard = studentService.findAll().stream()
+        List<StudentLeaderboardDTO> leaderboard = studentRepository.findAll().stream()
                 .map(student -> {
-                    StudentDTO studentDTO = studentService.getStudentById(student.getStudentId());
-                    float totalScore = studentDTO.getStudent().getAdjustLqScore() 
-                            + studentDTO.getStudent().getAdjustRqScore() 
-                            + studentDTO.getStudent().getAdjustCqScore();
+                    float totalScore = student.getAdjustLqScore() 
+                            + student.getAdjustRqScore() 
+                            + student.getAdjustCqScore();
                     return new StudentLeaderboardDTO(
-                            studentDTO.getStudent().getStudentName(),
-                            studentDTO.getStudent().getStudentId(),
-                            studentDTO.getStudent().getStudentGrade(),
-                            studentDTO.getStudent().getStudentMajor(),
-                            studentDTO.getStudent().getAdjustLqScore(),
-                            studentDTO.getStudent().getAdjustRqScore(),
-                            studentDTO.getStudent().getAdjustCqScore(),
+                            student.getStudentName(),
+                            student.getStudentId(),
+                            student.getStudentGrade(),
+                            student.getStudentMajor(),
+                            student.getAdjustLqScore(),
+                            student.getAdjustRqScore(),
+                            student.getAdjustCqScore(),
                             totalScore // No need to set rank here
                     );
                 })
