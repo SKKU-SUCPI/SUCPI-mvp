@@ -4,7 +4,7 @@ import { Rank } from "./Rank";
 
 // API Base URL을 환경에 따라 변경 가능하도록 설정
 const baseURL = process.env.NODE_ENV === "production" 
-    ? "http://siop-dev.skku.edu/api/admin/leaderboard" 
+    ? "http://siop-dev.skku.edu:8080/api/admin/leaderboard" 
     : "http://localhost:8080/api/admin/leaderboard";
 
 export function Leaderboard() {
