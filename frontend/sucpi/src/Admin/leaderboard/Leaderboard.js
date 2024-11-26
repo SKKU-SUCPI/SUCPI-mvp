@@ -14,7 +14,7 @@ export function Leaderboard() {
 
     useEffect(() => {
         // API 요청
-        fetch(baseURL, {
+        fetch("http://siop-dev.skku.edu:8080/api/admin/leaderboard", {
             credentials: "include", // CORS 쿠키 포함을 위한 옵션
         })
             .then(response => {
