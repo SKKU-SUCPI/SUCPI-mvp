@@ -61,10 +61,11 @@ export function Leaderboard() {
 
     // 데이터 로딩 useEffect
     useEffect(() => {
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4502";
+        console.log("API -> ", API_URL);
         setIsLoading(true);
-        fetch("http://siop-dev.skku.edu:8080/api/admin/leaderboard", {
+        fetch(`${API_URL}/api/admin/leaderboard`, {
             method: "GET",
-            mode: "cors",
             headers: {
                 "Content-Type": "application/json"
             }
