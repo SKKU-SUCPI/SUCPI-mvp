@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FilterTable } from "../../components/FilterTable/FilterTable";
-import { Rank } from "./Rank";
-
 export function Leaderboard() {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
-    const [error, setError] = useState(null); // 에러 상태 추가
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // API 요청
         fetch("http://siop-dev.skku.edu:8080/api/admin/leaderboard", {
             method: "GET",
-            mode: "cors", // CORS 요청 명시
+            mode: "cors",
             headers: {
                 "Content-Type": "application/json"
             }
@@ -22,8 +17,12 @@ export function Leaderboard() {
             }
             return response.json();
         })
-        .then(data => console.log(data))
-        .catch(error => console.error("Fetch error:", error));
+        .then(data => {
+            console.log("Fetched data:", data); // 데이터 확인
+            setData(data.data || []); // API 응답에 맞게 설정
+            setFilteredData(data.data || []); // 초기 필터 데이터 설정
+        })
+        .catch(error => setError(error.message));
     }, []);
 
     return (
