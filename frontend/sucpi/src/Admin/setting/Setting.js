@@ -29,7 +29,7 @@ export function Setting() {
                 console.error('Error fetching data:', error);
             });
 
-        fetch('http://localhost:8080/api/admin/weights')
+        fetch('http://localhost:4502/api/admin/weights')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
