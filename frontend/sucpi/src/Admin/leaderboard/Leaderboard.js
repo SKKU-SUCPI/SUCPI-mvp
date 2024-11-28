@@ -76,13 +76,18 @@ export function Leaderboard() {
                 return response.json();
             })
             .then((data) => {
+                const{result}= data;
+                console.log(result)
                 console.log("Fetched data:", data); // 데이터 확인
                 setData(data.data || []); // API 응답에 맞게 상태 업데이트
-                setFilteredData(data.data || []); // 초기 필터 데이터 설정
+                setFilteredData(data.result || []); // 초기 필터 데이터 설정
             })
             .catch((error) => setError(error.message))
             .finally(() => setIsLoading(false)); // 로딩 상태 종료
     }, []);
+
+    console.log("===================================================================")
+    console.log(filteredData)
 
     // 데이터가 변경될 때 화면 업데이트
     useEffect(() => {

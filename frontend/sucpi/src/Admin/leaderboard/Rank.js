@@ -22,6 +22,7 @@ export function Rank({ data }) {
     };
 
     const displayedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    console.log(displayedData)
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const currentGroup = Math.ceil(currentPage / pagesPerGroup);
