@@ -9,7 +9,7 @@ export function Setting() {
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:4502/api/admin/settings')
+        fetch('/api/admin/settings')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
