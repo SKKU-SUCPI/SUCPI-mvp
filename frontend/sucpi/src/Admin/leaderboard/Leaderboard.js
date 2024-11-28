@@ -9,7 +9,7 @@ export function Leaderboard() {
 
     useEffect(() => {
         // API 요청
-        fetch("http://localhost:4502/api/admin/leaderboard", {
+        fetch("http://siop-dev.skku.edu:8080/api/admin/leaderboard", {
             method: "GET",
             mode: "cors", // CORS 요청 명시
             headers: {

@@ -5,12 +5,12 @@
 #                 image: siop/siop-frontend:test
 #                 container_name: siop-frontend
 #                 restart: always
-#                 environment:
-#                         VIRTUAL_HOST: "siop-dev.skku.edu"
-#                         LETSENCRYPT_HOST: "siop-dev.skku.edu"
-#                         VIRTUAL_PORT: 3000
-#                 extra_hosts: 
-#                         - host.docker.internal:host-gateway
+                # environment:
+                #         VIRTUAL_HOST: "siop-dev.skku.edu"
+                #         LETSENCRYPT_HOST: "siop-dev.skku.edu"
+                #         VIRTUAL_PORT: 3000
+                # extra_hosts: 
+                #         - host.docker.internal:host-gateway
 #                 networks:
 #                         - "net"
 #                 ports:
@@ -19,54 +19,6 @@
 # networks:
 #   net:
 #           external: true
-
-
-
-# version: '3.8'
-# services:
-#   db:
-#     build:
-#       context: ./db
-#     container_name: local-siop-db
-#     environment:
-#       MYSQL_ROOT_PASSWORD: 1234
-#       MYSQL_DATABASE: siop-db
-#       MYSQL_USER: dev
-#       MYSQL_PASSWORD: 1105
-#     networks:
-#       - test
-#     ports:
-#       - "4510:3306"
-#     healthcheck: # MySQL 초기화 확인
-#       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "dev", "-p1105"]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 3
-
-#   backend:
-#     build:
-#       context: ./backend/sucpi
-#     container_name: siop-backend
-#     environment:
-#       SPRING_DATASOURCE_URL: jdbc:mysql://local-siop-db:3306/siop-db
-#       SPRING_DATASOURCE_USERNAME: dev
-#       SPRING_DATASOURCE_PASSWORD: 1105
-#     depends_on:
-#       db:
-#         condition: service_healthy # MySQL이 준비되면 시작
-#     networks:
-#       - test
-#     ports:
-#       - "4502:8080"
-
-# networks:
-#   test:
-#     driver: bridge
-
-
-
-
-
 
 version: '3.8'
 
@@ -115,7 +67,11 @@ services:
     networks:
       - test
     environment:
-      - CHOKIDAR_USEPOLLING=true # React Hot Reload 활성화
+        VIRTUAL_HOST: "siop-dev.skku.edu"
+        LETSENCRYPT_HOST: "siop-dev.skku.edu"
+        VIRTUAL_PORT: 3000
+    extra_hosts: 
+        - host.docker.internal:host-gateway
     command: ["npm", "start"] # 명령어 직접 실행
 
 networks:
