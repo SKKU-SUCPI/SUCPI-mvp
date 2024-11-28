@@ -1,3 +1,7 @@
+import React, { useEffect, useState } from "react";
+import { FilterTable } from "../../components/FilterTable/FilterTable";
+import { Rank } from "./Rank";
+
 export function Leaderboard() {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
