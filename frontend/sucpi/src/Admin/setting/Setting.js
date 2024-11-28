@@ -14,6 +14,7 @@ export function Setting() {
             .then(data => {
                 if (data.status === 200) {
                     const result = data.result;
+                    console.log("result -> ", result);
                     setRatios({
                         prev_LQratio: result.prev_LQratio,
                         prev_RQratio: result.prev_RQratio,
