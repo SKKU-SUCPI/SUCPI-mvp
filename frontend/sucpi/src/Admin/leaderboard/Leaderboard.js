@@ -4,7 +4,7 @@ export function Leaderboard() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://siop-dev.skku.edu:8080/api/admin/leaderboard", {
+        fetch("http://siop-dev.skku.edu:4502/api/admin/leaderboard", {
             method: "GET",
             mode: "cors",
             headers: {
