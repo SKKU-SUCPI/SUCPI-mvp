@@ -9,7 +9,7 @@ export function Setting() {
     const [detailData, setDetailData] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:4502/api/admin/weights')
+        fetch('http://siop-dev.skku.edu:8080/api/admin/weights')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
@@ -29,7 +29,7 @@ export function Setting() {
                 console.error('Error fetching data:', error);
             });
 
-        fetch('http://localhost:4502/api/admin/weights')
+        fetch('http://siop-dev.skku.edu:8080/api/admin/weights')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
