@@ -45,8 +45,11 @@ services:
     networks:
       - test
     env_file:
-#       - ./frontend/sucpi/.env.local
-      - ./frontend/sucpi/.env.development
+    # 로컬 서버
+      - ./frontend/sucpi/.env.local
+
+      # 개발 서버
+#       - ./frontend/sucpi/.env.development
     environment:
         VIRTUAL_HOST: "siop-dev.skku.edu"
         LETSENCRYPT_HOST: "siop-dev.skku.edu"
