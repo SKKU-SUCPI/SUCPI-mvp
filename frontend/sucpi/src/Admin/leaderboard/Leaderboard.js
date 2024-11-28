@@ -76,10 +76,7 @@ export function Leaderboard() {
                 return response.json();
             })
             .then((data) => {
-                const{result}= data;
-                console.log(result)
-                console.log("Fetched data:", data); // 데이터 확인
-                setData(data.data || []); // API 응답에 맞게 상태 업데이트
+                setData(data.result || []); // API 응답에 맞게 상태 업데이트
                 setFilteredData(data.result || []); // 초기 필터 데이터 설정
             })
             .catch((error) => setError(error.message))
@@ -89,12 +86,12 @@ export function Leaderboard() {
     console.log("===================================================================")
     console.log(filteredData)
 
-    // 데이터가 변경될 때 화면 업데이트
-    useEffect(() => {
-        if (data.length > 0) {
-            console.log("Updated data:", data); // 상태 변경 시 데이터 확인
-        }
-    }, [data]); // `data` 변경 시 실행
+    // // 데이터가 변경될 때 화면 업데이트
+    // useEffect(() => {
+    //     if (data.length > 0) {
+    //         console.log("Updated data:", data); // 상태 변경 시 데이터 확인
+    //     }
+    // }, [data]); // `data` 변경 시 실행
 
     return (
         <div>
@@ -108,7 +105,7 @@ export function Leaderboard() {
             ) : (
                 <>
                     <h3 style={{ padding: "32px 36px 12px" }}>필터</h3>
-                    <FilterTable data={data} setFilteredData={setFilteredData} />
+                    {/* <FilterTable data={data} setFilteredData={setFilteredData} /> */}
                     <h3 style={{ padding: "48px 36px 12px" }}>순위</h3>
                     <Rank data={filteredData} />
                 </>
