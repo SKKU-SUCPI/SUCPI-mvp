@@ -44,19 +44,32 @@ services:
       - "4501:3000"
     networks:
       - test
-    env_file:
-    # 로컬 서버
-      - ./frontend/sucpi/.env.local
-
-      # 개발 서버
-#       - ./frontend/sucpi/.env.development
     environment:
-        VIRTUAL_HOST: "siop-dev.skku.edu"
-        LETSENCRYPT_HOST: "siop-dev.skku.edu"
+        # 로컬 서버
+        VIRTUAL_HOST: frontend.localhost
+
+        # 개발 서버
+        # VIRTUAL_HOST : 사용자가 접근할 도메인 이름 설정
+        # LETSENCRYPT_HOST : 해당 도메인의 SSL 인증서를 발급받기 위한 도메인 이름
+        # VIRTUAL_HOST: "siop-dev.skku.edu"
+        # LETSENCRYPT_HOST: "siop-dev.skku.edu"
+
         VIRTUAL_PORT: 3000
     extra_hosts: 
         - host.docker.internal:host-gateway
-    command: ["npm", "start"] # 명령어 직접 실행
+    command: ["npm", "start"]
+
+  # 로컬 서버
+  nginx:
+    build:
+      context: ./nginx
+    container_name: siop-nginx
+    ports:
+      - "80:80"
+    networks:
+      - test
+    depends_on:
+      - backend
 
 networks:
   test:
