@@ -61,7 +61,7 @@ export function Leaderboard() {
 
     // 데이터 로딩 useEffect
     useEffect(() => {
-        const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4502";
+        const API_URL = process.env.REACT_APP_API_URL || "http://localhost";
         console.log("API -> ", API_URL);
         setIsLoading(true);
         fetch(`${API_URL}/api/admin/leaderboard`, {
