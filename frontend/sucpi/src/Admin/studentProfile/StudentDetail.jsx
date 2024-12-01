@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchStudentData } from '../../api'; // API 호출 함수 가져오기
 import { AccordionItem } from "../../Student/profile/AccordionItem";
-import '../../Student/profile/Profile.css'
+import '../../Student/profile/Profile.css';
 import { AdminPersonal } from './AdminPersonal';
 import { AdminLQInfo } from './AdminLQInfo';
 import { AdminRQInfo } from './AdminRQInfo';
@@ -15,22 +16,19 @@ export function StudentDetail() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchStudentData = async () => {
+        const loadStudentData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/students/${id}`);
-                if (!response.ok) {
-                    throw new Error('학생 정보를 가져오는 데 실패했습니다.');
-                }
-                const data = await response.json();
-                setStudentData(data.result); // `result` 객체를 설정
+                setLoading(true); // 로딩 시작
+                const data = await fetchStudentData(id); // API 호출
+                setStudentData(data); // 가져온 데이터 설정
             } catch (error) {
-                setError(error.message);
+                setError(error.message); // 에러 메시지 저장
             } finally {
-                setLoading(false);
+                setLoading(false); // 로딩 종료
             }
         };
 
-        fetchStudentData();
+        loadStudentData();
     }, [id]);
 
     if (loading) {
@@ -45,14 +43,12 @@ export function StudentDetail() {
         return <div>학생 정보를 찾을 수 없습니다.</div>;
     }
 
-    const { student, lqStudent, rqStudent, cqStudent, lrcContents } = studentData;
-
     return (
         <div className='profile-container'>
             <div className='profile' style={{ backgroundColor: '#F0F0F0', marginRight: '30%' }}>
                 <h1>학생 상세 정보</h1>
                 <AccordionItem title="개인정보">
-                    <AdminPersonal studentInfo={studentData.studentInfo}/>
+                    <AdminPersonal studentInfo={studentData.studentInfo} />
                 </AccordionItem>
                 <AccordionItem title="교과활동">
                     <AdminLQInfo lqInfo={studentData.lqInfo} />
@@ -64,7 +60,7 @@ export function StudentDetail() {
                     <AdminCQInfo cqInfo={studentData.cqInfo} />
                 </AccordionItem>
                 <hr className='divider' />
-                <h1 style={{paddingTop: "60px", marginBottom: '44px'}}>비교 하기</h1>
+                <h1 style={{ paddingTop: "60px", marginBottom: '44px' }}>비교 하기</h1>
                 <CompareGraph studentId={id} />
             </div>
         </div>

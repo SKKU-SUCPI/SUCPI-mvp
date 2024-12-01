@@ -19,3 +19,12 @@ export const fetchLeaderboardData = async () => {
         throw new Error(error.message || "Something went wrong");
     }
 };
+
+export const fetchStudentData = async (id) => {
+    const response = await fetch(`${API_URL}/api/students/${id}`);
+    if (!response.ok) {
+        throw new Error('학생 정보를 가져오는 데 실패했습니다.');
+    }
+    const data = await response.json(); // JSON 데이터를 변수에 저장
+    return data.result; // 저장된 데이터를 반환
+};

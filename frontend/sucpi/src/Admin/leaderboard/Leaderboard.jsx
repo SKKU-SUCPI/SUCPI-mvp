@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchLeaderboardData } from "../../api/api";
+import { fetchLeaderboardData } from "../../api";
 import { FilterTable } from "../../components/FilterTable/FilterTable";
 import { Rank } from "./Rank";
 
