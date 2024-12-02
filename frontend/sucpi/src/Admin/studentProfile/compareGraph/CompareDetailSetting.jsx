@@ -70,8 +70,6 @@ export function CompareDetailSetting({ data, onCompareClick }) {
             }))
         };
 
-        console.log("Sending data:", updatedData);
-
         onCompareClick(updatedData);
     };
 
