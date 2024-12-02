@@ -80,3 +80,24 @@ export const postComparisonData = async (studentId, updatedData) => {
     }
     return response.json();
 };
+
+/**
+ * 통계 데이터를 가져오는 함수
+ * @param {string} query - 쿼리 스트링 (예: ?filter=value)
+ */
+export const fetchStatistics = async (query = '') => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/statistics${query}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch statistics data');
+        }
+        const data = await response.json();
+        if (data.status === 200) {
+            return data.result;
+        } else {
+            throw new Error(data.message || 'Error retrieving statistics data');
+        }
+    } catch (error) {
+        throw new Error(error.message || 'An error occurred while fetching statistics data');
+    }
+};
