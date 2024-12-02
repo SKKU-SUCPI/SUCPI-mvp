@@ -1,4 +1,3 @@
-// DepartmentChart.jsx
 import React from 'react';
 import { DonutChart } from './DonutChart';
 

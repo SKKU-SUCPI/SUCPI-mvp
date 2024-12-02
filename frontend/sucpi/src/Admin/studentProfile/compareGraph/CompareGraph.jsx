@@ -28,7 +28,6 @@ export function CompareGraph({ studentId }) {
     }, [studentId]);
 
     // 비교하기 버튼 클릭 시 호출되는 함수
-    // TODO - POST 확인
     const handleCompareClick = async (updatedData) => {
         if (updatedData) {
             try {

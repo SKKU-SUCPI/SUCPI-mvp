@@ -1,4 +1,3 @@
-// DonutChart.jsx
 import React, { useEffect } from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import '../../../Admin/statistic/Statistic.css'
