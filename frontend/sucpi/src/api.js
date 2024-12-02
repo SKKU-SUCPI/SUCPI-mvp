@@ -149,3 +149,34 @@ export const compareWeights = async (payload) => {
         throw new Error(error.message || 'An error occurred while comparing weights');
     }
 };
+
+/**
+ * 설정 데이터를 가져오는 함수
+ * @returns {Promise<object>} - 설정 데이터
+ */
+export const fetchSettings = async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || '설정을 가져오는 데 실패했습니다.');
+        }
+
+        const data = await response.json();
+
+        if (!data.result) {
+            throw new Error('API 응답에서 result 속성을 찾을 수 없습니다.');
+        }
+
+        return data.result; // result만 반환
+    } catch (error) {
+        console.error('Error fetching settings:', error.message);
+        throw error;
+    }
+};
