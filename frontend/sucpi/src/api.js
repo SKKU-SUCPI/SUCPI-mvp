@@ -242,3 +242,29 @@ export const saveRatios = async (payload) => {
         throw error;
     }
 };
+
+/**
+ * 학생 데이터를 저장하는 함수
+ * @param {object} updatedData - 저장할 학생 데이터
+ * @returns {Promise<object>} - 서버 응답
+ */
+export const saveStudentData = async (updatedData) => {
+    try {
+        const response = await fetch(`${API_URL}/api/students`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+            throw new Error('학생 데이터를 저장하는 데 실패했습니다.');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error saving student data:', error.message);
+        throw error;
+    }
+};

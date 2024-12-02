@@ -4,9 +4,9 @@ import { PersonalInfo } from "./PersonalInfo";
 import { LQInfo } from "./LQInfo";
 import { RQInfo } from "./RQInfo";
 import { CQInfo } from "./CQInfo";
-import './Profile.css'
-import menuImage from '../../assets/menu.png'
-
+import { fetchStudentData, saveStudentData } from "../../api"; // 리팩토링된 API 함수 가져오기
+import './Profile.css';
+import menuImage from '../../assets/menu.png';
 
 export function RightMenu({ editable, onSaveClick, onEditClick }) {
     return (
@@ -32,87 +32,69 @@ export function Profile() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // 변경필요
-        fetch('http://localhost:8080/api/students/2022268344')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setStudentInfoData(data.result.studentInfo);
-                setStudentLQData(data.result.lqInfo);
-                setStudentRQData(data.result.rqInfo);
-                setStudentCQData(data.result.cqInfo);
+        const loadStudentData = async () => {
+            try {
+                const data = await fetchStudentData("2022530259"); // TODO - Login 후 변경
+                setStudentInfoData(data.studentInfo);
+                setStudentLQData(data.lqInfo);
+                setStudentRQData(data.rqInfo);
+                setStudentCQData(data.cqInfo);
                 setLoading(false);
-            })
-            .catch(error => {
+            } catch (error) {
                 setError(error);
                 setLoading(false);
-            });
+            }
+        };
+
+        loadStudentData();
     }, []);
 
     const handleEditClick = () => setEditable(true);
-    const handleSaveClick = () => {
+
+    const handleSaveClick = async () => {
         setEditable(false);
 
         const updatedData = {
             studentInfo: studentInfoData,
             lqInfo: studentLQData,
             rqInfo: studentRQData,
-            cqInfo: studentCQData
+            cqInfo: studentCQData,
         };
 
-        fetch("http://localhost:8080/api/students", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedData),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('네트워크가 원활하지 않습니다');
-            }
-            return response.json();
-        })
-        .then(data => {
+        try {
+            await saveStudentData(updatedData);
             alert("저장이 완료되었습니다.");
-        })
-        .catch(error => {
+        } catch (error) {
             alert("저장에 실패하였습니다.");
-            console.error('Error: ', error);
-        });
-
-        console.log("DATA -> ", updatedData);
+            console.error('Error:', error);
+        }
     };
 
     const handleInfoChange = (name, value) => {
-        setStudentInfoData(prevData => ({
+        setStudentInfoData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleLQDataChange = (name, value) => {
-        setStudentLQData(prevData => ({
+        setStudentLQData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleRQDataChange = (name, value) => {
-        setStudentRQData(prevData => ({
+        setStudentRQData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
     const handleCQDataChange = (name, value) => {
-        setStudentCQData(prevData => ({
+        setStudentCQData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
