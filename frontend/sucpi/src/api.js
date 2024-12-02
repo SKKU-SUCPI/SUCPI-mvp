@@ -180,3 +180,65 @@ export const fetchSettings = async () => {
         throw error;
     }
 };
+
+/**
+ * 비교 요청을 서버에 전송하고 결과를 반환하는 함수
+ * @param {object} payload - 비교 비율 데이터
+ * @returns {Promise<object>} - 서버 응답 데이터
+ */
+export const compareRatios = async (payload) => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings/test`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error('비교를 수행하는 데 실패했습니다.');
+        }
+
+        const data = await response.json();
+        if (data.status !== 200) {
+            throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
+        }
+
+        return data.result;
+    } catch (error) {
+        console.error('Error during compareRatios:', error.message);
+        throw error;
+    }
+};
+
+/**
+ * 비율 설정 데이터를 서버에 저장하는 함수
+ * @param {object} payload - 저장할 비율 데이터
+ * @returns {Promise<object>} - 서버 응답 데이터
+ */
+export const saveRatios = async (payload) => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings/update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error('비율 설정을 저장하는 데 실패했습니다.');
+        }
+
+        const data = await response.json();
+        if (data.status !== 200) {
+            throw new Error(data.message || '비율 설정을 저장하는 데 실패했습니다.');
+        }
+
+        return data.result;
+    } catch (error) {
+        console.error('Error during saveRatios:', error.message);
+        throw error;
+    }
+};
