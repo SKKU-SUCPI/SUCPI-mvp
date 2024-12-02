@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BiSolidRightArrow, BiSolidDownArrow } from "react-icons/bi";
+import { saveWeights, compareWeights } from "../../api";
 import './DetailSetting.css';
 
 export function DetailSetting({ data, setComparisonRatios }) { // setComparisonRatios를 props로 받아옵니다.
     const [selected, setSelected] = useState('');
-    const [weights, setWeights] = useState({
-        LQ: {},
-        RQ: {},
-        CQ: {},
-    });
-    const [savedWeights, setSavedWeights] = useState({
-        LQ: {},
-        RQ: {},
-        CQ: {},
-    });
+    const [weights, setWeights] = useState({ LQ: {}, RQ: {}, CQ: {} });
+    const [savedWeights, setSavedWeights] = useState({ LQ: {}, RQ: {}, CQ: {} });
 
     useEffect(() => {
         if (data) {
@@ -29,7 +22,7 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
                 CQ: data.cqweights.reduce((acc, item) => {
                     acc[item.id] = item.weight;
                     return acc;
-                }, {})
+                }, {}),
             };
             setWeights(initialWeights);
             setSavedWeights(initialWeights);
@@ -37,55 +30,40 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
     }, [data]);
 
     const handleToggle = (type) => {
-        setSelected(prevSelected => (prevSelected === type ? '' : type));
+        setSelected((prevSelected) => (prevSelected === type ? '' : type));
     };
 
     const handleWeightChange = (type, id, newWeight) => {
         const numericWeight = parseInt(newWeight, 10) || 0;
 
-        setWeights(prevWeights => {
-            const updatedWeights = {
-                ...prevWeights,
-                [type]: {
-                    ...prevWeights[type],
-                    [id]: numericWeight,
-                }
-            };
-
-            return updatedWeights;
-        });
+        setWeights((prevWeights) => ({
+            ...prevWeights,
+            [type]: {
+                ...prevWeights[type],
+                [id]: numericWeight,
+            },
+        }));
     };
 
     const handleSaveClick = async () => {
         const payload = {
-            lqweights: data.lqweights.map(item => ({
+            lqweights: data.lqweights.map((item) => ({
                 ...item,
-                weight: weights.LQ[item.id] || item.weight
+                weight: weights.LQ[item.id] || item.weight,
             })),
-            rqweights: data.rqweights.map(item => ({
+            rqweights: data.rqweights.map((item) => ({
                 ...item,
-                weight: weights.RQ[item.id] || item.weight
+                weight: weights.RQ[item.id] || item.weight,
             })),
-            cqweights: data.cqweights.map(item => ({
+            cqweights: data.cqweights.map((item) => ({
                 ...item,
-                weight: weights.CQ[item.id] || item.weight
+                weight: weights.CQ[item.id] || item.weight,
             })),
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/admin/weights', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                throw new Error('가중치 설정을 저장하는 데 실패했습니다. 다시 시도해주십시오.');
-            }
-
-            alert('가중치 설정이 성공적으로 저장되었습니다.');
+            await saveWeights(payload);
+            alert('Weights have been saved successfully.');
 
             setSavedWeights({
                 LQ: payload.lqweights.reduce((acc, item) => {
@@ -99,9 +77,8 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
                 CQ: payload.cqweights.reduce((acc, item) => {
                     acc[item.id] = item.weight;
                     return acc;
-                }, {})
+                }, {}),
             });
-
         } catch (error) {
             alert(error.message);
         }
@@ -109,51 +86,33 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
 
     const handleComparisonClick = async () => {
         const payload = {
-            lqweights: data.lqweights.map(item => ({
+            lqweights: data.lqweights.map((item) => ({
                 ...item,
-                weight: weights.LQ[item.id] || item.weight
+                weight: weights.LQ[item.id] || item.weight,
             })),
-            rqweights: data.rqweights.map(item => ({
+            rqweights: data.rqweights.map((item) => ({
                 ...item,
-                weight: weights.RQ[item.id] || item.weight
+                weight: weights.RQ[item.id] || item.weight,
             })),
-            cqweights: data.cqweights.map(item => ({
+            cqweights: data.cqweights.map((item) => ({
                 ...item,
-                weight: weights.CQ[item.id] || item.weight
+                weight: weights.CQ[item.id] || item.weight,
             })),
         };
-    
+
         try {
-            const response = await fetch('http://localhost:8080/api/admin/settings/weights/test', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
+            const result = await compareWeights(payload);
+            const tempAvgQ = result.result?.tempAvgQ || {};
+            setComparisonRatios({
+                temp_LQ_avg: tempAvgQ.tempLQAvg || 0,
+                temp_CQ_avg: tempAvgQ.tempCQAvg || 0,
+                temp_RQ_avg: tempAvgQ.tempRQAvg || 0,
             });
-    
-            if (!response.ok) {
-                throw new Error('비교를 수행하는 데 실패했습니다.');
-            }
-    
-            const data = await response.json();
-            if (data.status === 200) {
-                const tempAvgQ = data.result.tempAvgQ || {}; // tempAvgQ가 정의되지 않았을 때를 대비
-                setComparisonRatios({
-                    temp_LQ_avg: tempAvgQ.tempLQAvg || 0, // response 속성명에 맞춰 값 설정
-                    temp_CQ_avg: tempAvgQ.tempCQAvg || 0,
-                    temp_RQ_avg: tempAvgQ.tempRQAvg || 0,
-                });
-    
-                alert('비교가 성공적으로 수행되었습니다.');
-            } else {
-                throw new Error(data.message || '비교를 수행하는 데 실패했습니다.');
-            }
+            alert('Comparison has been successfully performed.');
         } catch (error) {
             alert(error.message);
         }
     };
-    
 
     const selectedWeights = data && selected ? data[selected.toLowerCase() + 'weights'] : null;
 

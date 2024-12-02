@@ -101,3 +101,51 @@ export const fetchStatistics = async (query = '') => {
         throw new Error(error.message || 'An error occurred while fetching statistics data');
     }
 };
+
+/**
+ * 가중치 설정을 저장하는 함수
+ * @param {object} payload - 저장할 가중치 데이터
+ */
+export const saveWeights = async (payload) => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/weights`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to save weights');
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(error.message || 'An error occurred while saving weights');
+    }
+};
+
+/**
+ * 비교 요청을 서버에 전송하고 결과를 가져오는 함수
+ * @param {object} payload - 비교 요청 데이터
+ */
+export const compareWeights = async (payload) => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings/weights/test`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to perform comparison');
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(error.message || 'An error occurred while comparing weights');
+    }
+};

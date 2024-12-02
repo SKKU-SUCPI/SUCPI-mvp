@@ -3,7 +3,7 @@ import { BarChart } from "../../components/Graph/BarGraph/BarChart.js";
 import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart.js";
 import { GradeChart } from "../../components/Graph/PieGraph/GradeChart.js";
 import { ThreeQChart } from "../../components/Graph/PieGraph/ThreeQChart.js";
-import { StatisticFilter } from "./StatisticFilter.js";
+import { StatisticFilter } from "./StatisticFilter";
 import { useLocation } from "react-router-dom";
 import { fetchStatistics } from "../../api.js";
 
