@@ -63,7 +63,7 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
 
         try {
             await saveWeights(payload);
-            alert('Weights have been saved successfully.');
+            alert('세부 항목 비율이 성공적으로 완료되었습니다.');
 
             setSavedWeights({
                 LQ: payload.lqweights.reduce((acc, item) => {
@@ -108,7 +108,7 @@ export function DetailSetting({ data, setComparisonRatios }) { // setComparisonR
                 temp_CQ_avg: tempAvgQ.tempCQAvg || 0,
                 temp_RQ_avg: tempAvgQ.tempRQAvg || 0,
             });
-            alert('Comparison has been successfully performed.');
+            alert('세부 항목 조정이 완료되었습니다.');
         } catch (error) {
             alert(error.message);
         }
