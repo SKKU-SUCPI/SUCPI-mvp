@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BarChart } from "../../components/Graph/BarGraph/BarChart.js";
-import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart.js";
-import { GradeChart } from "../../components/Graph/PieGraph/GradeChart.js";
-import { ThreeQChart } from "../../components/Graph/PieGraph/ThreeQChart.js";
+import { BarChart } from "../../components/Graph/BarGraph/BarChart";
+import { DepartmentChart } from "../../components/Graph/PieGraph/DepartmentChart";
+import { GradeChart } from "../../components/Graph/PieGraph/GradeChart";
+import { ThreeQChart } from "../../components/Graph/PieGraph/ThreeQChart";
 import { StatisticFilter } from "./StatisticFilter";
 import { useLocation } from "react-router-dom";
-import { fetchStatistics } from "../../api.js";
+import { fetchStatistics } from "../../api";
 
 export function Statistic() {
     const [data, setData] = useState([]);
