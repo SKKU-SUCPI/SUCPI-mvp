@@ -1,4 +1,8 @@
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost";
+// 로컬
+// const API_URL = "http://localhost";
+
+// 개발
+const API_URL = "http://siop-dev.skku.edu:8080";
 
 /**
  * 리더보드 데이터를 가져오는 함수
